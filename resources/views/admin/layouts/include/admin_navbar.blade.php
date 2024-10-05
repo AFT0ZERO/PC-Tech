@@ -25,21 +25,21 @@
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src={{asset(Auth::user()->image)}} alt class="w-px-35 rounded-circle" />
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href={{route('admin.index')}}>
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src={{asset(Auth::user()->image)}} alt class="w-px-35 rounded-circle" />
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <h6 class="mb-0">John Doe</h6>
-                          <small class="text-muted">Admin</small>
+                          <h6 class="mb-0">{{Auth::user()->fname}}</h6>
+                          <small class="text-muted">{{Auth::user()->role}}</small>
                         </div>
                       </div>
                     </a>
@@ -48,7 +48,7 @@
                     <div class="dropdown-divider my-1"></div>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href={{route('admin.index')}}>
                       <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
                     </a>
                   </li>

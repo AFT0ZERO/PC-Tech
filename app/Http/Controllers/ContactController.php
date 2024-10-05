@@ -5,61 +5,67 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
+
 class ContactController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $contact_query = Contact::query();
+        $search_param = $request->query('search');
+        if (!empty($search_param)) {
+            $contact_query = Contact::search($search_param);
+        }
+        $ContactFromDB = $contact_query->paginate(15);
+
+        return view('admin.contact.index' , ['contacts' => $ContactFromDB]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.contact.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        request()->validate(
+            [
+                'name'=>['required','min:3'],
+                'email'=>['required','email'],
+                'mobile'=>['required','min:9','numeric'],
+                'message'=>['required','min:10','string,max:5000'],
+            ]
+        );
+
+        Contact::create([
+            'name'=>request('name'),
+            'email'=>request('email'),
+            'mobile'=>request('mobile'),
+            'message'=>request('message'),
+        ]);
+        @dd('fix the success message and to_route');
+        session()->flash('success', 'User Created Successfully!');
+        return to_route('user.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Contact $contact)
     {
-        //
+        return view("admin.contact.show", ["contact" => $contact]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Contact $contact)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Contact $contact)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+        session()->flash('success', 'Contact Deleted Successfully!');
+        return to_route('contact.index');
     }
 }

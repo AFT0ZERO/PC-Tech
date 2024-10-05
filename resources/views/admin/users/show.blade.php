@@ -9,6 +9,13 @@
         </button>
     </div>
     <div class="card mt-4">
+        <!-- Success Message -->
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <h2 class="card-header">
            <b> User Info</b>
         </h2>
@@ -24,7 +31,6 @@
             <p class="card-text "><b>User Email:</b> {{$user->email}}</p>
             <p class="card-text"><b>User Mobile:</b> {{$user->mobile}} </p>
             <p class="card-text"><b>User Permissions:</b>
-
                 @if($user->role == 'admin')
                     <span class="badge bg-label-primary me-1">Admin</span>
                 @elseif($user->role =='user')

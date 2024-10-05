@@ -16,7 +16,7 @@ class UserController extends Controller
       if (!empty($search_param)) {
           $users_query = User::search($search_param);
       }
-        $UsersFromDB = $users_query->get();
+        $UsersFromDB = $users_query->paginate(20);
 
        return view('admin.users.index' , ['users' => $UsersFromDB]);
     }
@@ -128,6 +128,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        session()->flash('success', 'User Deleted Successfully!');
         return to_route('user.index');
+    }
+
+    public function adminProfile()
+    {
+        return view("admin.users.profile");
     }
 }

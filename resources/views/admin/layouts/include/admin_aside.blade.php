@@ -17,7 +17,7 @@
         <ul class="menu-inner py-1">
           <!-- Dashboards -->
           <li class="menu-item">
-            <a href="#" class="menu-link">
+            <a href={{route('dashboard')}} class="menu-link">
               <!-- <i class="menu-icon tf-icons bx bx-crown"></i> -->
               <i class=' menu-icon tf-icons bx bx-home' ></i>
               <div class="text-truncate" data-i18n="Boxicons"> Dashboard</div>
@@ -55,14 +55,14 @@
           </li>
 
           <li class="menu-item">
-            <a href="icons-boxicons.html" class="menu-link">
+            <a href="{{route('contact.index')}}" class="menu-link">
               <i class=' menu-icon tf-icons bx bxs-contact'></i>
               <div class="text-truncate" data-i18n="Boxicons">Contact</div>
             </a>
           </li>
 
           <li class="menu-item">
-            <a href="icons-boxicons.html" class="menu-link">
+            <a href={{route("faq.index")}} class="menu-link">
               <i class='menu-icon tf-icons bx bx-question-mark'></i>
               <div class="text-truncate" data-i18n="Boxicons">FAQs</div>
             </a>
