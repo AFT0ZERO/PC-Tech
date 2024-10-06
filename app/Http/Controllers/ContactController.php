@@ -68,4 +68,18 @@ class ContactController extends Controller
         session()->flash('success', 'Contact Deleted Successfully!');
         return to_route('contact.index');
     }
+
+    public function restore( $id)
+    {
+        $Contact = Contact::withTrashed()->find($id);
+        $Contact->restore();
+        session()->flash('success', 'Contact Restore Successfully!');
+        return to_route('contact.showRestore');
+    }
+
+    public function showRestore( )
+    {
+        $contact = Contact::onlyTrashed()->paginate(15);
+        return view('admin.contact.restore' , ['contacts' => $contact]);
+    }
 }

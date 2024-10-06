@@ -78,4 +78,17 @@ class FaqsController extends Controller
         session()->flash('success', 'FAQ Deleted Successfully!');
         return to_route('faq.index');
     }
+    public function restore( $id)
+    {
+        $faq = Faqs::withTrashed()->find($id);
+        $faq->restore();
+        session()->flash('success', 'FAQ Restore Successfully!');
+        return to_route('faq.showRestore');
+    }
+
+    public function showRestore( )
+    {
+        $faq = Faqs::onlyTrashed()->paginate(15);
+        return view('admin.faq.restore' , ['faqs' => $faq]);
+    }
 }

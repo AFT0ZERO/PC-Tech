@@ -8,7 +8,13 @@
 @endsection
 @section('content')
 
-
+        @if(Auth::user()->role == 'super-admin')
+             <div class="demo-inline-spacing mt-5">
+                 <a href="{{route('contact.showRestore')}}">
+                      <button type="button" class="btn  btn-danger ">Trash </button>
+                </a>
+             </div>
+        @endif
 
     <div class="card mt-10">
         <h5 class="card-header fw-bold">Contacts Info ({{$contacts->count()}})</h5>

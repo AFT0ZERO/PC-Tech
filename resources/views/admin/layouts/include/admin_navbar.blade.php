@@ -25,7 +25,12 @@
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src={{asset(Auth::user()->image)}} alt class="w-px-35 rounded-circle" />
+                      @if(Auth::user()->image == null)
+                          <img src="https://afn.ca/wp-content/uploads/2022/12/unknown_staff-500x500.webp" alt="admin image" class="w-px-35 rounded-circle">
+                      @else
+                          <img src="{{asset(Auth::user()->image)}}" alt="admin image" class="w-px-35 rounded-circle" >
+                      @endif
+
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -34,7 +39,11 @@
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                              <img src={{asset(Auth::user()->image)}} alt class="w-px-35 rounded-circle" />
+                              @if(Auth::user()->image == null)
+                                  <img src="https://afn.ca/wp-content/uploads/2022/12/unknown_staff-500x500.webp" alt="admin image" class="w-px-35 rounded-circle">
+                              @else
+                                  <img src="{{asset(Auth::user()->image)}}" alt="admin image" class="w-px-35 rounded-circle" >
+                              @endif
                           </div>
                         </div>
                         <div class="flex-grow-1">
@@ -54,9 +63,16 @@
                   </li>
 
                   <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                      <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
-                    </a>
+                      <a class="dropdown-item" href="{{ route('logout') }}"
+                         onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                          <i class="bx bx-power-off bx-md me-3"></i><span>{{ __('Logout') }}</span>
+
+                      </a>
+
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                          @csrf
+                      </form>
                   </li>
                 </ul>
               </li>

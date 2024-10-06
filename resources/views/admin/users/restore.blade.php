@@ -1,22 +1,13 @@
 @extends('admin.layouts.admin')
 @section('search')
- <i class="bx bx-search bx-md"></i>
-    <form action="{{route('user.index')}}" method="get">
-    <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
-           aria-label="Search..." name="search" style="display: inline"/>
-    </form>
+
 @endsection
 @section('content')
 
     <div class="demo-inline-spacing mt-5">
-        <a href="{{route('user.create')}}">
-            <button type="button" class="btn  btn-primary ">+ Add User </button>
+        <a href="{{route('user.index')}}">
+            <button type="button" class="btn  btn-danger ">Back </button>
         </a>
-        @if(Auth::user()->role == 'super-admin')
-        <a href="{{route('user.showRestore')}}">
-            <button type="button" class="btn  btn-danger ">Trash </button>
-        </a>
-        @endif
     </div>
 
 
@@ -39,46 +30,39 @@
                     <th>Mobile</th>
                     <th>Role</th>
                     <th>Created At</th>
+                    <th>Deleted At</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                 @foreach( $users as $user)
-
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$user->fname . " ". $user->lname}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->mobile}}</td>
-                    <td>
-                        @if($user->role =='admin')
-                            <span class="badge bg-label-primary me-1">Admin</span>
-                        @elseif($user->role =='user')
-                            <span class="badge bg-label-success me-1">User</span>
-                        @else
-                            <span class="badge bg-label-info me-1">Super-Admin</span>
-                        @endif
-                    </td>
-                    <td>{{$user->created_at->format('y-m-d')}}</td>
-                    @if($user->role != 'super-admin')
-                    <td>
-                        <a   class="btn btn-info p-2 btn-sm" href="{{route('user.show',$user->id)}}">View </a>
-                        <a class="btn btn-primary p-2 btn-sm " href="{{route('user.edit' , $user->id)}}">Edit</a>
-                        <form style="display:inline;" method="post" action="{{route('user.destroy', $user->id)}}">
-                            @csrf
-                            @method('delete')
-                            <button type="submit"  class="btn btn-danger p-2 btn-sm dlt-btn-t">Delete</button>
-                        </form>
-                    </td>
-                    @endif
-                </tr>
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$user->fname . " ". $user->lname}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->mobile}}</td>
+                        <td>
+                            @if($user->role =='admin')
+                                <span class="badge bg-label-primary me-1">Admin</span>
+                            @elseif($user->role =='user')
+                                <span class="badge bg-label-success me-1">User</span>
+                            @else
+                                <span class="badge bg-label-info me-1">Super-Admin</span>
+                            @endif
+                        </td>
+                        <td>{{$user->created_at->format('y-m-d')}}</td>
+                        <td><span class="badge bg-label-danger me-1">{{$user->deleted_at->format('y-m-d')}}</span></td>
+                        <td >
+                            <a class="btn btn-danger p-2 btn-sm" href="{{route('user.restore',$user->id)}}">Restore </a>
+                        </td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>
             <div class="ps-4">
-            {{$users->links()}}
+                {{$users->links()}}
             </div>
-            </div>
+        </div>
     </div>
 
     <script>

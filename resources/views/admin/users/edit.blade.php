@@ -57,7 +57,7 @@
                     <div class="row">
                         <!-- Role -->
                         <div class="form-floating form-floating-outline mb-6 col-6">
-                            <select class="form-select @error('role') is-invalid @enderror" name="role" id="exampleFormControlSelect5" aria-label="Default select example" @if($user->role == 'super-admin') disabled @endif>
+                            <select class="form-select @error('role') is-invalid @enderror" name="role" id="exampleFormControlSelect5" aria-label="Default select example" >
                                 <option value="user" @if(old('role', $user->role) == 'user') selected @endif>User</option>
                                 <option value="admin" @if(old('role', $user->role) == 'admin') selected @endif>Admin</option>
                             </select>

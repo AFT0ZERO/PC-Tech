@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('mobile')->unique()->default('07')->nullable();
             $table->string('gender');
             $table->string('role')->default('user');
-            $table->string('image')->nullable();
+            $table->string('image')->nullable()->default('https://afn.ca/wp-content/uploads/2022/12/unknown_staff-500x500.webp');
             $table->string('password');
             $table->softDeletes();
             $table->rememberToken();

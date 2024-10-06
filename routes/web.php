@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
     Route::get('dashboard/admin', [UserController::class , "adminProfile"])->name("admin.index");
 //^ ----------------------------------user route start-----------------------------------------
+
     Route::get('dashboard/users', [UserController::class , "index"])->name("user.index");
 
     Route::get('dashboard/users/create', [UserController::class , "create"])->name("user.create");
@@ -38,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/users/{user}', [UserController::class , "show"])->name("user.show");
 
     Route::delete('dashboard/users/{user}', [UserController::class , "destroy"])->name("user.destroy");
+    Route::get('dashboard/restore-u', [UserController::class , "showRestore"])->name("user.showRestore")->middleware('super-admin');
+    Route::get('dashboard/restore-u/{id}', [UserController::class , "restore"])->name("user.restore")->middleware('super-admin');
+
 //^ ----------------------------------user route end -----------------------------------------
 
 
@@ -66,6 +70,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/contacts/{contact}', [ContactController::class , "show"])->name("contact.show");
 
     Route::delete('dashboard/contacts/{contact}', [ContactController::class , "destroy"])->name("contact.destroy");
+    Route::get('dashboard/restore-co', [ContactController::class , "showRestore"])->name("contact.showRestore")->middleware('super-admin');
+    Route::get('dashboard/restore-co/{id}', [ContactController::class , "restore"])->name("contact.restore")->middleware('super-admin');
 //^ ----------------------------------contact route end -----------------------------------------
 
 //^ ----------------------------------FAQS route start-----------------------------------------
@@ -80,6 +86,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/faqs/{faq}', [FaqsController::class , "show"])->name("faq.show");
 
     Route::delete('dashboard/faqs/{faq}', [FaqsController::class , "destroy"])->name("faq.destroy");
+    Route::get('dashboard/restore-f', [FaqsController::class , "showRestore"])->name("faq.showRestore")->middleware('super-admin');
+    Route::get('dashboard/restore-f/{id}', [FaqsController::class , "restore"])->name("faq.restore")->middleware('super-admin');
 //^ ----------------------------------FAQS route end -----------------------------------------
 
 });
