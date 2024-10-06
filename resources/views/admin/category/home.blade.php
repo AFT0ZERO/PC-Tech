@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+extends('admin.layouts.admin')
 @section('content')
 
 <div class="demo-inline-spacing mt-5">

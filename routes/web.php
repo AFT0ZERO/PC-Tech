@@ -49,19 +49,21 @@ Route::middleware(['auth'])->group(function () {
 
 
 //^ ----------------------------------category route start-----------------------------------------
-    Route::get('/categories', [CategoryController::class , "index"])->name("category.index");
+    Route::get('dashboard/categories', [CategoryController::class , "index"])->name("category.index");
 
-    Route::get('/categories/create', [CategoryController::class , "create"])->name(name: "category.create");
+    Route::get('dashboard/categories/create', [CategoryController::class , "create"])->name(name: "category.create");
 
-    Route::post('/categories', [CategoryController::class , "store"])->name("category.store");
+    Route::post('dashboard/categories', [CategoryController::class , "store"])->name("category.store");
 
-    Route::PUT('/categories/{category}', [CategoryController::class , "update"])->name("category.update");
+    Route::PUT('dashboard/categories/{category}', [CategoryController::class , "update"])->name("category.update");
 
-    Route::get('/categories/{category}/edit' ,[CategoryController::class , 'edit'])->name('category.edit');
+    Route::get('dashboard/categories/{category}/edit' ,[CategoryController::class , 'edit'])->name('category.edit');
 
-    Route::get('/categories/{category}', [CategoryController::class , "show"])->name("category.show");
+    Route::get('dashboard/categories/{category}', [CategoryController::class , "show"])->name("category.show");
 
-    Route::delete('/categories/{category}', [CategoryController::class , "destroy"])->name("category.destroy");
+    Route::delete('dashboard/categories/{category}', [CategoryController::class , "destroy"])->name("category.destroy");
+    Route::get('dashboard/restore-c', [CategoryController::class , "showRestore"])->name("category.showRestore")->middleware('super-admin');
+    Route::get('dashboard/restore-c/{id}', [CategoryController::class , "restore"])->name("category.restore")->middleware('super-admin');
 //^ ----------------------------------category route start-----------------------------------------
 
 

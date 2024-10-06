@@ -21,11 +21,7 @@
         </h2>
         <div class="card-body">
             <p class="card-text">
-                @if($user->image == null)
-                    <img src="https://afn.ca/wp-content/uploads/2022/12/unknown_staff-500x500.webp" alt="user image" style="width: 150px ;height: 150px">
-                @else
                     <img src="{{asset($user->image)}}" alt="user image" style="width: 150px ;height: 150px">
-                @endif
             </p>
             <h5 class="card-title">User Name: {{$user->fname ." ". $user->lname}}</h5>
             <p class="card-text "><b>User Email:</b> {{$user->email}}</p>
