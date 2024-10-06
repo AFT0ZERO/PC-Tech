@@ -26,6 +26,11 @@
                     <div class="card mb-6">
                         <!-- Account -->
                         <div class="card-body">
+                        <div class="demo-inline-spacing mb-5">
+                            <a href={{route('admin.editProfile')}}>
+                                <button type="button" class="btn  btn-primary ">Edit</button>
+                            </a>
+                        </div>
                             <div class="d-flex align-items-start align-items-sm-center gap-6 pb-4 border-bottom">
                                 @if(Auth::user()->image == null)
                                     <img src="https://afn.ca/wp-content/uploads/2022/12/unknown_staff-500x500.webp" alt="user image"  class="d-block w-px-100 h-px-100 rounded">

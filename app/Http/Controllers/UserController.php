@@ -149,4 +149,50 @@ class UserController extends Controller
     {
         return view("admin.users.profile");
     }
+
+    public function EditAdminProfile()
+    {
+        return view("admin.users.editProfile");
+    }
+    public function UpdateAdminProfile(Request $request , User $admin)
+    {
+        $request->validate([
+            'fname' => ['required', 'min:3'],
+            'lname' => ['required', 'min:3'],
+            'email' => ['required', 'email'],
+            'mobile' => ['required', 'min:9', 'numeric'],
+            'role' => ['required'],
+            'gender' => ['required'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
+        ]);
+
+        // If there's a new image uploaded, handle the upload process
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '.' . $extension;
+            $path = 'uploads/user/';
+            $file->move($path, $fileName);
+
+            // If image uploaded, set the new image path
+            $admin->image = $path . $fileName;
+        }
+
+        // Update the other user fields
+        $admin->fname = $request->fname;
+        $admin->lname = $request->lname;
+        $admin->email = $request->email;
+        $admin->mobile = $request->mobile;
+        $admin->role = $request->role;
+        $admin->gender = $request->gender;
+
+        // Save the updated user information
+        $admin->save();
+
+        session()->flash('success', 'User updated successfully!');
+        // Redirect to the user show route
+        return to_route('admin.index');
+    }
+
+
 }

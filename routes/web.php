@@ -25,7 +25,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard.home');
     })->name('dashboard');
+
     Route::get('dashboard/admin', [UserController::class , "adminProfile"])->name("admin.index");
+    Route::PUT('dashboard/admin/{admin}/edit', [UserController::class , "UpdateAdminProfile"])->name("admin.UpdateEditProfile");
+    Route::get('dashboard/admin/edit', [UserController::class , "EditAdminProfile"])->name("admin.editProfile");
 //^ ----------------------------------user route start-----------------------------------------
 
     Route::get('dashboard/users', [UserController::class , "index"])->name("user.index");
