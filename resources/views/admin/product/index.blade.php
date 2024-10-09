@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('search')
     <i class="bx bx-search bx-md"></i>
-    <form action="{{route('category.index')}}" method="get">
+    <form action="{{route('product.index')}}" method="get">
         <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
                aria-label="Search..." name="search" style="display: inline"/>
     </form>
@@ -9,18 +9,18 @@
 @section('content')
 
     <div class="demo-inline-spacing mt-5">
-        <a href="{{route('category.create')}}">
-            <button type="button" class="btn btn-primary ">+ Add Category </button>
+        <a href="{{route('product.create')}}">
+            <button type="button" class="btn btn-primary ">+ Add Product </button>
         </a>
         @if(Auth::user()->role == 'super-admin')
-            <a href="{{route('category.showRestore')}}">
+            <a href="{{route('product.showRestore')}}">
                 <button type="button" class="btn  btn-danger ">Trash </button>
             </a>
         @endif
     </div>
 
     <div class="card mt-10">
-        <h5 class="card-header fw-bold">Category Info ({{$categories->count()}})</h5>
+        <h5 class="card-header fw-bold">Product Info ({{$products->count()}})</h5>
         <!-- Success Message -->
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,28 +33,27 @@
                 <thead class="table-dark">
                 <tr>
                     <th>#</th>
-                    <th>Image</th>
                     <th>Name</th>
+                    <th>Category</th>
+{{--                    <th>Description</th>--}}
                     <th>Created At</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                @foreach( $categories as $category)
+                @foreach( $products as $product)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>
-                        @if($category->image != null)
-                        <img  alt="category image" style="width: 100px" src={{asset($category->image)}} >
+                    <td>{{ $product->category->name}}</td>
+                    <td>{{ $product->name}}</td>
+                    <td>{{$product->created_at->format('y-m-d')}}</td>
+                    <td> <a href="{{route('product.upload.images', $product->id)}}" class="btn btn-outline-warning btn-sm">Add / View </a></td>
 
-                        @endif
-                    </td>
-                    <td>{{ $category->name}}</td>
-                    <td>{{$category->created_at->format('y-m-d')}}</td>
                     <td >
-                        <a class="btn btn-info p-2 btn-sm" href="{{route('category.show',$category->id)}}">View </a>
-                        <a class="btn btn-primary p-2 btn-sm " href="{{route('category.edit' , $category->id)}}">Edit</a>
-                        <form style="display:inline;" method="post" action="{{route('category.destroy', $category->id)}}">
+                        <a class="btn btn-info p-2 btn-sm" href="{{route('product.show',$product->id)}}">View </a>
+                        <a class="btn btn-primary p-2 btn-sm " href="{{route('product.edit' , $product->id)}}">Edit</a>
+                        <form style="display:inline;" method="post" action="{{route('product.destroy', $product->id)}}">
                             @csrf
                             @method('delete')
                             <button type="submit"  class="btn btn-danger p-2 btn-sm dlt-btn-t">Delete</button>
@@ -65,7 +64,7 @@
                 </tbody>
             </table>
             <div class="ps-4">
-            {{$categories->links()}}
+            {{$products->links()}}
             </div>
             </div>
     </div>
@@ -89,7 +88,6 @@
                         confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Submit the form if the user confirms
                             button.closest('form').submit();
                         }
                     });

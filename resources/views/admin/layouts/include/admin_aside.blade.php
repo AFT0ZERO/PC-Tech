@@ -32,7 +32,7 @@
           </li>
 
           <li class="menu-item">
-            <a href="icons-boxicons.html" class="menu-link">
+            <a href="{{route('product.index')}}" class="menu-link">
 
               <i class='menu-icon tf-icons bx bx-basket'></i>
               <div class="text-truncate" data-i18n="Boxicons">Product</div>
@@ -40,7 +40,7 @@
           </li>
 
           <li class="menu-item">
-            <a href="icons-boxicons.html" class="menu-link">
+            <a href="{{route('store.index')}}" class="menu-link">
 
               <i class='menu-icon tf-icons bx bx-store-alt' ></i>
               <div class="text-truncate" data-i18n="Boxicons">Shopes</div>

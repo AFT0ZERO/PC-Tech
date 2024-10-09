@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('search')
     <i class="bx bx-search bx-md"></i>
-    <form action="{{route('category.index')}}" method="get">
+    <form action="{{route('store.index')}}" method="get">
         <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
                aria-label="Search..." name="search" style="display: inline"/>
     </form>
@@ -9,18 +9,18 @@
 @section('content')
 
     <div class="demo-inline-spacing mt-5">
-        <a href="{{route('category.create')}}">
-            <button type="button" class="btn btn-primary ">+ Add Category </button>
+        <a href="{{route('store.create')}}">
+            <button type="button" class="btn btn-primary ">+ Add Store </button>
         </a>
         @if(Auth::user()->role == 'super-admin')
-            <a href="{{route('category.showRestore')}}">
+            <a href="{{route('store.showRestore')}}">
                 <button type="button" class="btn  btn-danger ">Trash </button>
             </a>
         @endif
     </div>
 
     <div class="card mt-10">
-        <h5 class="card-header fw-bold">Category Info ({{$categories->count()}})</h5>
+        <h5 class="card-header fw-bold">Store Info ({{$stores->count()}})</h5>
         <!-- Success Message -->
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -40,21 +40,21 @@
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                @foreach( $categories as $category)
+                @foreach( $stores as $store)
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>
-                        @if($category->image != null)
-                        <img  alt="category image" style="width: 100px" src={{asset($category->image)}} >
+                        @if($store->image != null)
+                        <img  alt="store image" style="width:90px" src={{asset($store->image)}} >
 
                         @endif
                     </td>
-                    <td>{{ $category->name}}</td>
-                    <td>{{$category->created_at->format('y-m-d')}}</td>
+                    <td>{{ $store->name}}</td>
+                    <td>{{$store->created_at->format('y-m-d')}}</td>
                     <td >
-                        <a class="btn btn-info p-2 btn-sm" href="{{route('category.show',$category->id)}}">View </a>
-                        <a class="btn btn-primary p-2 btn-sm " href="{{route('category.edit' , $category->id)}}">Edit</a>
-                        <form style="display:inline;" method="post" action="{{route('category.destroy', $category->id)}}">
+                        <a class="btn btn-info p-2 btn-sm" href="{{route('store.show',$store->id)}}">View </a>
+                        <a class="btn btn-primary p-2 btn-sm " href="{{route('store.edit' , $store->id)}}">Edit</a>
+                        <form style="display:inline;" method="post" action="{{route('store.destroy', $store->id)}}">
                             @csrf
                             @method('delete')
                             <button type="submit"  class="btn btn-danger p-2 btn-sm dlt-btn-t">Delete</button>
@@ -65,7 +65,7 @@
                 </tbody>
             </table>
             <div class="ps-4">
-            {{$categories->links()}}
+            {{$stores->links()}}
             </div>
             </div>
     </div>

@@ -1,16 +1,25 @@
 <?php
 
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function () {
+    return view('userSide.pages.landing');
+});
+
 
 Auth::routes();
 
@@ -30,7 +39,6 @@ Route::middleware(['auth'])->group(function () {
     Route::PUT('dashboard/admin/{admin}/edit', [UserController::class , "UpdateAdminProfile"])->name("admin.UpdateEditProfile");
     Route::get('dashboard/admin/edit', [UserController::class , "EditAdminProfile"])->name("admin.editProfile");
 //^ ----------------------------------user route start-----------------------------------------
-
     Route::get('dashboard/users', [UserController::class , "index"])->name("user.index");
 
     Route::get('dashboard/users/create', [UserController::class , "create"])->name("user.create");
@@ -44,7 +52,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('dashboard/users/{user}', [UserController::class , "destroy"])->name("user.destroy");
     Route::get('dashboard/restore-u', [UserController::class , "showRestore"])->name("user.showRestore")->middleware('super-admin');
     Route::get('dashboard/restore-u/{id}', [UserController::class , "restore"])->name("user.restore")->middleware('super-admin');
-
 //^ ----------------------------------user route end -----------------------------------------
 
 
@@ -65,6 +72,49 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/restore-c', [CategoryController::class , "showRestore"])->name("category.showRestore")->middleware('super-admin');
     Route::get('dashboard/restore-c/{id}', [CategoryController::class , "restore"])->name("category.restore")->middleware('super-admin');
 //^ ----------------------------------category route start-----------------------------------------
+
+    //^ ----------------------------------store route start-----------------------------------------
+    Route::get('dashboard/stores', [StoreController::class , "index"])->name("store.index");
+
+    Route::get('dashboard/stores/create', [StoreController::class , "create"])->name(name: "store.create");
+
+    Route::post('dashboard/stores', [StoreController::class , "store"])->name("store.store");
+
+    Route::PUT('dashboard/stores/{store}', [StoreController::class , "update"])->name("store.update");
+
+    Route::get('dashboard/stores/{store}/edit' ,[StoreController::class , 'edit'])->name('store.edit');
+
+    Route::get('dashboard/stores/{store}', [StoreController::class , "show"])->name("store.show");
+
+    Route::delete('dashboard/stores/{store}', [StoreController::class , "destroy"])->name("store.destroy");
+    Route::get('dashboard/restore-s', [StoreController::class , "showRestore"])->name("store.showRestore")->middleware('super-admin');
+    Route::get('dashboard/restore-s/{id}', [StoreController::class , "restore"])->name("store.restore")->middleware('super-admin');
+//^ ----------------------------------store route start-----------------------------------------
+
+
+//^ ----------------------------------product route start-----------------------------------------
+ Route::get('dashboard/products', [ProductController::class , "index"])->name("product.index");
+
+ Route::get('dashboard/products/create', [ProductController::class , "create"])->name(name: "product.create");
+
+ Route::post('dashboard/products', [ProductController::class , "store"])->name("product.store");
+
+ Route::PUT('dashboard/products/{product}', [ProductController::class , "update"])->name("product.update");
+
+ Route::get('dashboard/products/{product}/edit' ,[ProductController::class , 'edit'])->name('product.edit');
+
+ Route::get('dashboard/products/{product}', [ProductController::class , "show"])->name("product.show");
+
+ Route::delete('dashboard/products/{product}', [ProductController::class , "destroy"])->name("product.destroy");
+ Route::get('dashboard/restore-p', [ProductController::class , "showRestore"])->name("product.showRestore")->middleware('super-admin');
+ Route::get('dashboard/restore-p/{id}', [ProductController::class , "restore"])->name("product.restore")->middleware('super-admin');
+//^ ----------------------------------product route start-----------------------------------------
+
+//^ ----------------------------------product Image route start-----------------------------------------
+    Route::get('dashboard/product/{product}/upload', [ProductImageController::class, "index"])->name("product.upload.images");
+    Route::post('dashboard/product/{product}/upload', [ProductImageController::class, 'store'])->name('product.store.images');
+    Route::delete('dashboard/product/{product}/upload/delete', [ProductImageController::class, 'destroy'])->name('product.destroy.images');
+//^ ----------------------------------product Image route end-----------------------------------------
 
 
 //^ ----------------------------------contact route start-----------------------------------------

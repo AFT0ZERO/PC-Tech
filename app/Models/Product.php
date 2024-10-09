@@ -7,17 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
-class Category extends Model
+class Product extends Model
 {
-    use HasFactory , softDeletes  , Searchable;
+    use HasFactory,softDeletes,Searchable;
+    protected $guarded = [];
     public function toSearchableArray()
     {
         return [
             'name'=>$this->name
         ];
     }
-    protected $guarded = [];
-    public function products(){
-        return $this->hasMany(Product::class);
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    public function images(){
+        return $this->hasMany(ProductImage::class);
     }
 }
