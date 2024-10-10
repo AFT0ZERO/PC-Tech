@@ -33,9 +33,8 @@
                 <thead class="table-dark">
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
                     <th>Category</th>
-{{--                    <th>Description</th>--}}
+                    <th>Name</th>
                     <th>Created At</th>
                     <th>Image</th>
                     <th>Actions</th>

@@ -5,7 +5,7 @@
 @section('content')
     <div class="text-left">
         <button class="btn ">
-            <a href="{{ route('store.index') }}" class="btn btn-primary p-2 float-start">Back</a>
+            <a href="{{ route('product.index') }}" class="btn btn-primary p-2 float-start">Back</a>
         </button>
     </div>
     <div class="card mt-4">
@@ -17,17 +17,22 @@
             </div>
         @endif
         <h2 class="card-header">
-           <b>Store Info</b>
+           <b>Product Info</b>
         </h2>
         <div class="card-body">
-            <p class="card-text">
-                @if($store->image != null)
-                    <img src="{{asset($store->image)}}" alt="category image" style="width: 200px ;">
-                @endif
-            </p>
-            <h5 class="card-title"><b>Name : </b>  {{$store->name}}</h5>
-            <p class="card-text"><b>Updated At : </b> {{$store->updated_at->format('y-m-d')}} </p>
-            <p class="card-text"><b>Created At : </b> {{$store->created_at->format('y-m-d')}} </p>
+            <h5 class="card-title"><b>Name : </b>  {{$product->name}}</h5>
+            @if($descriptions != null)
+            @foreach($descriptions as $key => $value)
+                <p class="card-text"><b>{{$key}} : </b> {{$value}}</p>
+            @endforeach
+            @endif
+            <p class="card-text"><b>Updated At : </b> {{$product->updated_at->format('y-m-d')}} </p>
+            <p class="card-text"><b>Created At : </b> {{$product->created_at->format('y-m-d')}} </p>
+{{--            <p class="card-text">--}}
+{{--                @if($store->image != null)--}}
+{{--                    <img src="{{asset($store->image)}}" alt="category image" style="width: 200px ;">--}}
+{{--                @endif--}}
+{{--            </p>--}}
         </div>
     </div>
 @endsection

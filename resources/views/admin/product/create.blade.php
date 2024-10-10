@@ -27,7 +27,6 @@
                             <option value={{$category->id}}>{{$category->name}}</option>
                         @endforeach
                     </select>
-{{--                    <div class="row">--}}
                         <div id="key-value-fields" class="row">
                             <div class="mb-3 col-6">
                                 <label for="key" class="form-label">Key</label>
@@ -38,12 +37,24 @@
                                 <input type="text" name="value[]" class="form-control" required>
                             </div>
                         </div>
-{{--                    </div>--}}
-
-
                     <button type="button" id="add-key-value" class="btn btn-secondary">Add More</button>
                     <br><br>
-
+                    @foreach($stores as $store)
+                        <div class="col-2">
+                            <p class="fs-5 fw-bold">{{$store->name}}</p>
+                        </div>
+                        <div class="row">
+                            <input type="hidden" name="store_id[]" value="{{$store->id}}"> <!-- Hidden input for store ID -->
+                            <div class="mb-3 col-4">
+                                <label for="price-{{$store->id}}" class="form-label">Price</label>
+                                <input type="text" name="price[]" class="form-control" id="price-{{$store->id}}" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="url-{{$store->id}}" class="form-label">Url</label>
+                                <input type="url" name="url[]" class="form-control" id="url-{{$store->id}}" required>
+                            </div>
+                        </div>
+                    @endforeach
                     <button class="btn btn-success">ADD +</button>
                 </div>
             </form>

@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html class="no-js" lang="en">
 <head>
-   @include('userSide.include.user_top')
+    @include('userSide.include.user_top')
 </head>
-
 <body>
-<!-- navbar Strat -->
+
+{{--Navbar Start--}}
 @include('userSide.include.user_nav')
-<!-- navbar End -->
+{{--Navbar End--}}
 
-<!-- content Strat -->
+{{--Content Start--}}
 @yield('content')
+{{--Content End--}}
 
-<!-- content End -->
 
-<!-- Footer Start -->
+<!-- Footer Area Start -->
 @include('userSide.include.user_footer')
-<!-- Footer End -->
+<!-- Footer Area End -->
 
 
 @include('userSide.include.user_bottom')
+
+
 </body>
 </html>

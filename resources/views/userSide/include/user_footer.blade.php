@@ -1,54 +1,202 @@
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <h6>About</h6>
-                <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to help the upcoming
-                    programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code
-                    wants to be simple. We will help programmers build up concepts in different programming languages that
-                    include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
-            </div>
-
-            <div class="col-xs-6 col-md-3">
-                <h6>Categories</h6>
-                <ul class="footer-links">
-                    <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-                    <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-                    <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-                    <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-                    <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-                    <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-md-3">
-                <h6>Quick Links</h6>
-                <ul class="footer-links">
-                    <li><a href="/user side/About_and_servies/about.html">About Us</a></li>
-                    <li><a href="/user side/Contact/contact.html">Contact Us</a></li>
-                    <li><a href="/user side/FAQs/faq.html">FAQs</a></li>
-                    <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-                    <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
-                </ul>
+<footer class="footer-area">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px">
+                        <div class="single-wedge">
+                            <div class="footer-logo">
+                                <a href="index.html"><img class="img-responsive" src="assets/images/logo/logo.jpg" alt="logo.jpg" /></a>
+                            </div>
+                            <p class="text-infor">We are a team of designers and developers that create high quality HTML template</p>
+                            <div class="need_help">
+                                <p class="add"><span class="address">Address:</span> 4710-4890 Breckinridge St, Fayetteville</p>
+                                <p class="mail"><span class="email">Email:</span> <a href="mailto:support@hasthemes.com">support@hasthemes.com</a></p>
+                                <p class="phone"><span class="call us">Call Us:</span> <a href="tel:(+800)123456789"> (+800)123456789</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 col-sm-6 mb-md-30px mb-lm-30px">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">Information</h4>
+                            <div class="footer-links">
+                                <ul>
+                                    <li><a href="#">Delivery</a></li>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="#">Secure Payment</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="#">Sitemap</a></li>
+                                    <li><a href="#">Stores</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 col-sm-6 mb-sm-30px mb-lm-30px">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">CUSTOM LINKS</h4>
+                            <div class="footer-links">
+                                <ul>
+                                    <li><a href="#">Legal Notice</a></li>
+                                    <li><a href="#">Prices Drop</a></li>
+                                    <li><a href="#">New Products</a></li>
+                                    <li><a href="#">Best Sales</a></li>
+                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="my-account.html">My Account</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 ">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">From Our Blog</h4>
+                            <div class="footer-blog-slider">
+                                <div class="footer-blog-slider-wrapper slider-nav-style-3 ">
+                                    <!-- Single-item -->
+                                    <div class="single-slider-item">
+                                        <div class="footer-blog-post d-flex mb-30px">
+                                            <div class="footer-blog-post-top">
+                                                <div class="post-thumbnail">
+                                                    <a href="blog-single-left-sidebar.html">
+                                                        <img src="assets/images/blog-image/blog-8.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="footer-blog-content">
+                                                <h4><a href="blog-single-left-sidebar.html">This is First Post For XipBlog</a></h4>
+                                                <div class="footer-blog-meta">
+                                                    <span class="autor">Posted by <a href="#">Demo Hasthemes</a> </span>
+                                                    <span class="date">Jun 29,2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="footer-blog-post">
+                                            <div class="footer-blog-post-top">
+                                                <div class="post-thumbnail">
+                                                    <a href="blog-single-left-sidebar.html">
+                                                        <img src="assets/images/blog-image/blog-9.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="footer-blog-content">
+                                                <h4><a href="blog-single-left-sidebar.html">This is Secound Post For XipBlog</a></h4>
+                                                <div class="footer-blog-meta">
+                                                    <span class="autor">Posted by <a href="#">Demo Hasthemes</a> </span>
+                                                    <span class="date">Jun 29,2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single-item -->
+                                    <div class="single-slider-item">
+                                        <div class="footer-blog-post d-flex mb-30px">
+                                            <div class="footer-blog-post-top">
+                                                <div class="post-thumbnail">
+                                                    <a href="blog-single-left-sidebar.html">
+                                                        <img src="assets/images/blog-image/blog-10.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="footer-blog-content">
+                                                <h4><a href="blog-single-left-sidebar.html">This is Third Post For XipBlog</a></h4>
+                                                <div class="footer-blog-meta">
+                                                    <span class="autor">Posted by <a href="#">Demo Hasthemes</a> </span>
+                                                    <span class="date">Jun 29,2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="footer-blog-post">
+                                            <div class="footer-blog-post-top">
+                                                <div class="post-thumbnail">
+                                                    <a href="blog-single-left-sidebar.html">
+                                                        <img src="assets/images/blog-image/blog-11.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="footer-blog-content">
+                                                <h4><a href="blog-single-left-sidebar.html">This is Fourth Post For XipBlog</a></h4>
+                                                <div class="footer-blog-meta">
+                                                    <span class="autor">Posted by <a href="#">Demo Hasthemes</a> </span>
+                                                    <span class="date">Jun 29,2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single-item end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-sm-6 col-xs-12">
-                <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by
-                    <a href="#">Scanfcode</a>.
-                </p>
+        <div class="footer-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="footer-paymet-warp d-flex">
+                            <div class="heading-info">Payment:</div>
+                            <div class="payment-way"><img class="payment-img img-responsive" src="assets/images/icons/payment.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-social-icon d-flex">
+                            <div class="heading-info">Follow Us:</div>
+                            <div class="social-icon">
+                                <ul>
+                                    <li class="facebook">
+                                        <a href="#"><i class="ion-social-facebook"></i></a>
+                                    </li>
+                                    <li class="twitter">
+                                        <a href="#"><i class="ion-social-twitter"></i></a>
+                                    </li>
+                                    <li class="google">
+                                        <a href="#"><i class="ion-social-google"></i></a>
+                                    </li>
+                                    <li class="youtube">
+                                        <a href="#"><i class="ion-social-youtube"></i></a>
+                                    </li>
+                                    <li class="instagram">
+                                        <a href="#"><i class="ion-social-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <ul class="social-icons">
-                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
+        </div>
+        <div class="footer-tags">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tag-content">
+                            <ul>
+                                <li><a href="#">Online Shopping</a></li>
+                                <li><a href="#">Promotions</a></li>
+                                <li><a href="#">My Orders</a></li>
+                                <li><a href="#">Help</a></li>
+                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Most Populars</a></li>
+                                <li><a href="#">New Arrivals</a></li>
+                                <li><a href="#">Special Products</a></li>
+                                <li><a href="#">Manufacturers</a></li>
+                                <li><a href="#">Our Stores</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Payments</a></li>
+                                <li><a href="#">Warantee</a></li>
+                                <li><a href="#">Refunds</a></li>
+                                <li><a href="#">Checkout</a></li>
+                                <li><a href="#">Discount</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <p class="copy-text">Copyright © <a href="https://hasthemes.com/"> HasThemes</a>. All Rights Reserved</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -16,4 +16,9 @@ class Store extends Model
             'name'=>$this->name
         ];
     }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'store_product', 'store_id','product_id' )
+            ->withPivot('product_price', 'product_url');
+    }
 }

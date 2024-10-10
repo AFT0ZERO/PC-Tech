@@ -24,4 +24,10 @@ class Product extends Model
     public function images(){
         return $this->hasMany(ProductImage::class);
     }
+
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class, 'store_product', 'product_id', 'store_id')
+            ->withPivot('product_price', 'product_url');
+    }
 }

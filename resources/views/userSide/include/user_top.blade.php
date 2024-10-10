@@ -1,62 +1,25 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@yield('title')</title>
-<link rel="stylesheet" href={{asset("../assets/css/faqStyle.css")}}>
-<link rel="stylesheet" href={{asset("../assets/css/contactStyle.css")}}>
-<link rel="stylesheet" href={{asset("../assets/css/about.css")}}>
-<link rel="stylesheet" href={{asset("../assets/css/landing.css")}}>
-<link rel="stylesheet" href={{asset("../assets/css/navAndFooter.css")}}>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Pc Tech</title>
+<meta name="robots" content="noindex, follow" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/asset/images/favicon/favicon.png')}}" />
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" media="all">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- CSS============================================ -->
+<!-- Vendor CSS (Bootstrap & Icon Font) -->
+<link rel="stylesheet" href="{{asset('assets/asset/css/vendor/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/asset/css/vendor/ionicons.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/asset/css/vendor/linearicon.css')}}">
+<link rel="stylesheet" href="{{asset('assets/asset/css/vendor/font-awesome.min.css')}}">
 
+<!-- Plugins CSS (All Plugins Files) -->
+<link rel="stylesheet" href="{{asset('assets/asset/css/plugins/animate.css')}}">
+<link rel="stylesheet" href="{{asset('assets/asset/css/plugins/jquery-ui.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/asset/css/plugins/slick.css')}}">
 
-<!--& ===== Fontawesome ===== -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!--&===== Fontawesome ===== -->
-
-<!--& boxicone -->
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<!--& boxicone -->
-
-<!--& swiper js -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-<!--& swiper js -->
-
-<style>
-    html,
-    body {
-        position: relative;
-        height: 100vh;
-    }
-    body {
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color: #000;
-        margin: 0;
-        padding: 0;
-    }
-
-
-    .swiper {
-        width: 100%;
-        height: 70%;
-    }
-
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        display: flex;
-        /*justify-content: center;*/
-        align-items: center;
-    }
-
-    /*.swiper-slide img {*/
-    /*    display: block;*/
-    /*    width: 100%;*/
-    /*    height: 100%;*/
-    /*    object-fit: cover;*/
-    /*}*/
-</style>
+<!-- Main Style CSS -->
+<link rel="stylesheet" href="{{asset('assets/asset/css/style.css')}}" />
