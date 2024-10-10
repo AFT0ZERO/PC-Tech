@@ -1,64 +1,74 @@
 @extends('userSide.layout.app')
 
-@section('title', 'About Us')
 @section('content')
-    <section class="main-page">
-        <!-- Image Start -->
-        <figure class="about-img">
-            <img src="{{asset('../assets/img/image/about (Custom).jpg')}}" alt="background Image">
-        </figure>
-        <!-- Image End -->
-
-        <!-- Services Start -->
-        <section class="services-container">
-            <h2>Services</h2>
-            <section class="card__container">
-                <div class="card__bx" style="--clr: #89ec5b">
-                    <div class="card__data">
-                        <div class="card__icon">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div class="card__content">
-                            <h3>Designing</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        </div>
+    <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-content">
+                        <ul class="nav">
+                            <li><a href="index.html">Home</a></li>
+                            <li>About Us</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="card__bx" style="--clr: #eb5ae5">
-                    <div class="card__data">
-                        <div class="card__icon">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div class="card__content">
-                            <h3>Develoment</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-
-                        </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End-->
+    <!-- About Area Start -->
+    <section class="about-area mtb-50px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about-left-image mb-md-30px mb-lm-30px ">
+                        <img src="{{asset('assets/asset/images/slider-image/sample-4.jpg')}}" alt="test" class="img-responsive" />
                     </div>
                 </div>
-                <div class="card__bx" style="--clr: #5b98eb">
-                    <div class="card__data">
-                        <div class="card__icon">
-                            <i class="fa-brands fa-searchengin"></i>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="about-title">
+                            <h2>Welcome To Pc Tech</h2>
                         </div>
-                        <div class="card__content">
-                            <h3>SEO</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-
-                        </div>
+                        <p class="mb-30px">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore aperiam fugit consequuntur voluptatibus ex sint iure in, distinctio sed dolorem aspernatur veritatis repellendus dolorum voluptate, animi
+                            libero officiis eveniet accusamus recusandae. Temporibus amet ducimus sapiente voluptatibus autem dolorem magnam quas, porro suscipit. Quibusdam culpa asperiores exercitationem architecto quo distinctio sed dolorem aspernatur veritatis repellendus dolorum voluptate!
+                        </p>
+                        <p>
+                            Sint voluptatum beatae necessitatibus quos mollitia vero, optio asperiores aut tempora iusto eum rerum, possimus, minus quidem ut saepe laboriosam. Praesentium aperiam accusantium minus repellendus
+                            accusamus neque iusto pariatur laudantium provident quod recusandae exercitationem natus dignissimos.
+                        </p>
                     </div>
                 </div>
-
-            </section>
-
-        </section>
-        <!-- Services End -->
-
-        <section class="about-section">
-            <h2>More About Us</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque ut ipsa ratione accusamus reiciendis corrupti corporis eius voluptates! Voluptates nemo quia animi vitae non inventore beatae vero? In, odit explicabo. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque esse, omnis perferendis placeat pariatur magni aperiam earum, iusto in suscipit nihil molestias quae eaque ratione voluptatum quo ex veritatis. Quis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam accusamus rem, possimus vitae dolorum sequi officia laboriosam! Magnam quae exercitationem non eius dicta, recusandae laudantium impedit ex excepturi porro fugit.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque ut ipsa ratione accusamus reiciendis corrupti corporis eius voluptates! Voluptates nemo quia animi vitae non inventore beatae vero? In, odit explicabo. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque esse, omnis perferendis placeat pariatur magni aperiam earum, iusto in suscipit nihil molestias quae eaque ratione voluptatum quo ex veritatis. Quis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam accusamus rem, possimus vitae dolorum sequi officia laboriosam! Magnam quae exercitationem non eius dicta, recusandae laudantium impedit ex excepturi porro fugit.</p>
-        </section>
-
+            </div>
+            <div class="row mt-50px">
+                <div class="col-md-4 mb-lm-30px">
+                    <div class="single-about">
+                        <h4>Our Company</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet conse .
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-lm-30px">
+                    <div class="single-about">
+                        <h4>Our Team</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet conse .
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-about">
+                        <h4>Testimonial</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet conse .
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    <!-- About Area End -->
 @endsection

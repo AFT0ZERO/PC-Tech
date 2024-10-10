@@ -364,8 +364,9 @@ p {
   color: #1d1d1d;
 }
 
-.color-white {
-  color: #fff;
+.color-white
+{
+  color: #fff; ;
 }
 
 .mr-20px {

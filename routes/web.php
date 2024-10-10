@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return view('userSide.pages.landing');
+    return view('userSide.pages.singleProduct');
 });
 
 
