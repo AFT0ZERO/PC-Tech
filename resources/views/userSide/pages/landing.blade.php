@@ -111,13 +111,6 @@
                 <div class="col-md-12">
                     <div class="section-title">
                         <h2>New Arrivals</h2>
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs sub-category">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#tab-1">Home Audio</a>
-                            </li>
-                        </ul>
-                        <!-- Nav tabs -->
                     </div>
                 </div>
             </div>
@@ -127,252 +120,47 @@
                 <div id="tab-1" class="tab-pane active fade">
                     <!-- Arrivel slider start -->
                     <div class="arrival-slider-wrapper slider-nav-style-1">
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/4.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/5.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
 
-                                            </ul>
+                        @foreach($lastProducts as $lastProduct)
+                            <div class="slider-single-item">
+                                <!-- Single Item -->
+                                <article class="list-product text-center">
+                                    <div class="product-inner">
+                                        <div class="img-block">
+                                            <a href="single-product.html" class="thumbnail">
+                                                <img class="first-img" src="{{asset($lastProduct->images[0]->image)}}" alt="fix" />
+                                            </a>
+                                            {{-- model start--}}
+                                            <div class="add-to-link">
+                                                <ul>
+                                                    <li>
+                                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            <i class="lnr lnr-magnifier"></i>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            {{-- model end--}}
+
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>{{$lastProduct->category->name}}</span></a>
+                                            <h2><a href="single-product.html" class="product-link">{{$lastProduct->name}}</a></h2>
+                                            <div class="pricing-meta">
+{{--                                                <ul>--}}
+{{--                                                    <li class="old-price">$23.90</li>--}}
+{{--                                                    <li class="current-price">$21.51</li>--}}
+{{--                                                </ul>--}}
+                                            </div>
+                                        </div>
+                                        <div class="cart-btn">
+                                            <a href="#" class="add-to-curt" title="Add to cart">View</a>
                                         </div>
                                     </div>
-                                    <ul class="product-flag">
-                                        <li class="new">-12%</li>
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Edifier H840 Audiophile</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/8.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/9.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">SoundBox Pro Portable</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/12.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/13.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Naham WiFi HD 1080P</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/16.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/17.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/20.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/21.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <ul class="product-flag">
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Numkuda USB 2.0 Gamepad</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#"  class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/19.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/20.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <ul class="product-flag">
-                                        <li class="new">-12%</li>
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Silicon Sleeping Earbuds</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+                                </article>
+                            </div>
+                        @endforeach
                     </div>
                     <!-- Arrivel slider end -->
                 </div>
@@ -425,213 +213,7 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/8.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/9.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">SoundBox Pro Portable</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/12.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/13.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Naham WiFi HD 1080P</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/16.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/17.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/20.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/21.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <ul class="product-flag">
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Numkuda USB 2.0 Gamepad</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#"  class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/19.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/20.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <ul class="product-flag">
-                                        <li class="new">-12%</li>
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Silicon Sleeping Earbuds</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+
                     </div>
                     <!-- Arrivel slider end -->
                 </div>
@@ -725,172 +307,6 @@
                                 </div>
                             </article>
                         </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/12.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/13.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Naham WiFi HD 1080P</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/16.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/17.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/20.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/21.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <ul class="product-flag">
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Numkuda USB 2.0 Gamepad</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#"  class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/19.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/20.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <ul class="product-flag">
-                                        <li class="new">-12%</li>
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Silicon Sleeping Earbuds</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
                     </div>
                     <!-- Arrivel slider end -->
                 </div>
@@ -907,20 +323,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-title">
-                        <h2>New Arrivals</h2>
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs sub-category">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#tab-1">Home Audio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Headphones</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Cameras</a>
-                            </li>
-                        </ul>
-                        <!-- Nav tabs -->
+                        <h2>CPU</h2>
+
                     </div>
                 </div>
             </div>
@@ -930,50 +334,46 @@
                 <div id="tab-1" class="tab-pane active fade">
                     <!-- Arrivel slider start -->
                     <div class="arrival-slider-wrapper slider-nav-style-1">
-                        <div class="slider-single-item">
-                            <!-- Single Item -->
-                            <article class="list-product text-center">
-                                <div class="product-inner">
-                                    <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
-                                            <img class="first-img" src="assets/images/product-image/4.jpg" alt="" />
-                                            <img class="second-img" src="assets/images/product-image/5.jpg" alt="" />
-                                        </a>
-                                        <div class="add-to-link">
-                                            <ul>
-                                                <li>
-                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="lnr lnr-magnifier"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                                </li>
-                                            </ul>
+                        @foreach($CategoryProducts as $CategoryProduct)
+                            <div class="slider-single-item">
+                                <!-- Single Item -->
+                                <article class="list-product text-center">
+                                    <div class="product-inner">
+                                        <div class="img-block">
+                                            <a href="single-product.html" class="thumbnail">
+                                                <img class="first-img" src="{{asset($CategoryProduct->images[0]->image)}}" alt="fix" />
+                                            </a>
+                                            {{-- model start--}}
+                                            <div class="add-to-link">
+                                                <ul>
+                                                    <li>
+                                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            <i class="lnr lnr-magnifier"></i>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            {{-- model end--}}
+
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>{{$CategoryProduct->category->name}}</span></a>
+                                            <h2><a href="single-product.html" class="product-link">{{$CategoryProduct->name}}</a></h2>
+                                            <div class="pricing-meta">
+                                                {{--                                                <ul>--}}
+                                                {{--                                                    <li class="old-price">$23.90</li>--}}
+                                                {{--                                                    <li class="current-price">$21.51</li>--}}
+                                                {{--                                                </ul>--}}
+                                            </div>
+                                        </div>
+                                        <div class="cart-btn">
+                                            <a href="#" class="add-to-curt" title="Add to cart">View</a>
                                         </div>
                                     </div>
-                                    <ul class="product-flag">
-                                        <li class="new">-12%</li>
-                                    </ul>
-                                    <div class="product-decs">
-                                        <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                        <h2><a href="single-product.html" class="product-link">Edifier H840 Audiophile</a></h2>
-                                        <div class="pricing-meta">
-                                            <ul>
-                                                <li class="old-price">$23.90</li>
-                                                <li class="current-price">$21.51</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <a href="#" class="add-to-curt" title="Add to cart">Add to cart</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+                                </article>
+                            </div>
+                        @endforeach
                         <div class="slider-single-item">
                             <!-- Single Item -->
                             <article class="list-product text-center">

@@ -9,16 +9,15 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\UserSideController;
 use Illuminate\Support\Facades\Auth;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/test', function () {
-    return view('userSide.pages.singleProduct');
-});
+
+Route::get('/', [UserSideController::class,'landing'])->name('landing');
+Route::get('/category', [UserSideController::class,'category'])->name('category');
+Route::get('/single-page/{id}', [UserSideController::class,'singlePage'])->name('singlePage');
 
 
 Auth::routes();
