@@ -64,7 +64,6 @@
 
                                     @foreach($product->stores as $store)
                                     <tr>
-
                                         <td><img src="{{asset($store->image)}}" alt="store image" width="100"></td>
                                         <td><a href="{{$store->pivot->product_url}}"><button class="btn btn-primary btn-lg">{{$store->pivot->product_price}}</button></a></td>
                                     </tr>

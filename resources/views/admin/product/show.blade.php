@@ -21,6 +21,9 @@
         </h2>
         <div class="card-body">
             <h5 class="card-title"><b>Name : </b>  {{$product->name}}</h5>
+            @foreach($product->stores as $store)
+            <h5 class="card-title"><b> {{$store->name}} Price : </b>  {{$store->pivot->product_price}}</h5>
+            @endforeach
             @if($descriptions != null)
             @foreach($descriptions as $key => $value)
                 <p class="card-text"><b>{{$key}} : </b> {{$value}}</p>

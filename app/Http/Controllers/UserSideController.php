@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserSideController extends Controller
 {
@@ -17,7 +19,12 @@ class UserSideController extends Controller
 
     public function category()
     {
-        return view('userSide.pages.category');
+        $category = Category::all();
+        $products = Product::with('stores') // Fetch the stores
+        ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
+            ->paginate(15);
+
+        return view('userSide.pages.category', ['categories' => $category , 'products' => $products]);
     }
     public function singlePage($id)
     {
