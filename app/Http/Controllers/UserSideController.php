@@ -17,12 +17,23 @@ class UserSideController extends Controller
       return view('userSide.pages.landing' , ['lastProducts' => $lastProduct, 'CategoryProducts' => $CategoryProduct]);
     }
 
-    public function category()
+    public function category($id = null)
     {
         $category = Category::all();
+        if($id == 0 || $id == null){
         $products = Product::with('stores') // Fetch the stores
         ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
             ->paginate(15);
+        }
+
+        else{
+            $products = Product::with('stores') // Fetch the stores
+            ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
+                ->whereHas('category', function ($query) use ($id) {
+                    $query->where('id', $id);
+                })->paginate(15);
+
+        }
 
         return view('userSide.pages.category', ['categories' => $category , 'products' => $products]);
     }

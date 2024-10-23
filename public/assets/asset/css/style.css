@@ -55,10 +55,12 @@
 
 -----------------------------------------------------------------------------------*/
 .card {
+
     border: none;
     border-radius: 10px;
     transition: transform 0.3s ease;
     background-color: #f9fbfd;
+
 }
 .card:hover {
     transform: translateY(-10px);

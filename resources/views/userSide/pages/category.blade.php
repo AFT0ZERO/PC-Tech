@@ -22,13 +22,13 @@
             <!-- Card Category -->
             @foreach($categories as $category)
             <div class="col-lg-4 col-md-6">
-                <a href="#">
+                <a href="{{route('category',$category->id)}}">
                 <div class="card p-4">
                     <div class="card-body">
 
                         <div class="text">
                             <h5 class="card-title">{{$category->name}}</h5>
-                            <a href="#" class="shop-now">Show All <span>&#x27A4;</span></a>
+                            <a href="{{route('category', $category->id)}}" class="shop-now">Show All <span>&#x27A4;</span></a>
                         </div>
                         <img src="{{asset($category->image)}}" alt="Game Joysticks">
                     </div>
@@ -121,7 +121,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="cart-btn">
-                                                        <a href="#" class="add-to-curt" title="Add to cart">Show</a>
+                                                        <a href="{{route('singlePage',$product->id)}}" class="add-to-curt" title="Add to cart">Show</a>
                                                     </div>
                                                 </div>
                                             </article>
