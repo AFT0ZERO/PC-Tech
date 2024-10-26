@@ -33,7 +33,6 @@
 
           <li class="menu-item">
             <a href="{{route('product.index')}}" class="menu-link">
-
               <i class='menu-icon tf-icons bx bx-basket'></i>
               <div class="text-truncate" data-i18n="Boxicons">Product</div>
             </a>
@@ -43,10 +42,10 @@
             <a href="{{route('store.index')}}" class="menu-link">
 
               <i class='menu-icon tf-icons bx bx-store-alt' ></i>
-              <div class="text-truncate" data-i18n="Boxicons">Shopes</div>
+
             </a>
           </li>
-
+            <div class="text-truncate" data-i18n="Boxicons">Shoppes</div>
           <li class="menu-item">
             <a href="{{route('user.index')}}" class="menu-link">
               <i class='menu-icon tf-icons bx bx-user' ></i>

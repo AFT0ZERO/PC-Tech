@@ -16,11 +16,17 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [UserSideController::class,'landing'])->name('landing');
+
 Route::get('/category/{id}', [UserSideController::class,'category'])->name('category');
 Route::get('/category', [UserSideController::class,'category'])->name('categoryNull');
+
 Route::get('/single-page/{id}', [UserSideController::class,'singlePage'])->name('singlePage');
 
+Route::get('/About', [UserSideController::class,'about'])->name('about');
 
+Route::get('/Contact Us', [UserSideController::class,'contact'])->name('contact');
+
+Route::get('/FAQs', [UserSideController::class,'faqs'])->name('faqs');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

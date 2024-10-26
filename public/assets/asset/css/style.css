@@ -3918,7 +3918,7 @@ offcanvas-menu > ul > li .menu-expand {
   border: 1px solid #e9e9e9;
   height: 49px;
   line-height: 45px;
-  padding: 20px 100px 20px 200px;
+  padding: 20px 100px 20px 10px;
   border-radius: 5px;
 }
 @media only screen and (max-width: 575px) {
@@ -3929,17 +3929,17 @@ offcanvas-menu > ul > li .menu-expand {
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .search-element input {
-    padding: 20px 100px 20px 180px;
+    padding: 20px 100px 20px 8px;
   }
 }
 @media only screen and (max-width: 479px) {
   .search-element input {
-    padding: 20px 45px 20px 130px;
+    padding: 20px 45px 20px 7px;
   }
 }
 @media only screen and (max-width: 360px) {
   .search-element input {
-    padding: 20px 45px 20px 124px;
+    padding: 20px 45px 20px 6px;
   }
 }
 .search-element button {

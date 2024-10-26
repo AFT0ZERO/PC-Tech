@@ -5,7 +5,7 @@
     <div class="slider-area">
         <div class="hero-slider-wrapper">
             <!-- Single Slider  -->
-            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/slider-image/test.jpg')}}">
+            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}">
                 <div class="container align-self-center">
                     <div class="slider-content-1 slider-animated-1 text-left pl-60px">
                         <h1 class="animated color-black">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- Single Slider  -->
-            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/slider-image/test.jpg')}}">
+            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}">
                 <div class="container align-self-center">
                     <div class="slider-content-1 slider-animated-2 text-left pl-60px">
                         <h1 class="animated color-black">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <!-- Single Slider  -->
-            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/slider-image/test.jpg')}}">
+            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}">
                 <div class="container align-self-center">
                     <div class="slider-content-1 slider-animated-3 text-left pl-60px">
                         <h1 class="animated color-black">
