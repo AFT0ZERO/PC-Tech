@@ -78,7 +78,13 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        //
+
+        $CategoryFromDB=Category::all();
+        $StoreFromDB = Store::with(['products' => function ($query) use ($product) {
+            $query->where('product_id', $product->id);
+        }])->get();
+        $description=json_decode($product->description, true);
+        return view('admin.product.edit' , ['categories'=>$CategoryFromDB , 'stores'=>$StoreFromDB , 'product'=>$product , 'descriptions'=>$description]);
     }
 
 
