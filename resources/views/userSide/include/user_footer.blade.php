@@ -6,9 +6,9 @@
                     <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px">
                         <div class="single-wedge">
                             <div class="footer-logo">
-                                <a href="index.html"><img class="img-responsive" src="assets/images/logo/logo.jpg" alt="logo.jpg" /></a>
+                                <a href="index.html"><img class="img-responsive w-50 " src="{{asset("assets/asset/images/main-image/logo.png")}}" alt="logo.jpg" /></a>
                             </div>
-                            <p class="text-infor">We are a team of designers and developers that create high quality HTML template</p>
+                            <p class="text-infor">We are a team of designers and developers that create Pc Tech</p>
                             <div class="need_help">
                                 <p class="add"><span class="address">Address:</span> 4710-4890 Jordan, Aqaba</p>
                                 <p class="mail"><span class="email">Email:</span> <a href="mailto:abdallahtamimi54@gmail.com">abdallahtamimi54@gmail.com</a></p>
@@ -18,30 +18,26 @@
                     </div>
                     <div class="col-md-6 col-lg-2 col-sm-6 mb-md-30px mb-lm-30px">
                         <div class="single-wedge">
-                            <h4 class="footer-herading">Information</h4>
+                            <h4 class="footer-herading">Pages</h4>
                             <div class="footer-links">
                                 <ul>
-                                    <li><a href="#">Delivery</a></li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="#">Secure Payment</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="#">Sitemap</a></li>
-                                    <li><a href="#">Stores</a></li>
+                                    <li><a href="{{route('landing')}}">Home</a></li>
+                                    <li><a href="{{route('categoryNull')}}">Components</a></li>
+                                    <li><a href="{{route('about')}}">About Us</a></li>
+                                    <li><a href="{{route('faqs')}}">FAQs</a></li>
+                                    <li><a href="{{route('contact')}}">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-2 col-sm-6 mb-sm-30px mb-lm-30px">
                         <div class="single-wedge">
-                            <h4 class="footer-herading">CUSTOM LINKS</h4>
+                            <h4 class="footer-herading">Components</h4>
                             <div class="footer-links">
                                 <ul>
-                                    <li><a href="#">Legal Notice</a></li>
-                                    <li><a href="#">Prices Drop</a></li>
-                                    <li><a href="#">New Products</a></li>
-                                    <li><a href="#">Best Sales</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
+                                    @foreach($categories as $category)
+                                    <li><a href="{{route('category',$category->id)}}">{{$category->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

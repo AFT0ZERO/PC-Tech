@@ -27,6 +27,7 @@ Route::get('/About', [UserSideController::class,'about'])->name('about');
 Route::get('/Contact Us', [UserSideController::class,'contact'])->name('contact');
 
 Route::get('/FAQs', [UserSideController::class,'faqs'])->name('faqs');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
