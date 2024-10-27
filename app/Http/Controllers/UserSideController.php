@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Faqs;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,8 +70,8 @@ class UserSideController extends Controller
     public function faqs()
     {
         $categories = Category::all();
-
-        return view('userSide.pages.faqs', ['categories' => $categories]);
+        $faqs = Faqs::all();
+        return view('userSide.pages.faqs', ['categories' => $categories , 'faqs' => $faqs]);
     }
 
 

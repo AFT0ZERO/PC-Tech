@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="{{asset('assets/asset/css/vendor/ionicons.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/asset/css/vendor/linearicon.css')}}">
 <link rel="stylesheet" href="{{asset('assets/asset/css/vendor/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/asset/css/faqStyle.css')}}">
 
 <!-- Plugins CSS (All Plugins Files) -->
 <link rel="stylesheet" href="{{asset('assets/asset/css/plugins/animate.css')}}">
