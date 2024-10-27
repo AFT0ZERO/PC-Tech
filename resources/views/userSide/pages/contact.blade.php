@@ -30,6 +30,7 @@
                 </div>
             </div>
             <div class="custom-row-2">
+
                 <div class="col-lg-4 col-md-5 mb-lm-30px">
                     <div class="contact-info-wrap">
                         <div class="single-contact-info">
@@ -84,29 +85,38 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-8 col-md-7">
                     <div class="contact-form">
                         <div class="contact-title mb-30">
                             <h2>Get In Touch</h2>
                         </div>
-                        <form class="contact-form-style" id="contact-form" action="assets/php/mail.php" method="post">
+                        <form class="contact-form-style" id="contact-form" action="{{ route('contact.store') }}" method="post">
+                            @csrf
                             <div class="row">
+                                <input type="hidden" name="user_id" value="{{ Auth::check() ? Auth::user()->id : '' }}">
+
                                 <div class="col-lg-6">
-                                    <input name="name" placeholder="Name*" type="text" />
+                                    <input name="name" placeholder="Name*" type="text" value="{{ Auth::check() ? Auth::user()->fname : '' }}" />
                                 </div>
+
                                 <div class="col-lg-6">
-                                    <input name="email" placeholder="Email*" type="email" />
+                                    <input name="email" placeholder="Email*" type="email" value="{{ Auth::check() ? Auth::user()->email : '' }}" />
                                 </div>
+
                                 <div class="col-lg-12">
-                                    <input name="subject" placeholder="Subject*" type="text" />
+                                    <input name="mobile" placeholder="Mobile*" type="text" value="{{ Auth::check() ? Auth::user()->mobile : '' }}" />
                                 </div>
+
                                 <div class="col-lg-12">
                                     <textarea name="message" placeholder="Your Message*"></textarea>
                                     <button class="submit" type="submit">SEND</button>
                                 </div>
                             </div>
                         </form>
-                        <p class="form-messege"></p>
+
+
+
                     </div>
                 </div>
             </div>

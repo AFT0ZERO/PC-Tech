@@ -20,10 +20,7 @@ class ContactController extends Controller
         return view('admin.contact.index' , ['contacts' => $ContactFromDB]);
     }
 
-    public function create()
-    {
-        return view('admin.contact.create');
-    }
+
 
     public function store(Request $request)
     {
@@ -32,19 +29,20 @@ class ContactController extends Controller
                 'name'=>['required','min:3'],
                 'email'=>['required','email'],
                 'mobile'=>['required','min:9','numeric'],
-                'message'=>['required','min:10','string,max:5000'],
+                'message'=>['required','min:10','max:5000'],
             ]
         );
 
         Contact::create([
+            'user_id'=>request('user_id'),
             'name'=>request('name'),
             'email'=>request('email'),
             'mobile'=>request('mobile'),
             'message'=>request('message'),
         ]);
-        @dd('fix the success message and to_route');
+
         session()->flash('success', 'User Created Successfully!');
-        return to_route('user.index');
+        return to_route('contact');
     }
 
     public function show(Contact $contact)
