@@ -41,23 +41,13 @@ class ContactController extends Controller
             'message'=>request('message'),
         ]);
 
-        session()->flash('success', 'User Created Successfully!');
+        session()->flash('success', 'Your message has been sent successfully!');
         return to_route('contact');
     }
 
     public function show(Contact $contact)
     {
         return view("admin.contact.show", ["contact" => $contact]);
-    }
-
-    public function edit(Contact $contact)
-    {
-
-    }
-
-    public function update(Request $request, Contact $contact)
-    {
-
     }
 
     public function destroy(Contact $contact)

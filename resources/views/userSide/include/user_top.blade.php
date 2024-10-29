@@ -24,3 +24,6 @@
 
 <!-- Main Style CSS -->
 <link rel="stylesheet" href="{{asset('assets/asset/css/style.css')}}" />
+
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

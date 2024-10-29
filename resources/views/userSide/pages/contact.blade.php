@@ -1,6 +1,17 @@
 @extends('userSide.layout.app')
 
 @section('content')
+    <!-- SweetAlert success message -->
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 
     <!-- Breadcrumb Area Start -->
     <div class="breadcrumb-area">
