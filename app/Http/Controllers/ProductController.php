@@ -90,8 +90,45 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        //
+        // Validate the incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|exists:categories,id',
+            'key.*' => 'required|string',
+            'value.*' => 'required|string',
+            'price.*.*' => 'required|numeric',
+            'url.*.*' => 'required|url',
+        ]);
+
+        // Update product details
+        $product->name = $request->name;
+        $product->category_id = $request->category;
+        $product->save();
+
+        // Update product specifications (assuming they are stored as JSON in the 'pro_description' field)
+        $descriptions = array_combine($request->input('key'), $request->input('value'));
+        $product->description = json_encode($descriptions);
+        $product->save();
+
+        // Update store-specific product details in the pivot table (store_product)
+        foreach ($request->input('store_id') as $index => $storeId) {
+            $productIds = $request->input("product_id.$storeId");
+            $prices = $request->input("price.$storeId");
+            $urls = $request->input("url.$storeId");
+
+            foreach ($productIds as $key => $productId) {
+                // Sync or update the pivot table with the store-specific details
+                $product->stores()->updateExistingPivot($storeId, [
+                    'product_price' => $prices[$key],
+                    'product_url' => $urls[$key],
+                ]);
+            }
+        }
+
+        // Redirect back with a success message
+        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
+
 
 
     public function destroy(Product $product)

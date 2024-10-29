@@ -29,15 +29,19 @@
                             <option value={{$category->id}} @if($category->id == $product->category->id) selected @endif>{{$category->name}}</option>
                         @endforeach
                     </select>
-                    <div id="key-value-fields" class="row">
-                        <div class="mb-3 col-6">
-                            <label for="key" class="form-label">Key</label>
-                            <input type="text" name="key[]" class="form-control" required>
-                        </div>
-                        <div class="mb-3 col-6">
-                            <label for="value" class="form-label">Value</label>
-                            <input type="text" name="value[]" class="form-control" required>
-                        </div>
+                    <div id="key-value-container">
+                        @foreach($descriptions as $key => $value)
+                            <div class="row key-value-fields">
+                                <div class="mb-3 col-6">
+                                    <label for="key" class="form-label">Specification</label>
+                                    <input type="text" name="key[]" value="{{$key}}" class="form-control" required>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <label for="value" class="form-label">Value</label>
+                                    <input type="text" name="value[]" value="{{$value}}" class="form-control" required>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                     <button type="button" id="add-key-value" class="btn btn-secondary">Add More</button>
                     <br><br>
@@ -68,7 +72,7 @@
 
                         </div>
                     @endforeach
-                    <button class="btn btn-success">ADD +</button>
+                    <button class="btn btn-success">Update</button>
                 </div>
             </form>
         </div>
@@ -78,18 +82,18 @@
         // JavaScript to dynamically add more key-value fields
         document.getElementById('add-key-value').addEventListener('click', function() {
             const newField = document.createElement('div');
-            newField.classList.add('row');
+            newField.classList.add('row', 'key-value-fields');
             newField.innerHTML = `
-                <div class="mb-3 col-6">
-                    <label for="key" class="form-label">Key</label>
-                    <input type="text" name="key[]" class="form-control" required>
-                </div>
-                <div class="mb-3 col-6">
-                    <label for="value" class="form-label">Value</label>
-                    <input type="text" name="value[]" class="form-control" required>
-                </div>
-            `;
-            document.getElementById('key-value-fields').appendChild(newField);
+            <div class="mb-3 col-6">
+                <label for="key" class="form-label">Key</label>
+                <input type="text" name="key[]" class="form-control" required>
+            </div>
+            <div class="mb-3 col-6">
+                <label for="value" class="form-label">Value</label>
+                <input type="text" name="value[]" class="form-control" required>
+            </div>
+        `;
+            document.getElementById('key-value-container').appendChild(newField);
         });
     </script>
 @endsection
