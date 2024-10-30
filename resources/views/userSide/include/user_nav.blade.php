@@ -2,56 +2,7 @@
 <header class="header-wrapper">
 
     <!-- Header Top  Nav Start -->
-    <div class="header-nav">
-        <div class="container">
-            <div class="header-nav-wrapper d-md-flex d-sm-flex d-xl-flex d-lg-flex justify-content-between">
-                <div class="header-static-nav">
-                    <a href="mailto:yourname@email.com">yourname@email.com</a>
-                </div>
-                <div class="header-menu-nav">
-                    <ul class="menu-nav">
-                        <li>
-                            <div class="dropdown">
-                                <button type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account <i class="ion-ios-arrow-down"></i></button>
 
-                                <ul class="dropdown-menu animation slideDownIn" aria-labelledby="dropdownMenuButton">
-                                    <li><a href="my-account.html">My account</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="login.html">Sign in</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown">
-                                <button type="button" id="dropdownMenuButton-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">USD $ <i class="ion-ios-arrow-down"></i></button>
-
-                                <ul class="dropdown-menu animation slideDownIn" aria-labelledby="dropdownMenuButton-2">
-                                    <li><a href="#">EUR €</a></li>
-                                    <li><a href="#">USD $</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="pr-0">
-                            <div class="dropdown">
-                                <button type="button" id="dropdownMenuButton-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/flag/1.jpg" alt="" /> English <i class="ion-ios-arrow-down"></i>
-                                </button>
-
-                                <ul class="dropdown-menu animation slideDownIn" aria-labelledby="dropdownMenuButton-3">
-                                    <li>
-                                        <a href="#"><img src="assets/images/flag/1.jpg" alt="" /> English</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="assets/images/flag/2.jpg" alt="" /> Français</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Header Top Nav End -->
 
     <!-- Header middle Nav Start -->
@@ -105,15 +56,45 @@
                     <div class="header-horizontal-menu">
                         <ul class="menu-content">
 
-                            <li class="active "><a href="{{route('landing')}}"> Home </a></li>
+                            <li class="active"><a href="{{ route('landing') }}"> Home </a></li>
 
-                            <li class="active "><a href="{{route('categoryNull')}}"> Components </a></li>
+                            <li class="active"><a href="{{ route('categoryNull') }}"> Components </a></li>
 
-                            <li class="active "><a href="{{route('about')}}"> About </a></li>
+                            <li class="active"><a href="{{ route('about') }}"> About </a></li>
 
-                            <li class="active "><a href="{{route('faqs')}}"> FAQs </a></li>
+                            <li class="active"><a href="{{ route('faqs') }}"> FAQs </a></li>
 
-                            <li><a href="{{route('contact')}}">contact Us</a></li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+
+
+                            <li><a href="#" > My Account</a></li>
+
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+
+                                        <a  href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
                         </ul>
                     </div>
                 </div>
@@ -279,6 +260,35 @@
                 <li><a href="{{route('faqs')}}"><span class="menu-text">FAQs</span></a></li>
 
                 <li><a href="{{route('contact')}}">Contact Us</a></li>
+
+                <li><a href="#" > My Account</a></li>
+
+
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                    @endif
+
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item ">
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>

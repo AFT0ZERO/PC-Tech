@@ -13,7 +13,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
 
-    protected $redirectTo = '/home';
+//    protected $redirectTo = '/';
 
 
     public function __construct()
@@ -29,6 +29,6 @@ class LoginController extends Controller
         }
 
         // Redirect regular users to the home page
-        return redirect('/home');
+        return to_route('landing');
     }
 }

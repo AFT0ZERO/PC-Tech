@@ -1,21 +1,35 @@
-@extends('layouts.app')
+@extends('userSide.layout.app')
 
+@section('extraHeader')
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{asset('../assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{asset('../assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{asset('../assets/css/demo.css')}}" />
+
+    <!-- Helpers -->
+    <script src="{{asset('../assets/vendor/js/helpers.js')}}"></script>
+    <script src="{{asset('../assets/js/config.js')}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@endsection
 @section('content')
     <div class="container-xxl">
-        <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner">
+        <div class="  container-p-y ">
+            <div class=" d-flex justify-content-center">
                 <!-- Register -->
-                <div class="card px-sm-6 px-0">
-                    <div class="card-body">
+                <div class="card px-sm-6 px-0 w-px-400 ">
+                    <div class="card-body d-flex flex-column ">
                         <!-- Logo -->
-                        <div class="app-brand justify-content-center">
-                            <a href="fixthis" class="app-brand-link gap-2">
+                        <div class="app-brand  mb-3 ">
+                            <a href="{{route('landing')}}" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo"></span>
                                 <span class="app-brand-text demo text-heading fw-bold">Pc Tech</span>
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1">Welcome to Pc Tech! 👋</h4>
+                        <h4 class="mb-1">Welcome to Pc Tech! </h4>
                         <p class="mb-6">Please sign-in to your account and start the adventure</p>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf

@@ -2,6 +2,7 @@
 <html class="no-js" lang="en">
 <head>
     @include('userSide.include.user_top')
+    @yield('extraHeader')
 </head>
 <body>
 
