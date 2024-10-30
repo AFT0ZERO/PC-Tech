@@ -5,14 +5,14 @@
 @section('content')
     <div class="text-left">
         <button class="btn ">
-            <a href="{{ route('user.index') }}" class="btn btn-primary p-2 float-start">Back</a>
+            <a href="{{ route('users.index') }}" class="btn btn-primary p-2 float-start">Back</a>
         </button>
     </div>
     <div class="col-md-12">
         <div class="card">
             <h5 class="card-header"><strong>Edit User</strong></h5>
 
-            <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="card-body demo-vertical-spacing demo-only-element">

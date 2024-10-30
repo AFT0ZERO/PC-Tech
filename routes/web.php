@@ -28,6 +28,8 @@ Route::get('/Contact Us', [UserSideController::class,'contact'])->name('contact'
 
 Route::get('/FAQs', [UserSideController::class,'faqs'])->name('faqs');
 
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -38,6 +40,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/User-Account', [UserSideController::class,'account'])->name('account');
+    Route::PUT('/User-Account/{user}', [UserSideController::class,'updateAccount'])->name('updateAccount');
+
     Route::get('/dashboard', function () {
         return view('admin.dashboard.home');
     })->name('dashboard');
@@ -46,19 +51,20 @@ Route::middleware(['auth'])->group(function () {
     Route::PUT('dashboard/admin/{admin}/edit', [UserController::class , "UpdateAdminProfile"])->name("admin.UpdateEditProfile");
     Route::get('dashboard/admin/edit', [UserController::class , "EditAdminProfile"])->name("admin.editProfile");
 //^ ----------------------------------user route start-----------------------------------------
-    Route::get('dashboard/users', [UserController::class , "index"])->name("user.index");
+    Route::resource('dashboard/users', UserController::class);
+//    Route::get('dashboard/users', [UserController::class , "index"])->name("user.index");
+//
+//    Route::get('dashboard/users/create', [UserController::class , "create"])->name("user.create");
+//    Route::post('dashboard/users', [UserController::class , "store"])->name("user.store");
+//
+//    Route::PUT('dashboard/users/{user}', [UserController::class , "update"])->name("user.update");
+//    Route::get('dashboard/users/{user}/edit' ,[UserController::class , 'edit'])->name('user.edit');
+//
+//    Route::get('dashboard/users/{user}', [UserController::class , "show"])->name("user.show");
 
-    Route::get('dashboard/users/create', [UserController::class , "create"])->name("user.create");
-    Route::post('dashboard/users', [UserController::class , "store"])->name("user.store");
-
-    Route::PUT('dashboard/users/{user}', [UserController::class , "update"])->name("user.update");
-    Route::get('dashboard/users/{user}/edit' ,[UserController::class , 'edit'])->name('user.edit');
-
-    Route::get('dashboard/users/{user}', [UserController::class , "show"])->name("user.show");
-
-    Route::delete('dashboard/users/{user}', [UserController::class , "destroy"])->name("user.destroy");
-    Route::get('dashboard/restore-u', [UserController::class , "showRestore"])->name("user.showRestore")->middleware('super-admin');
-    Route::get('dashboard/restore-u/{id}', [UserController::class , "restore"])->name("user.restore")->middleware('super-admin');
+    Route::delete('dashboard/users/{user}', [UserController::class , "destroy"])->name("users.destroy");
+    Route::get('dashboard/restore-u', [UserController::class , "showRestore"])->name("users.showRestore")->middleware('super-admin');
+    Route::get('dashboard/restore-u/{id}', [UserController::class , "restore"])->name("users.restore")->middleware('super-admin');
 //^ ----------------------------------user route end -----------------------------------------
 
 

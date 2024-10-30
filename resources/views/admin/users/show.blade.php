@@ -5,7 +5,7 @@
 @section('content')
     <div class="text-left">
         <button class="btn ">
-            <a href="{{ route('user.index') }}" class="btn btn-primary p-2 float-start">Back to List</a>
+            <a href="{{ route('users.index') }}" class="btn btn-primary p-2 float-start">Back to List</a>
         </button>
     </div>
     <div class="card mt-4">

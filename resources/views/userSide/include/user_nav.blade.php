@@ -67,7 +67,7 @@
                             <li><a href="{{ route('contact') }}">Contact Us</a></li>
 
 
-                            <li><a href="#" > My Account</a></li>
+                            <li><a href="{{route('account')}}" > My Account</a></li>
 
                             @guest
                                 @if (Route::has('login'))
@@ -261,7 +261,7 @@
 
                 <li><a href="{{route('contact')}}">Contact Us</a></li>
 
-                <li><a href="#" > My Account</a></li>
+                <li><a href="{{route('account')}}" > My Account</a></li>
 
 
                 @guest

@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="demo-inline-spacing mt-5">
-        <a href="{{route('user.index')}}">
+        <a href="{{route('users.index')}}">
             <button type="button" class="btn  btn-danger ">Back </button>
         </a>
     </div>
@@ -53,7 +53,7 @@
                         <td>{{$user->created_at->format('y-m-d')}}</td>
                         <td><span class="badge bg-label-danger me-1">{{$user->deleted_at->format('y-m-d')}}</span></td>
                         <td >
-                            <a class="btn btn-danger p-2 btn-sm" href="{{route('user.restore',$user->id)}}">Restore </a>
+                            <a class="btn btn-danger p-2 btn-sm" href="{{route('users.restore',$user->id)}}">Restore </a>
                         </td>
                     </tr>
                 @endforeach

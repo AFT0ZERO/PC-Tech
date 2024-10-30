@@ -68,7 +68,7 @@ class UserController extends Controller
             'image'=>'uploads/user/'.$fileName
         ]);
         session()->flash('success', 'User Created Successfully!');
-        return to_route('user.index');
+        return to_route('users.index');
     }
 
 
@@ -121,7 +121,7 @@ class UserController extends Controller
 
         session()->flash('success', 'User updated successfully!');
         // Redirect to the user show route
-        return to_route('user.show', $user->id);
+        return to_route('users.show', $user->id);
     }
 
 
@@ -129,14 +129,14 @@ class UserController extends Controller
     {
         $user->delete();
         session()->flash('success', 'User Deleted Successfully!');
-        return to_route('user.index');
+        return to_route('users.index');
     }
     public function restore( $id)
     {
         $user = User::withTrashed()->find($id);
         $user->restore();
         session()->flash('success', 'User Restore Successfully!');
-        return to_route('user.showRestore');
+        return to_route('users.showRestore');
     }
 
     public function showRestore( )
