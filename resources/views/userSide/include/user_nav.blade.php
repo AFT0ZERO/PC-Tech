@@ -22,10 +22,10 @@
                                 <button>Search</button>
                             </form>
                         </div>
-                        <!--Cart info Start -->
+                        <!--favorite info Start -->
                         <div class="header-tools d-flex">
                             <div class="cart-info d-flex align-self-center">
-                                <a href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Wishlist</span></a>
+                                <a href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Favorites</span></a>
                             </div>
                         </div>
                     </div>
@@ -200,36 +200,13 @@
             <button class="offcanvas-close">×</button>
         </div>
         <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.html" class="image"><img src="assets/images/product-image/1.jpg" alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Walnut Cutting Board</a>
-                        <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="assets/images/product-image/2.jpg" alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Lucky Wooden Elephant</a>
-                        <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="assets/images/product-image/3.jpg" alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Fish Cut Out Set</a>
-                        <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
+            <ul class="minicart-product-list" id="offcanvas-favorites-content">
+                <!-- Favorite products will be loaded here via AJAX -->
             </ul>
         </div>
         <div class="foot">
             <div class="buttons">
-                <a href="wishlist.html" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
+                <a href="wishlist.html" class="btn btn-dark btn-hover-primary mt-30px">View Wishlist</a>
             </div>
         </div>
     </div>

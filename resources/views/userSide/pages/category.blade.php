@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="breadcrumb-content">
                         <ul class="nav">
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="{{route('landing')}}">Home</a></li>
                             <li>Shop</li>
                         </ul>
                     </div>
@@ -54,7 +54,7 @@
                             <a class="active" href="#shop-2" data-bs-toggle="tab">
                                 <i class="fa fa-list"></i>
                             </a>
-                            <p>There Are 13 Products.</p>
+                            <p>There is {{$products->count()}} Components</p>
                         </div>
                         <!-- Left Side End -->
 
@@ -85,6 +85,9 @@
                                 <div class="row m-0">
 
                                     @foreach($products as $product)
+                                        @php
+                                            $isFavorited = auth()->user()->favorites->contains($product->id);
+                                        @endphp
 
                                     <div class="mb-30px col-md-4 col-sm-6  p-1">
                                         <div class="slider-single-item">
@@ -92,28 +95,24 @@
                                             <article class="list-product p-0 text-center">
                                                 <div class="product-inner">
                                                     <div class="img-block">
-                                                        <a href="single-product.html" class="thumbnail">
+                                                        <a href="{{route('singlePage',$product->id)}}" class="thumbnail">
                                                             <img class="first-img" src="{{asset($product->images[0]->image)}}" alt="{{$product->name}}" />
                                                             <img class="second-img" src="{{asset($product->images[0]->image)}}" alt="{{$product->name}}" />
                                                         </a>
                                                         <div class="add-to-link">
                                                             <ul>
                                                                 <li>
-                                                                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                                        <i class="lnr lnr-magnifier"></i>
+                                                                    <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $product->id }}" title="Add to Favorite">
+                                                                        <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
                                                                     </a>
                                                                 </li>
-                                                                <li>
-                                                                    <a href="wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                                </li>
-
                                                             </ul>
                                                         </div>
                                                     </div>
 
                                                     <div class="product-decs">
                                                         <a class="inner-link" href="shop-4-column.html"><span>{{$product->category->name}}</span></a>
-                                                        <h2><a href="single-product.html" class="product-link">{{$product->name}}</a></h2>
+                                                        <h2><a href="{{route('singlePage',$product->id)}}" class="product-link">{{$product->name}}</a></h2>
                                                         <div class="pricing-meta">
                                                             <ul>
                                                                 <li class="current-price">{{$product->cheapest_price}}</li>
@@ -331,5 +330,8 @@
     </div>
     </div>
     <!-- Shop Category Area End -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 @endsection

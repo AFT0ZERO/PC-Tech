@@ -18,6 +18,11 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class);
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Product::class, 'favorite');
+    }
+
     public function toSearchableArray()
     {
         return [

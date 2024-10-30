@@ -10,6 +10,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\UserSideController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -39,6 +40,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::post('/favorite/{productId}', [FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
+    Route::delete('/favorites/remove/{product}', [FavoriteController::class, 'removeFavorite'])->name('favorite.remove');
+    Route::get('/favorites/list', [FavoriteController::class, 'listFavorites'])->name('favorite.list');
+
+
+
 
     Route::get('/User-Account', [UserSideController::class,'account'])->name('account');
     Route::PUT('/User-Account/{user}', [UserSideController::class,'updateAccount'])->name('updateAccount');

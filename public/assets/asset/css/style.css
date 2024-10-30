@@ -83,6 +83,11 @@
     width: 120px;
     height: 67px;
 }
+.favorite-added {
+    color: red;
+}
+
+
 
 body {
   font-family: "Muli", sans-serif;
