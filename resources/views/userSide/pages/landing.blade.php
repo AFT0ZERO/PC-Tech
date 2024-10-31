@@ -121,25 +121,31 @@
                     <!-- Arrivel slider start -->
                     <div class="arrival-slider-wrapper slider-nav-style-1">
 
+
                         @foreach($lastProducts as $lastProduct)
                             @php
+                            if (Auth::check())
+                                {
                                 $isFavorited = auth()->user()->favorites->contains($lastProduct->id);
+                                }
                             @endphp
                             <div class="slider-single-item">
                                 <!-- Single Item -->
                                 <article class="list-product text-center">
                                     <div class="product-inner">
                                         <div class="img-block">
-                                            <a href="single-product.html" class="thumbnail">
+                                            <a href="{{route('singlePage',$lastProduct->id)}}" class="thumbnail">
                                                 <img class="first-img" src="{{asset($lastProduct->images[0]->image)}}" alt="fix" />
                                             </a>
                                             {{-- model start--}}
                                             <div class="add-to-link">
                                                 <ul>
                                                     <li>
+                                                            @if(Auth::check())
                                                         <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $lastProduct->id }}" title="Add to Favorite">
                                                             <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
                                                         </a>
+                                                            @endif
                                                     </li>
                                                 </ul>
                                             </div>
@@ -147,17 +153,16 @@
 
                                         </div>
                                         <div class="product-decs">
-                                            <a class="inner-link" href="shop-4-column.html"><span>{{$lastProduct->category->name}}</span></a>
-                                            <h2><a href="single-product.html" class="product-link">{{$lastProduct->name}}</a></h2>
+                                            <a class="inner-link" href="{{route('category', $lastProduct->category->id)}}"><span>{{$lastProduct->category->name}}</span></a>
+                                            <h2><a href="{{route('singlePage',$lastProduct->id)}}" class="product-link">{{$lastProduct->name}}</a></h2>
                                             <div class="pricing-meta">
-{{--                                                <ul>--}}
-{{--                                                    <li class="old-price">$23.90</li>--}}
-{{--                                                    <li class="current-price">$21.51</li>--}}
-{{--                                                </ul>--}}
+                                                <ul>
+                                                    <li class="current-price">{{$lastProduct->cheapest_price}}</li>
+                                                </ul>
                                             </div>
                                         </div>
                                         <div class="cart-btn">
-                                            <a href="#" class="add-to-curt" title="Add to cart">View</a>
+                                            <a href="{{route('singlePage',$lastProduct->id)}}" class="add-to-curt" title="Add to cart">View</a>
                                         </div>
                                     </div>
                                 </article>
@@ -193,23 +198,28 @@
                     <div class="arrival-slider-wrapper slider-nav-style-1">
                         @foreach($CategoryProducts as $CategoryProduct)
                             @php
-                                $isFavorited = auth()->user()->favorites->contains($CategoryProduct->id);
+                                if (Auth::check())
+                               {
+                               $isFavorited = auth()->user()->favorites->contains($lastProduct->id);
+                               }
                             @endphp
                             <div class="slider-single-item">
                                 <!-- Single Item -->
                                 <article class="list-product text-center">
                                     <div class="product-inner">
                                         <div class="img-block">
-                                            <a href="single-product.html" class="thumbnail">
+                                            <a href="{{route('singlePage',$CategoryProduct->id)}}" class="thumbnail">
                                                 <img class="first-img" src="{{asset($CategoryProduct->images[0]->image)}}" alt="fix" />
                                             </a>
                                             {{-- model start--}}
                                             <div class="add-to-link">
                                                 <ul>
                                                     <li>
+                                                        @if(Auth::check())
                                                         <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $CategoryProduct->id }}" title="Add to Favorite">
                                                             <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
                                                         </a>
+                                                        @endif
                                                     </li>
                                                 </ul>
                                             </div>
@@ -217,11 +227,16 @@
 
                                         </div>
                                         <div class="product-decs">
-                                            <a class="inner-link" href="shop-4-column.html"><span>{{$CategoryProduct->category->name}}</span></a>
-                                            <h2><a href="single-product.html" class="product-link">{{$CategoryProduct->name}}</a></h2>
+                                            <a class="inner-link" href="{{route('category', $CategoryProduct->category->id)}}"><span>{{$CategoryProduct->category->name}}</span></a>
+                                            <h2><a href="{{route('singlePage',$CategoryProduct->id)}}" class="product-link">{{$CategoryProduct->name}}</a></h2>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="current-price">{{$CategoryProduct->cheapest_price}}</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div class="cart-btn">
-                                            <a href="#" class="add-to-curt" title="Add to cart">View</a>
+                                            <a href="{{route('singlePage',$CategoryProduct->id)}}" class="add-to-curt" title="Add to cart">View</a>
                                         </div>
                                     </div>
                                 </article>

@@ -15,8 +15,9 @@ class UserSideController extends Controller
     public function landing()
     {
         $categories = Category::all();
-      $lastProduct = Product::orderBy('created_at', 'asc')->paginate(7);
-      $CategoryProduct = Product::where('category_id', 1)->paginate(7);
+      $lastProduct = Product::with('stores')->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
+            ->orderBy('created_at', 'asc')->paginate(7);
+      $CategoryProduct = Product::with('stores')->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))->where('category_id', 1)->paginate(7);
       return view('userSide.pages.landing' , ['lastProducts' => $lastProduct, 'CategoryProducts' => $CategoryProduct, 'categories' => $categories]);
     }
 

@@ -9,7 +9,7 @@ class FavoriteController extends Controller
     public function toggleFavorite(Request $request, $productId)
     {
         $user = auth()->user();
-// Check if the product is already in favorites
+            // Check if the product is already in favorites
         if ($user->favorites()->where('product_id', $productId)->exists()) {
             // If it exists, remove it from favorites
             $user->favorites()->detach($productId);

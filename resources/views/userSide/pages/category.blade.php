@@ -86,7 +86,10 @@
 
                                     @foreach($products as $product)
                                         @php
+                                        if (Auth::check())
+                                        {
                                             $isFavorited = auth()->user()->favorites->contains($product->id);
+                                        }
                                         @endphp
 
                                     <div class="mb-30px col-md-4 col-sm-6  p-1">
@@ -102,9 +105,11 @@
                                                         <div class="add-to-link">
                                                             <ul>
                                                                 <li>
+                                                                    @if (Auth::check())
                                                                     <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $product->id }}" title="Add to Favorite">
                                                                         <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
                                                                     </a>
+                                                                    @endif
                                                                 </li>
                                                             </ul>
                                                         </div>
