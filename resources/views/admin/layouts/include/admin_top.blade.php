@@ -6,8 +6,8 @@
   <title>Dashboard</title>
   <meta name="description" content="" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{{asset('../assets/asset/img/favicon/favicon.ico')}}" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/asset/images/main-image/favicon.png')}}" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
