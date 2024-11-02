@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\UserSideController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -165,5 +166,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/restore-f', [FaqsController::class , "showRestore"])->name("faq.showRestore")->middleware('super-admin');
     Route::get('dashboard/restore-f/{id}', [FaqsController::class , "restore"])->name("faq.restore")->middleware('super-admin');
 //^ ----------------------------------FAQS route end -----------------------------------------
+
+//^ ----------------------------------Feedback route start -----------------------------------------
+    Route::resource('feedback', FeedbackController::class);
+//^ ----------------------------------Feedback route end -----------------------------------------
 
 });

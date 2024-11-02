@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Faqs;
+use App\Models\Feedback;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,40 +47,45 @@ class UserSideController extends Controller
 
         return view('userSide.pages.category', ['categories' => $category , 'products' => $products]);
     }
+
     public function singlePage($id)
     {
         $categories = Category::all();
-
         $product = Product::find($id);
+        $feedbacks = Feedback::where('product_id', $product->id)->get();
         $description=json_decode($product->description, true);
-        $CategoryProduct = Product::where('category_id', 1)->paginate(7);
+        $CategoryProduct = Product::where('category_id', 1)->with('stores') // Fetch the stores
+    ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
+        ->paginate(15);
 
-        return view('userSide.pages.singleProduct', ['product' => $product, 'description' => $description ,'CategoryProducts' => $CategoryProduct ,'categories' => $categories]);
+        return view('userSide.pages.singleProduct', ['product' => $product, 'description' => $description ,'CategoryProducts' => $CategoryProduct ,'categories' => $categories , 'feedbacks' => $feedbacks]);
     }
+
 
     public function about()
     {
         $categories = Category::all();
-
         return view('userSide.pages.about', ['categories' => $categories]);
     }
     public function contact()
     {
         $categories = Category::all();
-
         return view('userSide.pages.contact', ['categories' => $categories]);
     }
+
     public function faqs()
     {
         $categories = Category::all();
         $faqs = Faqs::all();
         return view('userSide.pages.faqs', ['categories' => $categories , 'faqs' => $faqs]);
     }
+
  public function account()
     {
         $categories = Category::all();
         return view('userSide.pages.userAccount', ['categories' => $categories]);
     }
+
 
     public function updateAccount(Request $request, User $user)
     {

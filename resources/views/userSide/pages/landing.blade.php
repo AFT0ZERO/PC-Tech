@@ -162,7 +162,7 @@
                                             </div>
                                         </div>
                                         <div class="cart-btn">
-                                            <a href="{{route('singlePage',$lastProduct->id)}}" class="add-to-curt" title="Add to cart">View</a>
+                                            <a href="{{route('singlePage',$lastProduct->id)}}" class="add-to-curt" title="Add to cart">Show</a>
                                         </div>
                                     </div>
                                 </article>

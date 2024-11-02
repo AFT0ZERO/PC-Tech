@@ -87,7 +87,12 @@
     color: red;
 }
 
-
+.rating-product  {
+    color: #FFD700; /* Gold color for selected stars */
+}
+.rating-product i {
+    color: gray; /* Default color for unselected stars */
+}
 
 body {
   font-family: "Muli", sans-serif;

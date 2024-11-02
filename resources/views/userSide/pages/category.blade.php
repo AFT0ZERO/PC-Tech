@@ -116,7 +116,7 @@
                                                     </div>
 
                                                     <div class="product-decs">
-                                                        <a class="inner-link" href="shop-4-column.html"><span>{{$product->category->name}}</span></a>
+                                                        <a class="inner-link" href="{{route('category', $product->category->id)}}"><span>{{$product->category->name}}</span></a>
                                                         <h2><a href="{{route('singlePage',$product->id)}}" class="product-link">{{$product->name}}</a></h2>
                                                         <div class="pricing-meta">
                                                             <ul>
