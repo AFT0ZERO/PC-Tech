@@ -43,7 +43,7 @@
                         icon: 'success',
                         title: 'Added to Favorites',
                         text: 'The product has been added to your favorites!',
-                        timer: 1500,
+                        timer: 1000,
                         showConfirmButton: false
                     });
                 } else if (response.status === 'removed') {
@@ -52,7 +52,7 @@
                         icon: 'success',
                         title: 'Removed from Favorites',
                         text: 'The product has been removed from your favorites!',
-                        timer: 1500,
+                        timer: 1000,
                         showConfirmButton: false
                     });
                 }
@@ -81,7 +81,7 @@
                         title: 'Removed',
                         text: response.message,
                         icon: 'success',
-                        timer: 1500,
+                        timer: 1000,
                         showConfirmButton: false
                     });
                 }

@@ -36,4 +36,9 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorite');
     }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }

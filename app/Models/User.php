@@ -23,6 +23,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'favorite');
     }
 
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+
     public function toSearchableArray()
     {
         return [
@@ -47,4 +52,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

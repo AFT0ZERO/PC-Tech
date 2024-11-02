@@ -17,7 +17,6 @@ class UserController extends Controller
           $users_query = User::search($search_param);
       }
         $UsersFromDB = $users_query->paginate(15);
-
        return view('admin.users.index' , ['users' => $UsersFromDB]);
     }
 
