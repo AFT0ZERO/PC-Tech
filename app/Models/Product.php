@@ -14,7 +14,8 @@ class Product extends Model
     public function toSearchableArray()
     {
         return [
-            'name'=>$this->name
+            'name'=>$this->name,
+            'brand'=>$this->brand
         ];
     }
 
@@ -29,7 +30,7 @@ class Product extends Model
     public function stores()
     {
         return $this->belongsToMany(Store::class, 'store_product', 'product_id', 'store_id')
-            ->withPivot('product_price', 'product_url');
+            ->withPivot('product_price', 'product_url','product_status');
     }
 
     public function favoredBy()

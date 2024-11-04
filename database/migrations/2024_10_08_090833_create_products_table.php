@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Category::class)->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->json('description')->nullable();
+            $table->string('smallDescription');
+            $table->string('brand');
             $table->softDeletes();
             $table->timestamps();
         });

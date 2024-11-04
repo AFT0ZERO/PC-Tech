@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Product::class)->constrained()->cascadeOnDelete();
             $table->decimal('product_price', 8, 2);
             $table->string('product_url');
+            $table->string('product_status')->default('in stock');
             $table->timestamps();
         });
     }

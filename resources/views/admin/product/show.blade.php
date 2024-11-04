@@ -20,10 +20,19 @@
            <b>Product Info</b>
         </h2>
         <div class="card-body">
-            <h5 class="card-title"><b>Name : </b>  {{$product->name}}</h5>
+            <h5 class="card-title mb-3"><b>Name : </b>  {{$product->name}}</h5>
             @foreach($product->stores as $store)
-            <h5 class="card-title"><b> {{$store->name}} Price : </b>  {{$store->pivot->product_price}}</h5>
+
+            <h5 class="card-title mb-3"><b> {{$store->name}} Price : </b>  {{$store->pivot->product_price}}
+                @if($store->pivot->product_status =='in stock')
+                    <span class="badge bg-label-success me-1">In-Stock</span>
+                @else
+                    <span class="badge bg-label-danger me-1">Out Of-Stock</span>
+                @endif
+            </h5>
             @endforeach
+            <h5 class="card-title mb-3"><b>Brand : </b>  {{$product->brand}}</h5>
+            <h5 class="card-title mb-3"><b>Description : </b>  {{$product->smallDescription}}</h5>
             @if($descriptions != null)
             @foreach($descriptions as $key => $value)
                 <p class="card-text"><b>{{$key}} : </b> {{$value}}</p>

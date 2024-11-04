@@ -18,9 +18,5 @@ class DatabaseSeeder extends Seeder
          \App\Models\Store::factory(3)->create();
          \App\Models\Product::factory(3)->create();
 
-         Category::create([
-             'name' => 'Memory',
-             'image'=>'uploads/category/1728563500.png'
-         ]);
     }
 }

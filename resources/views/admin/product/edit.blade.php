@@ -24,6 +24,21 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="form-floating-outline">
+                        <label for="exampleFormControlTextarea1">Description</label>
+                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" placeholder="Description">{{$product->smallDescription }}</textarea>
+                        @error('description')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class=" form-floating-outline ">
+                        <label for="exampleFormControlInput3">Brand</label>
+                        <input type="text" name="brand" value="{{ $product->brand }}" class="form-control @error('brand') is-invalid @enderror" id="exampleFormControlInput3" placeholder="Asus">
+                        @error('brand')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <select name="category" class="form-select" aria-label="Default select example" id="exampleFormControlSelect1">
                         @foreach ($categories as $category )
                             <option value={{$category->id}} @if($category->id == $product->category->id) selected @endif>{{$category->name}}</option>
@@ -61,10 +76,16 @@
                                             <label for="price-{{$store->id}}-{{$index}}" class="form-label">Price</label>
                                             <input type="text" name="price[{{$store->id}}][]" value="{{$product->pivot->product_price}}" class="form-control" id="price-{{$store->id}}-{{$index}}" required>
                                         </div>
-
                                         <div class="mb-3 col-4">
                                             <label for="url-{{$store->id}}-{{$index}}" class="form-label">URL</label>
                                             <input type="url" name="url[{{$store->id}}][]" value="{{$product->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-{{$index}}" required>
+                                        </div>
+                                        <div class="mb-3 col-4">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select name="status[{{$store->id}}][]" class="form-select" >
+                                                <option value="in stock" @if($product->pivot->product_status == 'in stock') selected @endif>In Stock</option>
+                                                <option value="out of stock" @if($product->pivot->product_status == 'out of stock') selected @endif>Out of Stock</option>
+                                            </select>
                                         </div>
                                     </div>
                                 @endforeach

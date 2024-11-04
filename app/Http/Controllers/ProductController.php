@@ -35,6 +35,8 @@ class ProductController extends Controller
         // Validate input
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required',
+            'brand'=>'required',
             'category' => 'required|exists:categories,id',
             'key' => 'required|array',
             'value' => 'required|array',
@@ -47,23 +49,25 @@ class ProductController extends Controller
         // Step 1: Create the Product
         $product = Product::create([
             'name' => $request->name,
+            'smallDescription' => $request->description,
+            'brand' => $request->brand,
             'category_id' => $request->category,
             'description' => json_encode(array_combine($request->key, $request->value)) // Combine key-value pairs into JSON
         ]);
 
         // Step 2: Attach stores with prices and URLs
-        $stores = $request->store_id; // Assuming you pass store IDs from the form (for each store)
+        $stores = $request->store_id;
         $prices = $request->price;
         $urls = $request->url;
+        $status = $request->status;
 
         foreach ($stores as $index => $storeId) {
             $product->stores()->attach($storeId, [
                 'product_price' => $prices[$index],
                 'product_url' => $urls[$index],
+                'product_status' => $status[$index]
             ]);
         }
-
-
 
         return redirect()->back()->with('success', 'Data stored successfully!');
     }
@@ -72,7 +76,6 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $description=json_decode($product->description, true);
-
         return view("admin.product.show", ["product" => $product ,'descriptions'=>$description]);
     }
 
@@ -93,6 +96,8 @@ class ProductController extends Controller
         // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required',
+            'brand'=>'required',
             'category' => 'required|exists:categories,id',
             'key.*' => 'required|string',
             'value.*' => 'required|string',
@@ -102,6 +107,8 @@ class ProductController extends Controller
 
         // Update product details
         $product->name = $request->name;
+        $product->brand = $request->brand;
+        $product->smallDescription = $request->description;
         $product->category_id = $request->category;
         $product->save();
 
@@ -115,12 +122,14 @@ class ProductController extends Controller
             $productIds = $request->input("product_id.$storeId");
             $prices = $request->input("price.$storeId");
             $urls = $request->input("url.$storeId");
+            $status = $request->input("status.$storeId");
 
             foreach ($productIds as $key => $productId) {
                 // Sync or update the pivot table with the store-specific details
                 $product->stores()->updateExistingPivot($storeId, [
                     'product_price' => $prices[$key],
                     'product_url' => $urls[$key],
+                    'product_status' => $status[$key]
                 ]);
             }
         }

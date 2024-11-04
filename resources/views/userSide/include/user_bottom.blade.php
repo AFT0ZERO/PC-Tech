@@ -114,3 +114,19 @@
         });
     }
 </script>
+
+<!-- JavaScript for Image Switch -->
+<script>
+    // Select all thumbnail images
+    const thumbnails = document.querySelectorAll('.thumbnail-image');
+    const mainImage = document.getElementById('mainProductImage');
+
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function () {
+            // Update main image src and data-zoom-image attributes
+            const newImageSrc = this.getAttribute('data-image');
+            mainImage.src = newImageSrc;
+            mainImage.setAttribute('data-zoom-image', newImageSrc);
+        });
+    });
+</script>

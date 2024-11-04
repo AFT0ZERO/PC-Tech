@@ -25,16 +25,17 @@
                     <div class="product-details-img product-details-tab">
                         <div class="zoompro-wrap zoompro-2">
                             <div class="zoompro-border zoompro-span">
-                                <img class="zoompro" src="{{asset($product->images[0]->image)}}" data-zoom-image="{{$product->images[0]->image}}" alt="product image"  />
+                                <!-- Main Image -->
+                                <img id="mainProductImage" class="" src="{{ asset($product->images[0]->image) }}"  alt="product image" />
                             </div>
                         </div>
+                        <!-- Thumbnail Gallery -->
                         <div id="gallery" class="product-dec-slider-2">
                             @foreach($product->images as $image)
-                            <div class="single-slide-item">
-                                <img class="img-responsive" data-image="{{$image->image}}" data-zoom-image="{{$image->image}}" src="{{asset($image->image)}}" alt="product image" />
-                            </div>
+                                <div class="single-slide-item">
+                                    <img class="img-responsive thumbnail-image" data-image="{{ asset($image->image) }}" src="{{ asset($image->image) }}" alt="product image" />
+                                </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">Shop</th>
-                                        <th scope="col">add in stock</th>
+                                        <th scope="col">In-Stock</th>
                                         <th scope="col">Price</th>
                                     </tr>
                                     </thead>
@@ -67,8 +68,14 @@
                                     @foreach($product->stores as $store)
                                     <tr>
                                         <td><img src="{{asset($store->image)}}" alt="store image" width="100"></td>
-                                        <td>in-stock</td>
-                                        <td><a href="{{$store->pivot->product_url}}"><button class="btn btn-primary btn-lg">{{$store->pivot->product_price}}</button></a></td>
+                                        <td>{{$store->pivot->product_status}}</td>
+                                        <td>
+                                            <a href="{{ $store->pivot->product_url }}" target="_blank" rel="noopener">
+                                                <button class="btn btn-primary btn-lg">
+                                                    ${{ number_format($store->pivot->product_price, 2) }}
+                                                </button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -81,13 +88,14 @@
 {{--                            </ul>--}}
                         </div>
                         <div class="pro-details-list">
-                            <p>fix this</p>
+                            <p>{{$product->smallDescription}}</p>
                         </div>
                         <div class="pro-details-quality mt-0px">
 
                             <div class="pro-details-cart btn-hover">
-                                <a href="#" > Add To Build [Soon] </a>
+                                <a href="#" class="btn-disabled" title="Coming Soon">Add To Build [Soon]</a>
                             </div>
+
                         </div>
                         <div class="pro-details-wish-com">
                             <div class="pro-details-wishlist">
@@ -97,12 +105,12 @@
                                         $isFavorited = auth()->user()->favorites->contains($product->id);
                                     }
                                 @endphp
-                                @if (Auth::check())
-                                <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $product->id }}" title="Add to Favorite">
-                                    <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
-                                    Add to Favorites
-                                </a>
-                                @endif
+                                @auth
+                                    <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $product->id }}" title="Add to Favorite">
+                                        <i class="lnr lnr-heart {{ auth()->user()->favorites->contains($product->id) ? 'favorite-added' : '' }}"></i>
+                                        {{ auth()->user()->favorites->contains($product->id) ? 'Favorited' : 'Add to Favorites' }}
+                                    </a>
+                                @endauth
                             </div>
 
                         </div>
@@ -140,10 +148,8 @@
                     {{-- Product Details start --}}
                     <div id="des-details1" class="tab-pane">
                         <div class="product-description-wrapper">
-                            <p>fix this </p>
-                            <p>
-                            and this
-                            </p>
+                            <p>{{$product->smallDescription}}</p>
+
                         </div>
                     </div>
                     {{-- Product Details end --}}
