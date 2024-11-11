@@ -151,7 +151,31 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(34, 48, 62, 0);
 }
+.shop .bx-store-alt
+{
+    border-color: transparent;
+    background-color: #5db15d;
+    color: #59ff59;
+}
+.product .bx-basket
+{
+    border-color: transparent;
+    background-color: #429bba;
+    color: #5ad6ff;
+}
+.category .bx-category
+{
+    border-color: transparent;
+    background-color: #e36304;
+    color: #ff8e49;
+}
 
+.user .bx-user
+{
+    border-color: transparent;
+    background-color: #621fb7;
+    color: #9541ff;
+}
 hr {
   margin: 1rem 0;
   color: #e4e6e8;

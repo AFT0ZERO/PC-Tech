@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\UserSideController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -52,9 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/User-Account', [UserSideController::class,'account'])->name('account');
     Route::PUT('/User-Account/{user}', [UserSideController::class,'updateAccount'])->name('updateAccount');
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard.home');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+
 
     Route::get('dashboard/admin', [UserController::class , "adminProfile"])->name("admin.index");
     Route::PUT('dashboard/admin/{admin}/edit', [UserController::class , "UpdateAdminProfile"])->name("admin.UpdateEditProfile");
