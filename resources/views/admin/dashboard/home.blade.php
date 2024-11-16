@@ -1,76 +1,80 @@
 @extends('admin.layouts.admin')
 
 @section('content')
-  <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                            <div class="avatar flex-shrink-0 user">
+                                <i class='bx bx-user bx-border bx-lg'></i>
+                            </div>
+                        </div>
+                        <p class="mb-1 fs-5">Users</p>
+                        <h4 class="card-title mb-3">{{ $users }}</h4>
+                    </div>
+                </div>
+            </div>
 
-                  <div class="col-lg-3 col-md-12 col-3 mb-6">
-                      <div class="card h-100">
-                          <div class="card-body">
-                              <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                                  <div class="avatar flex-shrink-0 user">
-                                      <i class='bx bx-user bx-border bx-lg'></i>
-                                  </div>
-                              </div>
-                              <p class="mb-1 fs-5">Users</p>
-                              <h4 class="card-title mb-3">{{$users}}</h4>
-                          </div>
-                      </div>
-                  </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                            <div class="avatar flex-shrink-0 category">
+                                <i class='bx bx-category bx-border bx-lg'></i>
+                            </div>
+                        </div>
+                        <p class="mb-1 fs-5">Categories</p>
+                        <h4 class="card-title mb-3">{{ $categories }}</h4>
+                    </div>
+                </div>
+            </div>
 
-                  <div class="col-lg-3 col-md-12 col-3 mb-6 ">
-                      <div class="card h-100 ">
-                          <div class="card-body">
-                              <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                                  <div class="avatar flex-shrink-0 category">
-                                      <i class='bx bx-category bx-border bx-lg'></i>
-                                  </div>
-                              </div>
-                              <p class="mb-1 fs-5">Categories</p>
-                              <h4 class="card-title mb-3">{{$categories}}</h4>
-                          </div>
-                      </div>
-                  </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                            <div class="avatar flex-shrink-0 product">
+                                <i class='bx bx-basket bx-border bx-lg'></i>
+                            </div>
+                        </div>
+                        <p class="mb-1 fs-5">Products</p>
+                        <h4 class="card-title mb-3">{{ $products }}</h4>
+                    </div>
+                </div>
+            </div>
 
-                  <div class="col-lg-3 col-md-12 col-3 mb-6">
-                      <div class="card h-100">
-                          <div class="card-body">
-                              <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                                  <div class="avatar flex-shrink-0 product">
-                                      <i class='bx bx-basket bx-border bx-lg'></i>
-                                  </div>
-                              </div>
-                              <p class="mb-1 fs-5">Products</p>
-                              <h4 class="card-title mb-3">{{$products}}</h4>
-                          </div>
-                      </div>
-                  </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                            <div class="avatar flex-shrink-0 shop">
+                                <i class='bx bx-store-alt bx-border bx-lg'></i>
+                            </div>
+                        </div>
+                        <p class="mb-1 fs-5">Shoppes</p>
+                        <h4 class="card-title mb-3">{{ $shoppes }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                  <div class="col-lg-3 col-md-12 col-3 mb-6">
-                      <div class="card h-100">
-                          <div class="card-body">
-                              <div class="card-title d-flex align-items-start justify-content-between mb-4">
-                                  <div class="avatar flex-shrink-0 shop">
-                                      <i class='bx bx-store-alt bx-border bx-lg'></i>
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-12 mb-4">
+                <div class="bg-white p-3 rounded">
+                    <canvas id="polarAreaChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12 mb-4">
+                <div class="bg-white p-3 rounded">
+                    <canvas id="barChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                  </div>
-                              </div>
-                              <p class="mb-1 fs-5">Shoppes</p>
-                              <h4 class="card-title mb-3">{{$shoppes}}</h4>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="row ">
-                  <div class="col-6 bg-white">
-                        <canvas id="polarAreaChart" width="400" height="400"></canvas>
-                  </div>
-                  <div class="col-6 bg-white">
-                        <canvas id="barChart" width="400" height="400"></canvas>
-                  </div>
-              </div>
-  </div>
-  <script>
+    <script>
       // Data passed from Laravel to JavaScript
       const productsCount = {{ $products }};
       const usersCount = {{ $users }};

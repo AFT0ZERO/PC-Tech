@@ -48,12 +48,10 @@
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side start -->
                         <div class="shop-tab nav d-flex">
-                            <a  href="#shop-1" data-bs-toggle="tab">
+                            <a  href="#" class="active" data-bs-toggle="tab">
                                 <i class="fa fa-th"></i>
                             </a>
-                            <a class="active" href="#shop-2" data-bs-toggle="tab">
-                                <i class="fa fa-list"></i>
-                            </a>
+
                             <p>There is {{$products->count()}} Components</p>
                         </div>
                         <!-- Left Side End -->
@@ -64,11 +62,12 @@
                                 <p>Sort By:</p>
                             </div>
                             <div class="shop-select">
-                                <select>
-                                    <option value="">Sort by newness</option>
-                                    <option value="">A to Z</option>
-                                    <option value=""> Z to A</option>
-                                    <option value="">In stock</option>
+                                <select id="sort-products">
+                                    <option value="newness">Sort by newness</option>
+                                    <option value="name-asc">Name (A to Z)</option>
+                                    <option value="name-desc">Name (Z to A)</option>
+                                    <option value="price-asc">Price (Low to High)</option>
+                                    <option value="price-desc">Price (High to Low)</option>
                                 </select>
                             </div>
                         </div>
@@ -84,57 +83,62 @@
                             <div id="shop-1" class="tab-pane active">
                                 <div class="row m-0">
 
-                                    @foreach($products as $product)
-                                        @php
-                                        if (Auth::check())
-                                        {
-                                            $isFavorited = auth()->user()->favorites->contains($product->id);
-                                        }
-                                        @endphp
+                                    <div id="product-container" class="row">
+                                        @foreach($products as $product)
+                                            @php
+                                                if (Auth::check())
+                                                {
+                                                    $isFavorited = auth()->user()->favorites->contains($product->id);
+                                                }
+                                            @endphp
+                                            <div class="mb-30px col-md-4 col-sm-6 p-1"
+                                                 data-name="{{ $product->name }}"
+                                                 data-price="{{ $product->cheapest_price }}"
+                                                 data-brand="{{ $product->brand }}">
 
-                                    <div class="mb-30px col-md-4 col-sm-6  p-1">
-                                        <div class="slider-single-item">
-                                            <!-- Single Item -->
-                                            <article class="list-product p-0 text-center">
-                                                <div class="product-inner">
-                                                    <div class="img-block">
-                                                        <a href="{{route('singlePage',$product->id)}}" class="thumbnail">
-                                                            <img class="first-img" src="{{asset($product->images[0]->image)}}" alt="{{$product->name}}" />
-                                                            <img class="second-img" src="{{asset($product->images[0]->image)}}" alt="{{$product->name}}" />
-                                                        </a>
-                                                        <div class="add-to-link">
-                                                            <ul>
-                                                                <li>
-                                                                    @if (Auth::check())
-                                                                    <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $product->id }}" title="Add to Favorite">
-                                                                        <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
-                                                                    </a>
-                                                                    @endif
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                <div class="slider-single-item">
+                                                    <!-- Single Item -->
+                                                    <article class="list-product p-0 text-center">
+                                                        <div class="product-inner">
+                                                            <div class="img-block">
+                                                                <a href="{{ route('singlePage', $product->id) }}" class="thumbnail">
+                                                                    <img class="first-img" src="{{ asset($product->images[0]->image) }}" alt="{{ $product->name }}" />
+                                                                    <img class="second-img" src="{{ asset($product->images[0]->image) }}" alt="{{ $product->name }}" />
+                                                                </a>
+                                                                <div class="add-to-link">
+                                                                    <ul>
+                                                                        <li>
+                                                                            @if (Auth::check())
+                                                                                <a href="javascript:void(0);" class="add-to-favorite" data-product-id="{{ $product->id }}" title="Add to Favorite">
+                                                                                    <i class="lnr lnr-heart {{ $isFavorited ? 'favorite-added' : '' }}"></i>
+                                                                                </a>
+                                                                            @endif
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
 
-                                                    <div class="product-decs">
-                                                        <a class="inner-link" href="{{route('category', $product->category->id)}}"><span>{{$product->category->name}}</span></a>
-                                                        <h2><a href="{{route('singlePage',$product->id)}}" class="product-link">{{$product->name}}</a></h2>
-                                                        <div class="pricing-meta">
-                                                            <ul>
-                                                                <li class="current-price">{{$product->cheapest_price}}</li>
-                                                            </ul>
+                                                            <div class="product-decs">
+                                                                <a class="inner-link" href="{{ route('category', $product->category->id) }}">
+                                                                    <span>{{ $product->category->name }}</span>
+                                                                </a>
+                                                                <h2><a href="{{ route('singlePage', $product->id) }}" class="product-link">{{ $product->name }}</a></h2>
+                                                                <div class="pricing-meta">
+                                                                    <ul>
+                                                                        <li class="current-price">{{ $product->cheapest_price }}</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cart-btn">
+                                                                <a href="{{ route('singlePage', $product->id) }}" class="add-to-curt" title="Add to cart">Show</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="cart-btn">
-                                                        <a href="{{route('singlePage',$product->id)}}" class="add-to-curt" title="Add to cart">Show</a>
-                                                    </div>
+                                                    </article>
+                                                    <!-- Single Item -->
                                                 </div>
-                                            </article>
-                                            <!-- Single Item -->
-                                        </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
-
-
                                 </div>
                             </div>
                             <!-- Tab One End -->
@@ -164,172 +168,45 @@
                 <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-md-60px mb-lm-60px">
                     <div class="shop-sidebar-wrap">
 
-                        <!-- Sidebar single item -->
+                        <!-- Filter Header -->
                         <div class="sidebar-widget-group mt-20">
                             <h3 class="sidebar-title m-0"><span>Filter By</span></h3>
-                            <!-- Sidebar single item -->
-                            <div class="sidebar-widget no-cba mt-20">
-                                <h4 class="pro-sidebar-title">Colour</h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">Grey<span>(2)</span> </a>
-                                                <span class="checkmark grey"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">White<span>(4)</span></a>
-                                                <span class="checkmark white"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Black<span>(4)</span> </a>
-                                                <span class="checkmark black"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Camel<span>(4)</span> </a>
-                                                <span class="checkmark camel"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar single item -->
-                            <div class="sidebar-widget mt-30">
-                                <h4 class="pro-sidebar-title">Size</h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">X<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">M<span>(4)</span></a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">L<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">XL<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar single item -->
-                            <div class="sidebar-widget mt-30">
-                                <h4 class="pro-sidebar-title">Paper Type</h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Doted<span>(3)</span></a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Plain<span>(3)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">Ruled<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Squarred<span>(3)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar single item -->
-                            <div class="sidebar-widget mt-30">
-                                <h4 class="pro-sidebar-title">Compositions</h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">Cotton<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Elastane<span>(4)</span></a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Polyester<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Wool<span>(4)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar single item -->
-                            <div class="sidebar-widget mt-30">
-                                <h4 class="pro-sidebar-title">Brand</h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" /> <a href="#">Studio Design<span>(10)</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value="" /> <a href="#">Graphic Corner<span>(7)</span></a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+
+                            <!-- Price Filter -->
                             <div class="sidebar-widget mt-20">
                                 <h4 class="pro-sidebar-title">Price</h4>
                                 <div class="price-filter mt-10">
                                     <div class="price-slider-amount">
-                                        <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                                        <input type="text" id="amount" name="price" placeholder="Enter your price" readonly />
                                     </div>
                                     <div id="slider-range"></div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Sidebar single item -->
 
-                        <!-- Sidebar single item -->
+                            <!-- Brand Filter -->
+                            <div class="sidebar-widget mt-30">
+                                <h4 class="pro-sidebar-title">Brand</h4>
+                                <div class="sidebar-widget-list">
+                                    <ul>
+                                        @foreach($brands as $brand)
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" id="brand-{{$brand->id}}" name="brand" value="{{$brand->brand}}" />
+                                                    <span class="checkmark "></span>
+                                                    <label for="brand-{{$brand->id}}"class="ms-4">
+                                                        {{$brand->brand}} <span>({{$brand->product_count}})</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -337,6 +214,76 @@
     <!-- Shop Category Area End -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize the slider
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 2000,
+                values: [0, 2000],
+                slide: function (event, ui) {
+                    // Update the price input field when the slider moves
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+
+            // Set initial values in the price input field
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+            // Handle brand filter checkboxes
+            const brandCheckboxes = $(".sidebar-widget-list input[type='checkbox']");
+
+            // Product filtering function
+            function filterProducts() {
+                // Get the price range from the slider
+                const minPrice = $("#slider-range").slider("values", 0);
+                const maxPrice = $("#slider-range").slider("values", 1);
+
+                console.log("Filtering products between $" + minPrice + " and $" + maxPrice);
+
+                // Get selected brands (from checked checkboxes)
+                const selectedBrands = brandCheckboxes.filter(":checked").map(function () {
+                    return this.value;
+                }).get();
+
+                // Get all products
+                const products = $("#product-container .col-md-4");
+
+                // Loop through each product
+                products.each(function () {
+                    const productPrice = parseFloat($(this).data("price"));
+                    const productBrand = $(this).data("brand");
+
+                    // Check if product matches the filters
+                    const isPriceMatch = productPrice >= minPrice && productPrice <= maxPrice;
+                    const isBrandMatch = selectedBrands.length === 0 || selectedBrands.includes(productBrand);
+
+                    // Show or hide the product
+                    if (isPriceMatch && isBrandMatch) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            // Event listener for brand checkboxes (onchange)
+            brandCheckboxes.on("change", function () {
+                filterProducts();  // Trigger filtering when brand checkbox changes
+            });
+
+            // Event listener for slider (onchange)
+            $("#slider-range").on("slidechange", function () {
+                filterProducts();  // Trigger filtering when slider values change
+            });
+
+            // Initial filtering based on default slider values and checked brands
+            filterProducts();
+        });
+
+    </script>
 
 
 @endsection
