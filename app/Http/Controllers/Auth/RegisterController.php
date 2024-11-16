@@ -15,7 +15,7 @@ class RegisterController extends Controller
     use RegistersUsers;
 
 
-    protected $redirectTo = '/login';
+//   protected $redirectTo = '/';
 
 
     public function __construct()
@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'fname'=>['required','min:3'],
             'lname'=>['required','min:3'],
             'email'=>['required','email'],
-            'mobile'=>['required','min:9','numeric'],
+            'mobile'=>['required','min:9','numeric','unique:users'],
             'gender'=>['required'],
             'password'=>['required','min:5'],
         ]);
@@ -47,4 +47,5 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
 }

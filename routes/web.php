@@ -31,7 +31,9 @@ Route::get('/Contact Us', [UserSideController::class,'contact'])->name('contact'
 
 Route::get('/FAQs', [UserSideController::class,'faqs'])->name('faqs');
 
-
+route::get('/hi',function(){
+    dd('here');
+})->name('login');
 
 Auth::routes();
 
