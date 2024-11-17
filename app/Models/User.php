@@ -14,6 +14,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable ,Searchable,softDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->contacts()->delete();
+        });
+    }
     public function contacts()  {
         return $this->hasMany(Contact::class);
     }

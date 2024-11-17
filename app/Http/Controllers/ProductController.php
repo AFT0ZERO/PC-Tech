@@ -69,7 +69,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Data stored successfully!');
+        return redirect()->back()->with('success', 'Product stored successfully!');
     }
 
 

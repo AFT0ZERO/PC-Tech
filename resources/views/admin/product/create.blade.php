@@ -11,7 +11,12 @@
     <div class="col-md-12">
         <div class="card">
             <h5 class="card-header"><strong>Add Product</strong></h5>
-
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body demo-vertical-spacing demo-only-element">
