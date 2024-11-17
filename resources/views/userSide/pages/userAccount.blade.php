@@ -135,12 +135,7 @@
                     </div>
                     {{--edit user info end--}}
 
-                    <div class="panel panel-default single-my-account">
-                        <div class="panel-heading my-account-title">
-                            <h3 class="panel-title"><span>2 .</span> <a href="wishlist.html">Modify your wish list </a>
-                            </h3>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

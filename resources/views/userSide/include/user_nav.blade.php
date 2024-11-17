@@ -204,11 +204,7 @@
                 <!-- Favorite products will be loaded here via AJAX -->
             </ul>
         </div>
-        <div class="foot">
-            <div class="buttons">
-                <a href="wishlist.html" class="btn btn-dark btn-hover-primary mt-30px">View Wishlist</a>
-            </div>
-        </div>
+
     </div>
 </div>
 <!-- OffCanvas Wishlist End -->
