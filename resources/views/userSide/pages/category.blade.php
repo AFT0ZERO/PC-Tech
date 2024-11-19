@@ -216,6 +216,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
+        document.getElementById('sort-products').addEventListener('change', function () {
+            const sortValue = this.value; // Get the selected value from the dropdown
+            const productContainer = document.getElementById('product-container'); // Reference to the parent container of products
+            const products = Array.from(productContainer.children); // Convert the product nodes to an array for sorting
+
+            // Sort the products based on the selected sorting option
+            pproducts.sort((first_product, second_product) => {
+                if (sortValue === 'name-asc') {
+                    // Sort by name (A to Z)
+                    return first_product.dataset.name.localeCompare(second_product.dataset.name);
+                } else if (sortValue === 'name-desc') {
+                    // Sort by name (Z to A)
+                    return second_product.dataset.name.localeCompare(first_product.dataset.name);
+                } else if (sortValue === 'price-asc') {
+                    // Sort by price (Low to High)
+                    return parseFloat(first_product.dataset.price) - parseFloat(second_product.dataset.price);
+                } else if (sortValue === 'price-desc') {
+                    // Sort by price (High to Low)
+                    return parseFloat(second_product.dataset.price) - parseFloat(first_product.dataset.price);
+                }
+                return 0; // Default: No sorting
+            });
+
+            // Reorder DOM elements based on the sorted array
+            products.forEach(product => productContainer.appendChild(product));
+        });
+
+    </script>
+    <script>
         $(document).ready(function () {
             // Initialize the slider
             $("#slider-range").slider({

@@ -17,7 +17,7 @@ class UserSideController extends Controller
     {
         $categories = Category::all();
       $lastProduct = Product::with('stores')->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
-            ->orderBy('created_at', 'asc')->paginate(7);
+            ->orderBy('created_at', 'desc')->paginate(7);
       $CategoryProduct = Product::with('stores')->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))->where('category_id', 1)->paginate(7);
       return view('userSide.pages.landing' , ['lastProducts' => $lastProduct, 'CategoryProducts' => $CategoryProduct, 'categories' => $categories]);
     }
@@ -46,16 +46,19 @@ class UserSideController extends Controller
         if (!empty($search_param)) {
             $Product_query = Product::search($search_param);
             $products = $Product_query->paginate(15);
+
         } elseif ($id == 0 || $id == null) {
-            $products = Product::with('stores') // Fetch the stores
+            $products = Product::with('stores')
             ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
                 ->paginate(15);
+
         } elseif ($id > 0) {
-            $products = Product::with('stores') // Fetch the stores
+            $products = Product::with('stores')
             ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
                 ->whereHas('category', function ($query) use ($id) {
                     $query->where('id', $id);
                 })->paginate(15);
+
         }
 
         return view('userSide.pages.category', ['categories' => $category, 'products' => $products, 'brands' => $brandsWithCounts]);
@@ -65,9 +68,9 @@ class UserSideController extends Controller
     {
         $categories = Category::all();
         $product = Product::find($id);
-        $feedbacks = Feedback::where('product_id', $product->id)->get();
         $description=json_decode($product->description, true);
-        $CategoryProduct = Product::where('category_id', 1)->with('stores') // Fetch the stores
+        $feedbacks = Feedback::where('product_id', $product->id)->get();
+        $CategoryProduct = Product::where('category_id', $product->category->id)->with('stores')
     ->select('products.*', DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price'))
         ->paginate(15);
 

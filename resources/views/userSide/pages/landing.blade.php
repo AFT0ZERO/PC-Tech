@@ -5,41 +5,40 @@
     <div class="slider-area">
         <div class="hero-slider-wrapper">
             <!-- Single Slider  -->
-            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}">
+            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/img/image/slider3.jpg')}}" >
                 <div class="container align-self-center">
                     <div class="slider-content-1 slider-animated-1 text-left pl-60px">
-                        <h1 class="animated color-black">
-                            Xbox One Pro <br />
-                            Wireless Controller
+                        <h1 class="animated color-black ">
+                            Compare Prices   <br />
+                            And Build Your PC.
                         </h1>
-                        <p class="animated color-gray">Revolution Pro Controller.</p>
-                        <a href="shop-4-column.html" class="shop-btn animated">SHOW NOW</a>
+
+                        <a href="{{route('categoryNull')}}" class="shop-btn animated mt-4">SHOW NOW</a>
                     </div>
                 </div>
             </div>
             <!-- Single Slider  -->
-            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}">
+            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/img/image/about.jpg')}}">
                 <div class="container align-self-center">
                     <div class="slider-content-1 slider-animated-2 text-left pl-60px">
                         <h1 class="animated color-black">
-                            Bobovr Z4 Virtual <br />
-                            Reality 3D Glasses
+                            Find The Best  <br />
+                            Deals On PC Components
                         </h1>
-                        <p class="animated color-gray">Virtual reality through a new lens</p>
-                        <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
+
+                        <a href="{{route('categoryNull')}}" class="shop-btn animated mt-4">SHOW NOW</a>
                     </div>
                 </div>
             </div>
             <!-- Single Slider  -->
-            <div class="single-slide slider-height-1 bg-img d-flex" data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}">
+            <div class="single-slide slider-height-1 bg-img d-flex"data-bg-image="{{asset('assets/asset/images/main-image/test.jpg')}}" >
                 <div class="container align-self-center">
                     <div class="slider-content-1 slider-animated-3 text-left pl-60px">
-                        <h1 class="animated color-black">
-                            Portable Wireless <br />
-                            Bluetooth Speaker
+                        <h1 class="animated color-white">
+                            Stay ahead   <br />
+                            with the latest tech
                         </h1>
-                        <p class="animated color-gray">With Colorful LED Light</p>
-                        <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
+                        <a href="{{route('categoryNull')}}" class="shop-btn animated mt-4">SHOW NOW</a>
                     </div>
                 </div>
             </div>
@@ -56,47 +55,39 @@
                     <!-- Static Single Item Start -->
                     <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">
                         <div class="single-static">
-                            <img src="{{asset('assets/asset/images/icons/static-icons-1.png')}}" alt="" class="img-responsive" />
                             <div class="single-static-meta">
-                                <h4>Free Shipping</h4>
-                                <p>On all orders over $75.00</p>
+                                <h4><i class="fas fa-tags ps-1 "></i> Discover unbeatable deals </h4>
+                                <p>Stay updated with exclusive discounts </p>
                             </div>
                         </div>
                     </div>
-                    <!-- Static Single Item End -->
-                    <!-- Static Single Item Start -->
                     <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">
                         <div class="single-static">
-                            <img src="assets/images/icons/static-icons-2.png" alt="" class="img-responsive" />
                             <div class="single-static-meta">
-                                <h4>Free Returns</h4>
-                                <p>Returns are free within 9 days</p>
+                                <h4><i class="fas fa-exchange-alt"></i>  Your one-stop platform</h4>
+                                <p>Easily compare prices from multiple stores </p>
                             </div>
                         </div>
                     </div>
-                    <!-- Static Single Item End -->
-                    <!-- Static Single Item Start -->
-                    <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-sm-30px">
+                    <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">
                         <div class="single-static">
-                            <img src="assets/images/icons/static-icons-3.png" alt="" class="img-responsive" />
                             <div class="single-static-meta">
-                                <h4>100% Payment Secure</h4>
-                                <p>Your payment are safe with us.</p>
+                                <h4> <i class="fas fa-tools"></i> Build smarter, shop better</h4>
+                                <p>Find everything you need </p>
                             </div>
                         </div>
                     </div>
-                    <!-- Static Single Item End -->
-                    <!-- Static Single Item Start -->
-                    <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 ">
+                    <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">
                         <div class="single-static">
-                            <img src="assets/images/icons/static-icons-4.png" alt="" class="img-responsive" />
                             <div class="single-static-meta">
-                                <h4>Support 24/7</h4>
-                                <p>Contact us 24 hours a day</p>
+                                <h4><i class="fas fa-arrow-up"></i> Upgrade your tech game</h4>
+                                <p>Access top deals and the latest products</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Static Single Item End -->
+
+
+
                 </div>
             </div>
         </div>

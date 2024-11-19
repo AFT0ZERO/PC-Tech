@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="mb-3 col-4">
                                             <label for="url-{{$store->id}}-{{$index}}" class="form-label">URL</label>
-                                            <input type="url" name="url[{{$store->id}}][]" value="{{$product->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-{{$index}}" required>
+                                            <input type="text" name="url[{{$store->id}}][]" value="{{$product->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-{{$index}}" required>
                                         </div>
                                         <div class="mb-3 col-4">
                                             <label for="status" class="form-label">Status</label>

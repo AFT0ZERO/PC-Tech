@@ -72,7 +72,7 @@
                             </div>
                             <div class="mb-3 col-4">
                                 <label for="url-{{$store->id}}" class="form-label">Url</label>
-                                <input type="url" name="url[]" class="form-control" id="url-{{$store->id}}" required>
+                                <input type="text" name="url[]" class="form-control" id="url-{{$store->id}}" required>
                             </div>
                             <div class="mb-3 col-4">
                                 <label for="status" class="form-label">Status</label>

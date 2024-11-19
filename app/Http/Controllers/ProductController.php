@@ -17,7 +17,7 @@ class ProductController extends Controller
         if (!empty($search_param)) {
             $Product_query = Product::search($search_param);
         }
-        $ProductFromDB = $Product_query->paginate(15);
+        $ProductFromDB = $Product_query->paginate(25);
         return view('admin.product.index',['products'=>$ProductFromDB]);
     }
 
@@ -43,7 +43,7 @@ class ProductController extends Controller
             'price' => 'required|array',
             'url' => 'required|array',
             'price.*' => 'required|numeric',
-            'url.*' => 'required|url',
+            'url.*' => 'required|string',
         ]);
 
         // Step 1: Create the Product
@@ -102,7 +102,7 @@ class ProductController extends Controller
             'key.*' => 'required|string',
             'value.*' => 'required|string',
             'price.*.*' => 'required|numeric',
-            'url.*.*' => 'required|url',
+            'url.*.*' => 'required|string',
         ]);
 
         // Update product details

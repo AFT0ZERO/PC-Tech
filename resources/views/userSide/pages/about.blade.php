@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="about-left-image mb-md-30px mb-lm-30px ">
-                        <img src="{{asset('assets/asset/images/slider-image/sample-4.jpg')}}" alt="test" class="img-responsive" />
+                        <img src="{{asset('assets/img/image/about.jpg')}}" alt="test" class="img-responsive" />
                     </div>
                 </div>
                 <div class="col-lg-6">
