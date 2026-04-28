@@ -3,13 +3,18 @@
 @section('content')
     <!-- SweetAlert success message -->
     @if(session('success'))
+        <div id="contact-flash-success" class="d-none" data-message="{{ e(session('success')) }}"></div>
         <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: '{{ session('success') }}',
-                confirmButtonText: 'OK'
-            });
+            (function () {
+                var el = document.getElementById('contact-flash-success');
+                if (!el) return;
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: el.getAttribute('data-message'),
+                    confirmButtonText: 'OK'
+                });
+            })();
         </script>
     @endif
 
@@ -20,7 +25,7 @@
                 <div class="col-md-12">
                     <div class="breadcrumb-content">
                         <ul class="nav">
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="{{ route('landing') }}">Home</a></li>
                             <li>Contact Us</li>
                         </ul>
                     </div>
@@ -33,11 +38,13 @@
     <div class="contact-area mtb-50px">
         <div class="container">
             <div class="contact-map mb-10">
-                <div class="mapouter">
-                    <div class="gmap_canvas">
-                        <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d660.3942931351413!2d35.01256668734012!3d29.535576259740235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x150071875a9fca41%3A0xf5d61d999f967371!2sOrange%20Digital%20Village%20Aqaba!5e1!3m2!1sen!2sjo!4v1728558897835!5m2!1sen!2sjo" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                        <a href="https://sites.google.com/view/maps-api-v2/mapv2"></a>
-                    </div>
+                <div class="contact-photo-wrap overflow-hidden rounded">
+                    <img
+                        src="{{ asset('assets/img/image/about.jpg') }}"
+                        alt="Pc Tech"
+                        class="img-fluid w-100 d-block"
+                        style="max-height: 500px; object-fit: cover;"
+                    >
                 </div>
             </div>
             <div class="custom-row-2">
@@ -61,15 +68,6 @@
                                 <p><a href="mailto://abdallahtamimi54@gmail.com">abdallah@gmail.com</a></p>
                                 <p><a href="mailto://abdallahtamimi54@gmail.com">abdallah@gmail.com</a></p>
 
-                            </div>
-                        </div>
-                        <div class="single-contact-info">
-                            <div class="contact-icon">
-                                <i class="ion-android-pin"></i>
-                            </div>
-                            <div class="contact-info-dec">
-                                <p>Address goes here,</p>
-                                <p>street, Crossroad 123.</p>
                             </div>
                         </div>
                         <div class="contact-social">

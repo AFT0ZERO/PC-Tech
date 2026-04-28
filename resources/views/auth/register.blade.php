@@ -1,23 +1,17 @@
-@extends('userSide.layout.app')
+@extends('auth.layouts.guest')
 
 @section('extraHeader')
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{asset('../assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{asset('../assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{asset('../assets/css/demo.css')}}" />
-
-    <!-- Helpers -->
-    <script src="{{asset('../assets/vendor/js/helpers.js')}}"></script>
-    <script src="{{asset('../assets/js/config.js')}}"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <style>
+        .card:hover {
+            transform: none !important;
+        }
+    </style>
 @endsection
 @section('content')
-    <div class="container-xxl">
-        <div class=" container-p-y">
-            <div class=" d-flex justify-content-center">
+    <div class="container-xxl min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="container-p-y w-100">
+            <div class="d-flex justify-content-center">
                 <!-- Register Card -->
                 <div class="card px-sm-6 px-0 w-px-400">
                     <div class="card-body d-flex flex-column ">
@@ -85,10 +79,21 @@
 
                             <div class=" ">
                                 <label for="exampleFormControlInput7">Password</label>
-                                <input type="password" name="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="exampleFormControlInput7" placeholder="********">
+                                <div class="input-group input-group-merge">
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="registerPassword" placeholder="********">
+                                    <span class="input-group-text cursor-pointer toggle-password" data-target="registerPassword"><i class="bx bx-hide"></i></span>
+                                </div>
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+
+                            <div class=" ">
+                                <label for="registerPasswordConfirmation">Confirm Password</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" name="password_confirmation" class="form-control" id="registerPasswordConfirmation" placeholder="********">
+                                    <span class="input-group-text cursor-pointer toggle-password" data-target="registerPasswordConfirmation"><i class="bx bx-hide"></i></span>
+                                </div>
                             </div>
 
                             <div class="row mb-4">
@@ -112,5 +117,23 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.toggle-password').forEach(function (toggle) {
+                toggle.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    if (!input) return;
+                    const icon = this.querySelector('i');
+                    const isPassword = input.type === 'password';
+                    input.type = isPassword ? 'text' : 'password';
+                    if (icon) {
+                        icon.classList.toggle('bx-hide', !isPassword);
+                        icon.classList.toggle('bx-show', isPassword);
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection

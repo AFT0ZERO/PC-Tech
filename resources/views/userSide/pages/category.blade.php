@@ -84,7 +84,9 @@
                                 <div class="row m-0">
 
                                     <div id="product-container" class="row">
+
                                         @foreach($products as $product)
+
                                             @php
                                                 if (Auth::check())
                                                 {
@@ -93,7 +95,7 @@
                                             @endphp
                                             <div class="mb-30px col-md-4 col-sm-6 p-1"
                                                  data-name="{{ $product->name }}"
-                                                 data-price="{{ $product->cheapest_price }}"
+                                                 data-price="{{ $product->cheapest_price ?? 0 }}"
                                                  data-brand="{{ $product->brand }}">
 
                                                 <div class="slider-single-item">
@@ -125,7 +127,7 @@
                                                                 <h2><a href="{{ route('singlePage', $product->id) }}" class="product-link">{{ $product->name }}</a></h2>
                                                                 <div class="pricing-meta">
                                                                     <ul>
-                                                                        <li class="current-price">{{ $product->cheapest_price }}</li>
+                                                                        <li class="current-price">{{ $product->cheapest_price ? number_format($product->cheapest_price, 2) . ' JD' : 'N/A' }}</li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -222,7 +224,7 @@
             const products = Array.from(productContainer.children); // Convert the product nodes to an array for sorting
 
             // Sort the products based on the selected sorting option
-            pproducts.sort((first_product, second_product) => {
+            products.sort((first_product, second_product) => {
                 if (sortValue === 'name-asc') {
                     // Sort by name (A to Z)
                     return first_product.dataset.name.localeCompare(second_product.dataset.name);
@@ -312,7 +314,7 @@
             filterProducts();
         });
 
-    </script>
+   </script>
 
 
 @endsection

@@ -20,6 +20,11 @@
             <!-- /Search -->
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
+              <li class="nav-item me-3">
+                <a class="btn btn-outline-primary btn-sm" href="{{ route('landing') }}">
+                  Back to Website
+                </a>
+              </li>
               <!-- Place this tag where you want the button to render. -->
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">

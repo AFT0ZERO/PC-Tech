@@ -54,30 +54,76 @@
                         </div>
                         <div class="pricing-meta">
                             <div class="product-prices">
-
-                                <table class="table table-striped align-middle">
-                                    <thead>
+                                <table class="table table-bordered align-middle">
+                                    <thead class="table-light">
                                     <tr>
-                                        <th scope="col">Shop</th>
-                                        <th scope="col">In-Stock</th>
+                                        <th scope="col">Store</th>
+                                        <!-- <th scope="col">Status</th> -->
                                         <th scope="col">Price</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @if($product->stores->count() > 0)
+                                        @php
+                                            // Get the lowest price among valid active prices to highlight the row
+                                            $lowestPrice = null;
+                                            $storePrices = [];
+                                            foreach($product->stores as $store) {
+                                                if (strtolower($store->pivot->product_status) === 'not found') continue;
+                                                $livePrice = isset($priceHistory) && $priceHistory->has($store->name) ? $priceHistory->get($store->name) : null;
+                                                $displayPrice = $livePrice ? $livePrice->price : $store->pivot->product_price;
+                                                $storePrices[$store->id] = $displayPrice;
+                                                if ($lowestPrice === null || $displayPrice < $lowestPrice) {
+                                                    $lowestPrice = $displayPrice;
+                                                }
+                                            }
+                                        @endphp
 
-                                    @foreach($product->stores as $store)
-                                    <tr>
-                                        <td><img src="{{asset($store->image)}}" alt="store image" width="100"></td>
-                                        <td>{{$store->pivot->product_status}}</td>
-                                        <td>
-                                            <a href="{{ $store->pivot->product_url }}" target="_blank" rel="noopener">
-                                                <button class="btn btn-primary btn-lg">
-                                                    ${{ number_format($store->pivot->product_price, 2) }}
-                                                </button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                        @foreach($product->stores as $store)
+                                            @if(strtolower($store->pivot->product_status) === 'not found')
+                                                @continue
+                                            @endif
+                                            @php
+                                                $livePrice = isset($priceHistory) && $priceHistory->has($store->name) ? $priceHistory->get($store->name) : null;
+                                                $displayPrice = $storePrices[$store->id];
+                                                $isLive = $livePrice ? true : false;
+                                                $isBestDeal = ($displayPrice == $lowestPrice);
+                                            @endphp
+                                            <tr class="{{ $isBestDeal ? 'table-success border-success' : '' }}">
+                                                <td>
+                                                    @if(isset($store->image) && $store->image)
+                                                        <img src="{{asset($store->image)}}" alt="{{ $store->name }}" width="90" class="me-2 rounded">
+                                                    @endif
+                                                </td>
+                                                <!-- <td style="font-size: 15px; font-weight: 600;">
+                                                    @if(strtolower($store->pivot->product_status) == 'out of stock' || strtolower($store->pivot->product_status) == 'not found')
+                                                        <span class="text-danger">{{ ucwords($store->pivot->product_status) }}</span>
+                                                    @else
+                                                        <span class="text-success">{{ ucwords($store->pivot->product_status) }}</span>
+                                                    @endif
+                                                </td> -->
+                                                <td>
+                                                    <div class="mb-0 {{ $isBestDeal ? 'text-success' : '' }}" style="font-size: 15px; font-weight: 600;">
+                                                        {{ $isLive ? $livePrice->currency . ' ' : 'JOD ' }}{{ number_format($displayPrice, 2) }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @if($store->pivot->product_url && $store->pivot->product_url !== '#')
+                                                        <a href="{{ $store->pivot->product_url }}" target="_blank" rel="noopener">
+                                                            <button class="btn btn-primary btn-sm">View Deal</button>
+                                                        </a>
+                                                    @else
+                                                        <button class="btn btn-secondary btn-sm" disabled>No Link</button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="4" class="text-center">No pricing data available for this product.</td>
+                                        </tr>
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -121,6 +167,110 @@
         </div>
     </section>
     <!-- Shop details Area End -->
+
+    <!-- Price History Chart Area Start -->
+    @if(isset($priceHistoryChart) && $priceHistoryChart->isNotEmpty())
+    <section class="price-history-area ptb-50px" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="mb-3" style="font-weight: 700; color: #333;">Price History</h4>
+                    <div style="background: #fff; border-radius: 10px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);">
+                        <canvas id="priceHistoryChart" style="width:100%; max-height:360px;"></canvas>
+                    </div>
+                    <p class="mt-2 text-muted" style="font-size:13px;">Prices are updated automatically via our scraper. Currency: JOD.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+       
+    (function () {
+        var rawData = @json($priceHistoryChart);
+
+        // Palette for multiple stores
+        var palette = [
+            { border: '#4e73df', background: 'rgba(78,115,223,0.10)' },
+            { border: '#e74a3b', background: 'rgba(231,74,59,0.10)'  },
+            { border: '#1cc88a', background: 'rgba(28,200,138,0.10)' },
+            { border: '#f6c23e', background: 'rgba(246,194,62,0.10)' },
+            { border: '#36b9cc', background: 'rgba(54,185,204,0.10)' },
+        ];
+
+        // Collect all unique date labels across all stores
+        var allDates = [];
+        Object.values(rawData).forEach(function (points) {
+            points.forEach(function (p) {
+                if (allDates.indexOf(p.date) === -1) allDates.push(p.date);
+            });
+        });
+        allDates.sort();
+
+        var datasets = Object.keys(rawData).map(function (storeName, idx) {
+            var color = palette[idx % palette.length];
+            var pointMap = {};
+            rawData[storeName].forEach(function (p) { pointMap[p.date] = p.price; });
+            return {
+                label: storeName,
+                data: allDates.map(function (d) { return pointMap[d] !== undefined ? pointMap[d] : null; }),
+                borderColor: color.border,
+                backgroundColor: color.background,
+                borderWidth: 2.5,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: true,
+                tension: 0.3,
+                spanGaps: true,
+            };
+        });
+
+        var ctx = document.getElementById('priceHistoryChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: { labels: allDates, datasets: datasets },
+            options: {
+                responsive: true,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: { font: { size: 13 }, usePointStyle: true }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (ctx) {
+                                return ctx.dataset.label + ': JOD ' + (ctx.parsed.y !== null ? ctx.parsed.y.toFixed(2) : 'N/A');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 10,
+                            maxRotation: 30,
+                            font: { size: 11 }
+                        },
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function (val) { return 'JOD ' + val.toFixed(2); },
+                            font: { size: 11 }
+                        },
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    }
+                }
+            }
+        });
+    })();
+    </script>
+    @endif
+    <!-- Price History Chart Area End -->
 
     <!-- product details description area start -->
     <div class="description-review-area mb-50px bg-light-gray-3 ptb-50px">

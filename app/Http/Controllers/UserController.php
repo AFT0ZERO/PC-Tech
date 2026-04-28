@@ -4,20 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
 
     public function index(Request $request)
     {
-      $users_query = User::query();
-      $search_param = $request->query('search');
-      if (!empty($search_param)) {
-          $users_query = User::search($search_param);
-      }
-        $UsersFromDB = $users_query->paginate(15);
-       return view('admin.users.index' , ['users' => $UsersFromDB]);
+        $query = User::query();
+
+        if ($request->filled('search')) {
+            $s = $request->search;
+            $query->where(function ($q) use ($s) {
+                $q->where('fname', 'like', '%' . $s . '%')
+                    ->orWhere('lname', 'like', '%' . $s . '%')
+                    ->orWhere('email', 'like', '%' . $s . '%');
+            });
+        }
+
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $sort = $request->query('sort', 'created_desc');
+        match ($sort) {
+            'name_asc' => $query->orderBy('fname')->orderBy('lname'),
+            'name_desc' => $query->orderBy('fname', 'desc')->orderBy('lname', 'desc'),
+            'role_asc' => $query->orderBy('role')->orderBy('fname'),
+            'role_desc' => $query->orderBy('role', 'desc')->orderBy('fname'),
+            'created_asc' => $query->orderBy('created_at', 'asc'),
+            default => $query->orderBy('created_at', 'desc'),
+        };
+
+        $users = $query->paginate(15)->withQueryString();
+
+        return view('admin.users.index', ['users' => $users]);
     }
 
     public function create()
@@ -30,44 +53,39 @@ class UserController extends Controller
     {
         request()->validate(
             [
-                'fname'=>['required','min:3'],
-                'lname'=>['required','min:3'],
-                'email'=>['required','email'],
-                'mobile'=>['required','min:9','numeric'],
-                'role'=>['required'],
-                'gender'=>['required'],
-                'password'=>['required','min:5'],
-                'image'=>['nullable','image','mimes:jpeg,png,jpg'],
+                'fname' => ['required', 'min:3'],
+                'lname' => ['required', 'min:3'],
+                'email' => ['required', 'email'],
+                'mobile' => ['required', 'min:9', 'numeric'],
+                'role' => ['required', Rule::in(['admin'])],
+                'gender' => ['required'],
+                'password' => ['required', 'min:5'],
+                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
             ]
         );
+
+        $imagePath = null;
         if ($request->hasFile('image')) {
-            $file=$request->file('image');
-            $extension=$file->getClientOriginalExtension();
-            $fileName=time().'.'.$extension;
-            $path='uploads/user/';
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '.' . $extension;
+            $path = 'uploads/user/';
             $file->move($path, $fileName);
+            $imagePath = $path . $fileName;
         }
 
-        $fname = request()->fname;
-        $lname = request()->lname;
-        $email = request()->email;
-        $mobile = request()->mobile;
-        $role = request()->role;
-        $gender = request()->gender;
-        $password = request()->password;
-
         User::create([
-            'fname'=>$fname,
-            'lname'=>$lname,
-            'email'=>$email,
-            'password'=>hash::make($password),
-            'mobile'=>$mobile,
-            'role'=>$role,
-            'gender'=>$gender,
-            'image'=>'uploads/user/'.$fileName
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'mobile' => $request->mobile,
+            'role' => 'admin',
+            'gender' => $request->gender,
+            'image' => $imagePath,
         ]);
         session()->flash('success', 'User Created Successfully!');
-        return to_route('users.index');
+        return back();
     }
 
 
@@ -128,7 +146,7 @@ class UserController extends Controller
     {
         $user->delete();
         session()->flash('success', 'User Deleted Successfully!');
-        return to_route('users.index');
+        return back();
     }
     public function restore( $id)
     {
@@ -193,5 +211,28 @@ class UserController extends Controller
         return to_route('admin.index');
     }
 
+    public function updateAdminPassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (! Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'Current password is incorrect.',
+            ])->withInput();
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return to_route('admin.index')->with('password_success', 'Password changed successfully!');
+    }
+
 
 }
+

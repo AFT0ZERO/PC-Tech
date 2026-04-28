@@ -11,12 +11,26 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-         \App\Models\User::factory(10)->create();
-         \App\Models\Contact::factory(10)->create();
-         \App\Models\Faqs::factory(10)->create();
-         \App\Models\Category::factory(10)->create();
-         \App\Models\Store::factory(3)->create();
-         \App\Models\Product::factory(3)->create();
+         // Seed a stable test super-admin account (non-destructive)
+         \App\Models\User::firstOrCreate(
+             ['email' => 'superadmin@example.com'],
+             [
+                 'fname' => 'Super',
+                 'lname' => 'Admin',
+                 'role' => 'super-admin',
+                 'password' => bcrypt('password123'),
+                 'gender' => 'male',
+                 'mobile' => '0700000000',
+             ]
+         );
+        
+         // Other random data
+        //  \App\Models\User::factory(10)->create();
+        //  \App\Models\Contact::factory(10)->create();
+        //  \App\Models\Faqs::factory(10)->create();
+        //  \App\Models\Category::factory(10)->create();
+        //  \App\Models\Store::factory(3)->create();
+        //  \App\Models\Product::factory(3)->create();
 
     }
 }

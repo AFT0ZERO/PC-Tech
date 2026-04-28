@@ -24,11 +24,11 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->role == "admin" || $user->role == "super-admin") {
-            // Redirect admin or super admin to the dashboard
-            return to_route('dashboard');
+            // Redirect admin and super-admin to website home
+            return to_route('landing');
         }
 
-        // Redirect regular users to the home page
+        // Redirect regular users to website home
         return to_route('landing');
     }
 }

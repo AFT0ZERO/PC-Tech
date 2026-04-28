@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasMany(Feedback::class);
     }
 
+    public function builds()
+    {
+        return $this->hasMany(Build::class);
+    }
+
     public function toSearchableArray()
     {
         return [

@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-12">
         <div class="card">
-            <h5 class="card-header"><strong>Add User</strong></h5>
+            <h5 class="card-header"><strong>Add Admin User</strong></h5>
 
             <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -49,18 +49,15 @@
                         @enderror
                     </div>
 
-                    <div class="row">
-                        <div class="form-floating form-floating-outline mb-6 col-6">
-                            <select class="form-select @error('role') is-invalid @enderror" name="role" id="exampleFormControlSelect5">
-                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                            <label for="exampleFormControlSelect5">User Permissions</label>
-                            @error('role')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <input type="hidden" name="role" value="admin">
+                    <div class="alert alert-primary py-2 mb-3" role="alert">
+                        This form creates an <strong>Admin</strong> account only (normal users register on the website).
+                    </div>
+                    @error('role')
+                    <div class="text-danger small mb-3">{{ $message }}</div>
+                    @enderror
 
+                    <div class="row">
                         <div class="form-floating form-floating-outline mb-6 col-6">
                             <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="exampleFormControlSelect6">
                                 <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>

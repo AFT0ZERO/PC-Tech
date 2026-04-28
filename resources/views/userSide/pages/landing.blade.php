@@ -126,7 +126,7 @@
                                     <div class="product-inner">
                                         <div class="img-block">
                                             <a href="{{route('singlePage',$lastProduct->id)}}" class="thumbnail">
-                                                <img class="first-img" src="{{asset($lastProduct->images[0]->image)}}" alt="fix" />
+                                                <img class="first-img" src="{{ isset($lastProduct->images[0]) ? asset($lastProduct->images[0]->image) : asset('assets/img/product/default.png') }}" alt="{{ $lastProduct->name }}" onerror="this.src='{{ asset('assets/img/product/default.png') }}'" />
                                             </a>
                                             {{-- model start--}}
                                             <div class="add-to-link">
@@ -148,7 +148,7 @@
                                             <h2><a href="{{route('singlePage',$lastProduct->id)}}" class="product-link">{{$lastProduct->name}}</a></h2>
                                             <div class="pricing-meta">
                                                 <ul>
-                                                    <li class="current-price">{{$lastProduct->cheapest_price}}</li>
+                                                    <li class="current-price">{{ $lastProduct->cheapest_price ? number_format($lastProduct->cheapest_price, 2) . ' JD' : 'N/A' }}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                             @php
                                 if (Auth::check())
                                {
-                               $isFavorited = auth()->user()->favorites->contains($lastProduct->id);
+                               $isFavorited = auth()->user()->favorites->contains($CategoryProduct->id);
                                }
                             @endphp
                             <div class="slider-single-item">
@@ -200,7 +200,7 @@
                                     <div class="product-inner">
                                         <div class="img-block">
                                             <a href="{{route('singlePage',$CategoryProduct->id)}}" class="thumbnail">
-                                                <img class="first-img" src="{{asset($CategoryProduct->images[0]->image)}}" alt="fix" />
+                                                <img class="first-img" src="{{ isset($CategoryProduct->images[0]) ? asset($CategoryProduct->images[0]->image) : asset('assets/img/product/default.png') }}" alt="{{ $CategoryProduct->name }}" />
                                             </a>
                                             {{-- model start--}}
                                             <div class="add-to-link">
@@ -222,7 +222,7 @@
                                             <h2><a href="{{route('singlePage',$CategoryProduct->id)}}" class="product-link">{{$CategoryProduct->name}}</a></h2>
                                             <div class="pricing-meta">
                                                 <ul>
-                                                    <li class="current-price">{{$CategoryProduct->cheapest_price}}</li>
+                                                    <li class="current-price">{{ $CategoryProduct->cheapest_price ? number_format($CategoryProduct->cheapest_price, 2) . ' JD' : 'N/A' }}</li>
                                                 </ul>
                                             </div>
                                         </div>

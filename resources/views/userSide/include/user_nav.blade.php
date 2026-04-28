@@ -64,10 +64,17 @@
 
                             <li class="active"><a href="{{ route('faqs') }}"> FAQs </a></li>
 
+                            <!-- <li class="active"><a href="{{ route('builder.index') }}"> PC Builder </a></li> -->
+
                             <li><a href="{{ route('contact') }}">Contact Us</a></li>
 
 
                             <li><a href="{{route('account')}}" > My Account</a></li>
+                            @auth
+                                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
+                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                                @endif
+                            @endauth
 
                             @guest
                                 @if (Route::has('login'))
@@ -232,9 +239,16 @@
 
                 <li><a href="{{route('faqs')}}"><span class="menu-text">FAQs</span></a></li>
 
+                <li><a href="{{route('builder.index')}}"><span class="menu-text">PC Builder</span></a></li>
+
                 <li><a href="{{route('contact')}}">Contact Us</a></li>
 
                 <li><a href="{{route('account')}}" > My Account</a></li>
+                @auth
+                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
+                        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    @endif
+                @endauth
 
 
                 @guest

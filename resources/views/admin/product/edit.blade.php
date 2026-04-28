@@ -34,7 +34,22 @@
 
                     <div class=" form-floating-outline ">
                         <label for="exampleFormControlInput3">Brand</label>
-                        <input type="text" name="brand" value="{{ $product->brand }}" class="form-control @error('brand') is-invalid @enderror" id="exampleFormControlInput3" placeholder="Asus">
+                        <input type="text" list="brandOptions" name="brand" value="{{ $product->brand }}" class="form-control @error('brand') is-invalid @enderror" id="exampleFormControlInput3" placeholder="Search or enter brand manually (e.g. Asus)">
+                        <datalist id="brandOptions">
+                            <option value="Asus">
+                            <option value="Gigabyte">
+                            <option value="MSI">
+                            <option value="Corsair">
+                            <option value="Nzxt">
+                            <option value="Intel">
+                            <option value="AMD">
+                            <option value="Nvidia">
+                            <option value="Kingston">
+                            <option value="Samsung">
+                            <option value="Crucial">
+                            <option value="Evga">
+                            <option value="Cooler Master">
+                        </datalist>
                         @error('brand')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -60,31 +75,34 @@
                     </div>
                     <button type="button" id="add-key-value" class="btn btn-secondary">Add More</button>
                     <br><br>
+                    <h6 class="fw-bold mb-3">Existing Stores</h6>
                     @foreach($stores as $store)
-                        <div class="store-section mb-4">
+                        @if($store->products->count() > 0)
+                        <div class="store-section mb-4 p-3 border rounded">
                             <div class="col-12">
-                                <p class="fs-5 fw-bold">{{$store->name}}</p>
+                                <p class="fs-5 fw-bold mb-2">{{$store->name}}</p>
                             </div>
 
                             <div id="store-entries-{{$store->id}}">
-                                @foreach($store->products as $index => $product)
+                                @foreach($store->products as $index => $storeProduct)
                                     <div class="row mb-2">
                                         <input type="hidden" name="store_id[]" value="{{$store->id}}">
-                                        <input type="hidden" name="product_id[{{$store->id}}][]" value="{{$product->id}}">
+                                        <input type="hidden" name="product_id[{{$store->id}}][]" value="{{$storeProduct->id}}">
 
                                         <div class="mb-3 col-4">
                                             <label for="price-{{$store->id}}-{{$index}}" class="form-label">Price</label>
-                                            <input type="text" name="price[{{$store->id}}][]" value="{{$product->pivot->product_price}}" class="form-control" id="price-{{$store->id}}-{{$index}}" required>
+                                            <input type="number" step="0.01" name="price[{{$store->id}}][]" value="{{$storeProduct->pivot->product_price}}" class="form-control" id="price-{{$store->id}}-{{$index}}" required>
                                         </div>
                                         <div class="mb-3 col-4">
                                             <label for="url-{{$store->id}}-{{$index}}" class="form-label">URL</label>
-                                            <input type="text" name="url[{{$store->id}}][]" value="{{$product->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-{{$index}}" required>
+                                            <input type="text" name="url[{{$store->id}}][]" value="{{$storeProduct->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-{{$index}}" required>
                                         </div>
                                         <div class="mb-3 col-4">
-                                            <label for="status" class="form-label">Status</label>
-                                            <select name="status[{{$store->id}}][]" class="form-select" >
-                                                <option value="in stock" @if($product->pivot->product_status == 'in stock') selected @endif>In Stock</option>
-                                                <option value="out of stock" @if($product->pivot->product_status == 'out of stock') selected @endif>Out of Stock</option>
+                                            <label for="status-{{$store->id}}-{{$index}}" class="form-label">Status</label>
+                                            <select name="status[{{$store->id}}][]" class="form-select" id="status-{{$store->id}}-{{$index}}">
+                                                <option value="in stock" @if($storeProduct->pivot->product_status == 'in stock') selected @endif>In Stock</option>
+                                                <option value="out of stock" @if($storeProduct->pivot->product_status == 'out of stock') selected @endif>Out of Stock</option>
+                                                <option value="not found" @if($storeProduct->pivot->product_status == 'not found') selected @endif>Not Found</option>
                                             </select>
                                         </div>
                                     </div>
@@ -92,8 +110,63 @@
                             </div>
 
                         </div>
+                        @endif
                     @endforeach
-                    <button class="btn btn-success">Update</button>
+
+                    {{-- ── Add New Store section ──────────────────────────────── --}}
+                    @php
+                        $attachedStoreIds = $stores->filter(fn($s) => $s->products->count() > 0)->pluck('id')->toArray();
+                        $availableStores  = $stores->filter(fn($s) => $s->products->count() === 0);
+                    @endphp
+                    @if($availableStores->count() > 0)
+                    <div class="mt-4">
+                        <h6 class="fw-bold mb-3">Add New Stores</h6>
+                        <div id="new-store-entries">
+                            {{-- Dynamically added rows will appear here --}}
+                        </div>
+                        <button type="button" id="add-new-store-btn" class="btn btn-outline-primary btn-sm mt-2">
+                            + Add Store
+                        </button>
+                    </div>
+
+                    {{-- Hidden template row --}}
+                    <template id="new-store-template">
+                        <div class="new-store-row p-3 border rounded mb-3" style="background:#f9fafb;">
+                            <div class="row align-items-end">
+                                <div class="mb-3 col-md-3">
+                                    <label class="form-label fw-semibold">Store</label>
+                                    <select name="new_store_id[]" class="form-select new-store-select" required>
+                                        <option value="">-- Select Store --</option>
+                                        @foreach($availableStores as $avStore)
+                                            <option value="{{$avStore->id}}">{{$avStore->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="number" step="0.01" name="new_price[]" class="form-control" placeholder="e.g. 199.99" required>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">URL</label>
+                                    <input type="text" name="new_url[]" class="form-control" placeholder="https://..." required>
+                                </div>
+                                <div class="mb-3 col-md-1">
+                                    <label class="form-label">Status</label>
+                                    <select name="new_status[]" class="form-select">
+                                        <option value="in stock">In Stock</option>
+                                        <option value="out of stock">Out of Stock</option>
+                                        <option value="not found">Not Found</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-1 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-new-store-btn w-100">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    @endif
+
+                    <button class="btn btn-success mt-3">Update</button>
                 </div>
             </form>
         </div>
@@ -116,5 +189,22 @@
         `;
             document.getElementById('key-value-container').appendChild(newField);
         });
+
+        // Add new store row
+        const addNewStoreBtn = document.getElementById('add-new-store-btn');
+        if (addNewStoreBtn) {
+            addNewStoreBtn.addEventListener('click', function () {
+                const template = document.getElementById('new-store-template');
+                const clone = template.content.cloneNode(true);
+                document.getElementById('new-store-entries').appendChild(clone);
+            });
+
+            // Remove store row (delegated)
+            document.getElementById('new-store-entries').addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-new-store-btn')) {
+                    e.target.closest('.new-store-row').remove();
+                }
+            });
+        }
     </script>
 @endsection

@@ -39,7 +39,7 @@ class FaqsController extends Controller
             'answer' => request('answer')
         ]);
         session()->flash('success', 'FAQs Created Successfully!');
-        return to_route('faq.index');
+        return back();
     }
 
 
@@ -76,7 +76,7 @@ class FaqsController extends Controller
     {
         $faq->delete();
         session()->flash('success', 'FAQ Deleted Successfully!');
-        return to_route('faq.index');
+        return back();
     }
     public function restore( $id)
     {

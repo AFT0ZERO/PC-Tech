@@ -22,6 +22,7 @@
 
 @include('userSide.include.user_bottom')
 
+@yield('scripts')
 
 </body>
 </html>

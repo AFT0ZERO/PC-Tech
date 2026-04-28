@@ -42,4 +42,11 @@ class Product extends Model
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function builds()
+    {
+        return $this->belongsToMany(Build::class, 'build_parts')
+                    ->withPivot('category_name')
+                    ->withTimestamps();
+    }
 }

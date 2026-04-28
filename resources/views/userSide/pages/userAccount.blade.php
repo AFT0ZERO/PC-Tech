@@ -23,16 +23,13 @@
             <div class="row">
                 <div class="ms-auto me-auto col-lg-9">
                     <div class="checkout-wrapper">
-                        <div id="faq" class="panel-group">
+                        <div>
                             {{--edit user info start--}}
                             <div class="panel panel-default single-my-account">
                                 <div class="panel-heading my-account-title">
-
-                                    <h3 class="panel-title"><span>1 .</span> <a data-bs-toggle="collapse"
-                                                                                data-bs-target="#my-account-1">Edit your
-                                            account information </a></h3>
+                                    <h3 class="panel-title"> Edit your account information</h3>
                                 </div>
-                                <div id="my-account-1" class="panel-collapse collapse show" data-bs-parent="#faq">
+                                <div class="panel-collapse show">
                                     <form action="{{ route('updateAccount', Auth::user()->id) }}" method="POST"
                                           enctype="multipart/form-data">
                                         @csrf
@@ -50,9 +47,10 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div>
+                                            <div class="mb-3">
                                                 <img src='{{asset(Auth::user()->image)}}' alt="{{Auth::user()->fname}}"
-                                                     class="img-fluid w-px-120 h-px-120 mb-5">
+                                                     class="rounded-circle shadow-sm"
+                                                     style="width: 85px; height: 85px; object-fit: cover;">
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6">
@@ -127,6 +125,57 @@
                                             </div>
 
                                             <button class="btn btn btn-primary dlt-btn-t mt-4">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default single-my-account">
+                                <div class="panel-heading my-account-title">
+                                    <h3 class="panel-title">Change Password</h3>
+                                </div>
+                                <div class="panel-collapse show">
+                                    <form action="{{ route('updatePassword') }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="myaccount-info-wrapper">
+                                            <div class="account-info-wrapper">
+                                                <h4>Security</h4>
+                                                <h5>Update your login password</h5>
+                                                @if (session('password_success'))
+                                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                        {{ session('password_success') }}
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="billing-info">
+                                                        <label>Current Password</label>
+                                                        <input type="password" name="current_password" class="form-control @error('current_password') is-invalid @enderror">
+                                                        @error('current_password')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="billing-info">
+                                                        <label>New Password</label>
+                                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                                                        @error('password')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="billing-info">
+                                                        <label>Confirm New Password</label>
+                                                        <input type="password" name="password_confirmation" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary mt-4">Change Password</button>
                                         </div>
                                     </form>
                                 </div>

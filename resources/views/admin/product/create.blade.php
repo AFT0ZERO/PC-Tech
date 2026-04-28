@@ -37,7 +37,22 @@
 
                     <div class=" form-floating-outline ">
                         <label for="exampleFormControlInput3">Brand</label>
-                        <input type="text" name="brand" value="{{ old('brand') }}" class="form-control @error('brand') is-invalid @enderror" id="exampleFormControlInput3" placeholder="Asus">
+                        <input type="text" list="brandOptions" name="brand" value="{{ old('brand') }}" class="form-control @error('brand') is-invalid @enderror" id="exampleFormControlInput3" placeholder="Search or enter brand manually (e.g. Asus)">
+                        <datalist id="brandOptions">
+                            <option value="Asus">
+                            <option value="Gigabyte">
+                            <option value="MSI">
+                            <option value="Corsair">
+                            <option value="Nzxt">
+                            <option value="Intel">
+                            <option value="AMD">
+                            <option value="Nvidia">
+                            <option value="Kingston">
+                            <option value="Samsung">
+                            <option value="Crucial">
+                            <option value="Evga">
+                            <option value="Cooler Master">
+                        </datalist>
                         @error('brand')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -58,7 +73,13 @@
                                 <input type="text" name="value[]" class="form-control" >
                             </div>
                         </div>
-                    <button type="button" id="add-key-value" class="btn btn-secondary">Add More</button>
+                    <div class="d-flex align-items-center gap-3">
+                        <button type="button" id="add-key-value" class="btn btn-secondary">Add More</button>
+                        <button type="button" id="autofill-specs" class="btn btn-primary d-flex align-items-center gap-2">
+                            Autofill Specs
+                        </button>
+                        <span id="autofill-status" class="text-muted ms-2" style="display: none;">Loading...</span>
+                    </div>
                     <br><br>
                     @foreach($stores as $store)
                         <div class="col-2">
@@ -79,6 +100,7 @@
                                 <select name="status[]" class="form-select" >
                                     <option value="in stock">In Stock</option>
                                     <option value="out of stock">Out of Stock</option>
+                                    <option value="not found">Not Found</option>
                                 </select>
                             </div>
                         </div>
@@ -105,6 +127,57 @@
                 </div>
             `;
             document.getElementById('key-value-fields').appendChild(newField);
+        });
+
+        document.getElementById('autofill-specs').addEventListener('click', function() {
+            const partName = document.getElementById('exampleFormControlInput1').value;
+            if (!partName) {
+                alert('Please enter a Product Name first to autofill specs.');
+                return;
+            }
+
+            const statusEl = document.getElementById('autofill-status');
+            statusEl.style.display = 'inline-block';
+            statusEl.innerText = 'Loading specs from openDB...';
+
+            fetch('{{ route('product.fetchSpecs') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ query: partName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                statusEl.style.display = 'none';
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else if (data.specs) {
+                    const container = document.getElementById('key-value-fields');
+                    container.innerHTML = '';
+                    
+                    for (const [key, value] of Object.entries(data.specs)) {
+                        const newField = document.createElement('div');
+                        newField.classList.add('row');
+                        newField.innerHTML = `
+                            <div class="mb-3 col-6">
+                                <label for="key" class="form-label">Key</label>
+                                <input type="text" name="key[]" class="form-control" value="${key}" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="value" class="form-label">Value</label>
+                                <input type="text" name="value[]" class="form-control" value="${value}" required>
+                            </div>
+                        `;
+                        container.appendChild(newField);
+                    }
+                }
+            })
+            .catch(error => {
+                statusEl.style.display = 'none';
+                alert('Failed to fetch specs: ' + error);
+            });
         });
     </script>
 @endsection
