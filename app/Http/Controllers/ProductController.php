@@ -41,14 +41,12 @@ class ProductController extends Controller
         return view('admin.product.index', ['products' => $products, 'categories' => $categories]);
     }
 
-
     public function create()
     {
         $CategoryFromDB=Category::all();
         $StoreFromDB=Store::all();
         return view('admin.product.create' , ['categories'=>$CategoryFromDB , 'stores'=>$StoreFromDB]);
     }
-
 
     public function store(Request $request)
     {
@@ -72,7 +70,7 @@ class ProductController extends Controller
             'smallDescription' => $request->description,
             'brand' => $request->brand,
             'category_id' => $request->category,
-            'description' => json_encode(array_combine($request->key, $request->value)) // Combine key-value pairs into JSON
+            'description' => json_encode(array_combine($request->key, $request->value)) 
         ]);
 
         // Step 2: Attach stores with prices and URLs
@@ -91,9 +89,8 @@ class ProductController extends Controller
 
         $this->syncScraperConfig();
 
-        return redirect()->back()->with('success', 'Product stored successfully!');
+        return to_route('product.index')->with('success', 'Product stored successfully!');
     }
-
 
     public function show(Product $product)
     {
@@ -120,15 +117,12 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-
-        $CategoryFromDB=Category::all();
-        $StoreFromDB = Store::with(['products' => function ($query) use ($product) {
-            $query->where('product_id', $product->id);
-        }])->get();
-        $description=json_decode($product->description, true);
-        return view('admin.product.edit' , ['categories'=>$CategoryFromDB , 'stores'=>$StoreFromDB , 'product'=>$product , 'descriptions'=>$description]);
+        $CategoryFromDB = Category::all();
+        $StoreFromDB = Store::all();
+        $product->load('stores');
+        $description = json_decode($product->description, true);
+        return view('admin.product.edit', ['categories' => $CategoryFromDB, 'stores' => $StoreFromDB, 'product' => $product, 'descriptions' => $description]);
     }
-
 
     public function update(Request $request, Product $product)
     {
@@ -155,7 +149,7 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->save();
 
-        // Update product specifications (assuming they are stored as JSON in the 'pro_description' field)
+        // Update product specifications 
         $descriptions = array_combine($request->input('key'), $request->input('value'));
         $product->description = json_encode($descriptions);
         $product->save();
@@ -170,7 +164,7 @@ class ProductController extends Controller
                 $product->stores()->updateExistingPivot($storeId, [
                     'product_price'  => $prices[0],
                     'product_url'    => $urls[0]   ?? '',
-                    'product_status' => $status[0] ?? 'in stock',
+                    'product_status' => $status[0] ?? 'out of stock',
                 ]);
             }
         }
@@ -188,18 +182,14 @@ class ProductController extends Controller
                 $product->stores()->attach($newStoreId, [
                     'product_price'  => $newPrices[$i]   ?? 0,
                     'product_url'    => $newUrls[$i]     ?? '',
-                    'product_status' => $newStatuses[$i] ?? 'in stock',
+                    'product_status' => $newStatuses[$i] ?? 'out of stock',
                 ]);
             }
         }
-
         $this->syncScraperConfig();
-
         // Redirect back with a success message
         return back()->with('success', 'Product updated successfully.');
     }
-
-
 
     public function destroy(Product $product)
     {

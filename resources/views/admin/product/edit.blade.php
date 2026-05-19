@@ -11,7 +11,12 @@
     <div class="col-md-12">
         <div class="card">
             <h5 class="card-header"><strong>Edit Product</strong></h5>
-
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <form action="{{ route('product.update' , $product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -77,36 +82,35 @@
                     <br><br>
                     <h6 class="fw-bold mb-3">Existing Stores</h6>
                     @foreach($stores as $store)
-                        @if($store->products->count() > 0)
+                        @php $storeEntry = $product->stores->find($store->id) @endphp
+                        @if($storeEntry)
                         <div class="store-section mb-4 p-3 border rounded">
                             <div class="col-12">
                                 <p class="fs-5 fw-bold mb-2">{{$store->name}}</p>
                             </div>
 
                             <div id="store-entries-{{$store->id}}">
-                                @foreach($store->products as $index => $storeProduct)
-                                    <div class="row mb-2">
-                                        <input type="hidden" name="store_id[]" value="{{$store->id}}">
-                                        <input type="hidden" name="product_id[{{$store->id}}][]" value="{{$storeProduct->id}}">
+                                <div class="row mb-2">
+                                    <input type="hidden" name="store_id[]" value="{{$store->id}}">
+                                    <input type="hidden" name="product_id[{{$store->id}}][]" value="{{$product->id}}">
 
-                                        <div class="mb-3 col-4">
-                                            <label for="price-{{$store->id}}-{{$index}}" class="form-label">Price</label>
-                                            <input type="number" step="0.01" name="price[{{$store->id}}][]" value="{{$storeProduct->pivot->product_price}}" class="form-control" id="price-{{$store->id}}-{{$index}}" required>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="url-{{$store->id}}-{{$index}}" class="form-label">URL</label>
-                                            <input type="text" name="url[{{$store->id}}][]" value="{{$storeProduct->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-{{$index}}" required>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="status-{{$store->id}}-{{$index}}" class="form-label">Status</label>
-                                            <select name="status[{{$store->id}}][]" class="form-select" id="status-{{$store->id}}-{{$index}}">
-                                                <option value="in stock" @if($storeProduct->pivot->product_status == 'in stock') selected @endif>In Stock</option>
-                                                <option value="out of stock" @if($storeProduct->pivot->product_status == 'out of stock') selected @endif>Out of Stock</option>
-                                                <option value="not found" @if($storeProduct->pivot->product_status == 'not found') selected @endif>Not Found</option>
-                                            </select>
-                                        </div>
+                                    <div class="mb-3 col-4">
+                                        <label for="price-{{$store->id}}-0" class="form-label">Price</label>
+                                        <input type="number" step="0.01" name="price[{{$store->id}}][]" value="{{$storeEntry->pivot->product_price}}" class="form-control" id="price-{{$store->id}}-0" required>
                                     </div>
-                                @endforeach
+                                    <div class="mb-3 col-4">
+                                        <label for="url-{{$store->id}}-0" class="form-label">URL</label>
+                                        <input type="text" name="url[{{$store->id}}][]" value="{{$storeEntry->pivot->product_url}}" class="form-control" id="url-{{$store->id}}-0" required>
+                                    </div>
+                                    <div class="mb-3 col-4">
+                                        <label for="status-{{$store->id}}-0" class="form-label">Status</label>
+                                        <select name="status[{{$store->id}}][]" class="form-select" id="status-{{$store->id}}-0">
+                                            <option value="in stock" @if($storeEntry->pivot->product_status == 'in stock') selected @endif>In Stock</option>
+                                            <option value="out of stock" @if($storeEntry->pivot->product_status == 'out of stock') selected @endif>Out of Stock</option>
+                                            <option value="not found" @if($storeEntry->pivot->product_status == 'not found') selected @endif>Not Found</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -115,8 +119,7 @@
 
                     {{-- ── Add New Store section ──────────────────────────────── --}}
                     @php
-                        $attachedStoreIds = $stores->filter(fn($s) => $s->products->count() > 0)->pluck('id')->toArray();
-                        $availableStores  = $stores->filter(fn($s) => $s->products->count() === 0);
+                        $availableStores = $stores->filter(fn($s) => !$product->stores->contains($s->id));
                     @endphp
                     @if($availableStores->count() > 0)
                     <div class="mt-4">

@@ -2811,3 +2811,546 @@ Call log:
 2026-04-18 20:44:54,013 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
 2026-04-18 20:44:54,013 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 41: No valid price.
 2026-04-18 20:44:54,030 - main - INFO - Scraper Run Completed.
+2026-05-17 09:22:47,562 - main - INFO - Starting Price Scraper Run
+2026-05-17 09:22:47,563 - main - INFO - --- Processing Store: Midas Computer Center ---
+2026-05-17 09:22:47,563 - main.scrapers.static - INFO - [Midas Computer Center] Starting Static Scrape for 30 products.
+2026-05-17 09:22:47,563 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 7: https://mcc-jo.com/product/intel-core-i5-14400f-14th-gen-10-core-processor
+2026-05-17 09:22:48,328 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 7: JOD 145.0
+2026-05-17 09:22:50,494 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 13: https://mcc-jo.com/product/intel-core-i7-14700kf-20-core-processor-tray
+2026-05-17 09:22:51,267 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 13: JOD 299.0
+2026-05-17 09:22:53,303 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 14: https://mcc-jo.com/product/intel-core-i9-14900kf-24-core-processor
+2026-05-17 09:22:53,896 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 14: JOD 389.0
+2026-05-17 09:22:55,925 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 15: https://mcc-jo.com/product/amd-ryzen-5-7600x-6-core-processor-tray
+2026-05-17 09:22:56,508 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 15: JOD 169.0
+2026-05-17 09:22:58,546 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 16: https://mcc-jo.com/product/amd-ryzen-7-7700x-8-core-processor
+2026-05-17 09:22:59,015 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 16: JOD 249.0
+2026-05-17 09:23:01,031 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 17: https://mcc-jo.com/product/amd-ryzen-9-7900x-12-core-processor
+2026-05-17 09:23:01,487 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 17: JOD 299.0
+2026-05-17 09:23:03,497 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 18: #
+2026-05-17 09:23:03,500 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:04,503 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:06,506 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:06,506 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:06,509 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 18: No valid price.
+2026-05-17 09:23:06,536 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 19: #
+2026-05-17 09:23:06,538 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:07,542 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:09,545 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:09,546 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:09,546 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 19: No valid price.
+2026-05-17 09:23:09,569 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 20: #
+2026-05-17 09:23:09,571 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:10,575 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:12,577 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:12,577 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:12,577 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 20: No valid price.
+2026-05-17 09:23:12,615 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 21: https://mcc-jo.com/product/amd-ryzen-9-7950x3d-16-core-processor
+2026-05-17 09:23:13,321 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 21: JOD 459.0
+2026-05-17 09:23:15,334 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 22: #
+2026-05-17 09:23:15,337 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:16,339 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:18,341 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:18,342 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:18,342 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 22: No valid price.
+2026-05-17 09:23:18,380 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 23: https://mcc-jo.com/product/msi-pro-b760m-b-ddr5-motherboard
+2026-05-17 09:23:19,136 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 23: JOD 99.0
+2026-05-17 09:23:21,167 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 24: #
+2026-05-17 09:23:21,171 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:22,176 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:24,180 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:24,181 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:24,182 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 24: No valid price.
+2026-05-17 09:23:24,229 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 25: #
+2026-05-17 09:23:24,233 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:25,237 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:27,240 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:27,241 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:27,241 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 25: No valid price.
+2026-05-17 09:23:27,255 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 26: https://mcc-jo.com/product/msi-meg-ai1300p-pcie5-80-plus-1300w-platinum-full-modular-power-supply
+2026-05-17 09:23:27,850 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 26: JOD 249.0
+2026-05-17 09:23:29,865 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 27: #
+2026-05-17 09:23:29,867 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:30,868 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:32,871 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:32,872 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:32,873 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 27: No valid price.
+2026-05-17 09:23:32,910 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 28: #
+2026-05-17 09:23:32,913 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:33,919 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:35,925 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:35,927 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:35,927 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 28: No valid price.
+2026-05-17 09:23:35,965 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 29: #
+2026-05-17 09:23:35,968 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:36,974 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:38,979 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:38,980 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:38,981 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 29: No valid price.
+2026-05-17 09:23:39,025 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 30: https://mcc-jo.com/product/kingston-fury-beast-32gb-6000mhz-ddr5-ram-white
+2026-05-17 09:23:39,832 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 30: JOD 99.0
+2026-05-17 09:23:41,849 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 31: https://mcc-jo.com/product/kingston-fury-beast-8gb-3600mhz-ddr4-rgb-ram
+2026-05-17 09:23:42,587 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 31: JOD 25.0
+2026-05-17 09:23:44,621 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 32: #
+2026-05-17 09:23:44,625 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:45,629 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:47,632 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:47,633 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:47,634 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 32: No valid price.
+2026-05-17 09:23:47,659 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 33: #
+2026-05-17 09:23:47,661 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:48,664 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:50,667 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:50,668 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:50,669 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 33: No valid price.
+2026-05-17 09:23:50,701 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 34: https://mcc-jo.com/product/asus-prime-geforce-rtx-4070-super-oc-edition-12gb-gddr6x-graphics-card?srsltid=AfmBOoqChpUwFCxVtxMULTYSrOEMamFVnT0pbxzmHQiBmm2Tep9CmfmP
+2026-05-17 09:23:51,289 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 34: JOD 579.0
+2026-05-17 09:23:53,305 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 35: #
+2026-05-17 09:23:53,307 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:54,310 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:56,314 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:56,315 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:56,315 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 35: No valid price.
+2026-05-17 09:23:56,354 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 36: #
+2026-05-17 09:23:56,357 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:57,360 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:59,362 - main.scrapers.static - WARNING - [Midas Computer Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:23:59,363 - main.scrapers.static - ERROR - [Midas Computer Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:23:59,364 - main.scrapers.base - WARNING - [Midas Computer Center] Skipping DB insert for Product 36: No valid price.
+2026-05-17 09:23:59,389 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 37: https://mcc-jo.com/product/gigabyte-geforce-rtx-4080-super-gaming-oc-16gb-graphic-card
+2026-05-17 09:23:59,962 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 37: JOD 999.0
+2026-05-17 09:24:01,989 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 38: https://mcc-jo.com/product/kingston-2-5%E2%80%B3-ssd-480gb
+2026-05-17 09:24:02,581 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 38: JOD 75.0
+2026-05-17 09:24:04,612 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 39: https://mcc-jo.com/product/samsung-990-pro-2tb-pcie-40-nvme-m2-ssd
+2026-05-17 09:24:05,093 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 39: JOD 169.0
+2026-05-17 09:24:07,124 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 40: https://mcc-jo.com/product/kingston-fury-renegade-500gb-pcie-4-0-nvme-m-2-ssd-2
+2026-05-17 09:24:07,760 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 40: JOD 95.0
+2026-05-17 09:24:09,783 - main.scrapers.static - INFO - [Midas Computer Center] Fetching Product 41: https://mcc-jo.com/product/kingston-fury-renegade-4tb-pcie-gen-4-0-nvme-m-2-internal-gaming-ssd-with-heat-sink
+2026-05-17 09:24:10,317 - main.scrapers.base - INFO - [Midas Computer Center] Saving Product 41: JOD 335.0
+2026-05-17 09:24:12,351 - main - INFO - --- Processing Store: Number One Store ---
+2026-05-17 09:24:12,352 - main.scrapers.static - INFO - [Number One Store] Starting Static Scrape for 30 products.
+2026-05-17 09:24:12,352 - main.scrapers.static - INFO - [Number One Store] Fetching Product 7: https://numberonestore.net/components/cpu-processor/intel-core-i5-14400-14th-generation-processor-desktop-box?sort=p.price&order=DESC
+2026-05-17 09:24:14,349 - main.scrapers.base - INFO - [Number One Store] Saving Product 7: JOD 215.0
+2026-05-17 09:24:17,371 - main.scrapers.static - INFO - [Number One Store] Fetching Product 13: https://numberonestore.net/components/cpu-processor/intel-core-i7-14700kf-14th-generation-processor-desktop-unloked-tray?sort=p.price&order=DESC
+2026-05-17 09:24:18,979 - main.scrapers.base - INFO - [Number One Store] Saving Product 13: JOD 329.0
+2026-05-17 09:24:22,003 - main.scrapers.static - INFO - [Number One Store] Fetching Product 14: https://numberonestore.net/components/cpu-processor/intel-core-i9-14900kf-14th-generation-processor-cpu-desktop-24-core-unloked-tray?sort=p.price&order=DESC
+2026-05-17 09:24:24,047 - main.scrapers.base - INFO - [Number One Store] Saving Product 14: JOD 459.0
+2026-05-17 09:24:27,086 - main.scrapers.static - INFO - [Number One Store] Fetching Product 15: #
+2026-05-17 09:24:27,088 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:28,090 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:30,094 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:30,094 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:30,094 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 15: No valid price.
+2026-05-17 09:24:30,120 - main.scrapers.static - INFO - [Number One Store] Fetching Product 16: #
+2026-05-17 09:24:30,121 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:31,122 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:33,125 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:33,125 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:33,126 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 16: No valid price.
+2026-05-17 09:24:33,160 - main.scrapers.static - INFO - [Number One Store] Fetching Product 17: #
+2026-05-17 09:24:33,162 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:34,164 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:36,165 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:36,165 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:36,165 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 17: No valid price.
+2026-05-17 09:24:36,187 - main.scrapers.static - INFO - [Number One Store] Fetching Product 18: #
+2026-05-17 09:24:36,188 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:37,190 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:39,192 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:39,193 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:39,194 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 18: No valid price.
+2026-05-17 09:24:39,227 - main.scrapers.static - INFO - [Number One Store] Fetching Product 19: #
+2026-05-17 09:24:39,231 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:40,234 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:42,235 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:42,235 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:42,236 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 19: No valid price.
+2026-05-17 09:24:42,257 - main.scrapers.static - INFO - [Number One Store] Fetching Product 20: #
+2026-05-17 09:24:42,258 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:43,259 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:45,260 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:45,261 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:45,261 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 20: No valid price.
+2026-05-17 09:24:45,283 - main.scrapers.static - INFO - [Number One Store] Fetching Product 21: #
+2026-05-17 09:24:45,284 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:46,286 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:48,287 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:48,287 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:48,287 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 21: No valid price.
+2026-05-17 09:24:48,314 - main.scrapers.static - INFO - [Number One Store] Fetching Product 22: #
+2026-05-17 09:24:48,315 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:49,316 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:51,319 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:51,319 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:51,320 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 22: No valid price.
+2026-05-17 09:24:51,354 - main.scrapers.static - INFO - [Number One Store] Fetching Product 23: #
+2026-05-17 09:24:51,358 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:52,362 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:54,363 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:54,364 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:54,364 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 23: No valid price.
+2026-05-17 09:24:54,384 - main.scrapers.static - INFO - [Number One Store] Fetching Product 24: #
+2026-05-17 09:24:54,385 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:55,386 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:57,389 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:57,390 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:24:57,391 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 24: No valid price.
+2026-05-17 09:24:57,424 - main.scrapers.static - INFO - [Number One Store] Fetching Product 25: #
+2026-05-17 09:24:57,426 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:24:58,429 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:00,431 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:00,432 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:00,432 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 25: No valid price.
+2026-05-17 09:25:00,455 - main.scrapers.static - INFO - [Number One Store] Fetching Product 26: #
+2026-05-17 09:25:00,457 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:01,460 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:03,461 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:03,461 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:03,461 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 26: No valid price.
+2026-05-17 09:25:03,486 - main.scrapers.static - INFO - [Number One Store] Fetching Product 27: #
+2026-05-17 09:25:03,486 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:04,488 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:06,490 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:06,491 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:06,491 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 27: No valid price.
+2026-05-17 09:25:06,532 - main.scrapers.static - INFO - [Number One Store] Fetching Product 28: #
+2026-05-17 09:25:06,534 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:07,539 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:09,540 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:09,541 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:09,541 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 28: No valid price.
+2026-05-17 09:25:09,564 - main.scrapers.static - INFO - [Number One Store] Fetching Product 29: #
+2026-05-17 09:25:09,564 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:10,569 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:12,575 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:12,576 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:12,577 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 29: No valid price.
+2026-05-17 09:25:12,624 - main.scrapers.static - INFO - [Number One Store] Fetching Product 30: #
+2026-05-17 09:25:12,627 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:13,630 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:15,632 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:15,633 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:15,633 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 30: No valid price.
+2026-05-17 09:25:15,666 - main.scrapers.static - INFO - [Number One Store] Fetching Product 31: #
+2026-05-17 09:25:15,669 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:16,670 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:18,673 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:18,674 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:18,675 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 31: No valid price.
+2026-05-17 09:25:18,707 - main.scrapers.static - INFO - [Number One Store] Fetching Product 32: #
+2026-05-17 09:25:18,709 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:19,712 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:21,716 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:21,716 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:21,717 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 32: No valid price.
+2026-05-17 09:25:21,746 - main.scrapers.static - INFO - [Number One Store] Fetching Product 33: #
+2026-05-17 09:25:21,748 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:22,752 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:24,754 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:24,754 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:24,754 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 33: No valid price.
+2026-05-17 09:25:24,776 - main.scrapers.static - INFO - [Number One Store] Fetching Product 34: #
+2026-05-17 09:25:24,776 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:25,777 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:27,779 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:27,779 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:27,779 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 34: No valid price.
+2026-05-17 09:25:27,802 - main.scrapers.static - INFO - [Number One Store] Fetching Product 35: #
+2026-05-17 09:25:27,803 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:28,804 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:30,806 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:30,806 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:30,807 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 35: No valid price.
+2026-05-17 09:25:30,828 - main.scrapers.static - INFO - [Number One Store] Fetching Product 36: #
+2026-05-17 09:25:30,828 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:31,830 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:33,832 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:33,832 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:33,832 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 36: No valid price.
+2026-05-17 09:25:33,841 - main.scrapers.static - INFO - [Number One Store] Fetching Product 37: #
+2026-05-17 09:25:33,841 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:34,843 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:36,845 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:36,845 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:36,845 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 37: No valid price.
+2026-05-17 09:25:36,866 - main.scrapers.static - INFO - [Number One Store] Fetching Product 38: #
+2026-05-17 09:25:36,867 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:37,868 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:39,870 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:39,870 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:39,871 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 38: No valid price.
+2026-05-17 09:25:39,886 - main.scrapers.static - INFO - [Number One Store] Fetching Product 39: #
+2026-05-17 09:25:39,888 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:40,891 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:42,896 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:42,897 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:42,902 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 39: No valid price.
+2026-05-17 09:25:42,932 - main.scrapers.static - INFO - [Number One Store] Fetching Product 40: #
+2026-05-17 09:25:42,934 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:43,938 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:45,944 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:45,944 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:45,945 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 40: No valid price.
+2026-05-17 09:25:45,976 - main.scrapers.static - INFO - [Number One Store] Fetching Product 41: #
+2026-05-17 09:25:45,981 - main.scrapers.static - WARNING - [Number One Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:46,984 - main.scrapers.static - WARNING - [Number One Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:48,985 - main.scrapers.static - WARNING - [Number One Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:25:48,986 - main.scrapers.static - ERROR - [Number One Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:25:48,986 - main.scrapers.base - WARNING - [Number One Store] Skipping DB insert for Product 41: No valid price.
+2026-05-17 09:25:49,006 - main - INFO - --- Processing Store: City Center ---
+2026-05-17 09:25:49,006 - main.scrapers.static - INFO - [City Center] Starting Static Scrape for 30 products.
+2026-05-17 09:25:49,006 - main.scrapers.static - INFO - [City Center] Fetching Product 7: https://citycenter.jo/computer-hardware/components-cpu-and-processor/intel-new-14gen-core-i5-14400f-10-cores-up-to-4-7ghz-l2-l3-29-5mb-cache-w-o-intel-graphic-tray
+2026-05-17 09:25:49,627 - main.scrapers.base - INFO - [City Center] Saving Product 7: JOD 159.0
+2026-05-17 09:25:53,648 - main.scrapers.static - INFO - [City Center] Fetching Product 13: https://citycenter.jo/computer-hardware/components-cpu-and-processor/cpu-and-processor-desktop-cpu/intel-new-14gen-core-i7-14700kf-20-cores-up-to-5-6-ghz-l2-l3-61mb-cache-unlocked-w-o-integrated-graphics-tray?sort=p.price&order=DESC&limit=50
+2026-05-17 09:25:54,205 - main.scrapers.base - INFO - [City Center] Saving Product 13: JOD 319.0
+2026-05-17 09:25:58,227 - main.scrapers.static - INFO - [City Center] Fetching Product 14: https://citycenter.jo/computer-hardware/components-cpu-and-processor/cpu-and-processor-desktop-cpu/intel-new-13gen-core-i9-14900kf-24-cores-up-to-6-0-ghz-l2-l3-68mb-cache-unlocked-w-o-integrated-graphics-tray?sort=p.price&order=DESC&limit=50
+2026-05-17 09:25:58,783 - main.scrapers.base - INFO - [City Center] Saving Product 14: JOD 399.0
+2026-05-17 09:26:02,798 - main.scrapers.static - INFO - [City Center] Fetching Product 15: https://citycenter.jo/computer-hardware/components-cpu-and-processor/cpu-and-processor-desktop-cpu/amd-ryzen-5-7600x-6-core-4-7ghz-5-3-ghz-max-boost-32mb-cache-am5-desktop-processor-tray?sort=p.price&order=DESC&limit=50
+2026-05-17 09:26:03,338 - main.scrapers.base - INFO - [City Center] Saving Product 15: JOD 179.0
+2026-05-17 09:26:07,378 - main.scrapers.static - INFO - [City Center] Fetching Product 16: #
+2026-05-17 09:26:07,380 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:08,383 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:10,386 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:10,387 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:10,389 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 16: No valid price.
+2026-05-17 09:26:10,424 - main.scrapers.static - INFO - [City Center] Fetching Product 17: https://citycenter.jo/computer-hardware/components-cpu-and-processor/cpu-and-processor-desktop-cpu/amd-ryzen-9-7900x-12-core-4-7ghz-5-6-ghz-max-boost-64mb-cache-am5-desktop-processor-tray?sort=p.price&order=DESC&limit=50
+2026-05-17 09:26:10,927 - main.scrapers.base - INFO - [City Center] Saving Product 17: JOD 299.0
+2026-05-17 09:26:14,950 - main.scrapers.static - INFO - [City Center] Fetching Product 18: #
+2026-05-17 09:26:14,952 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:15,956 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:17,959 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:17,960 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:17,960 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 18: No valid price.
+2026-05-17 09:26:17,992 - main.scrapers.static - INFO - [City Center] Fetching Product 19: #
+2026-05-17 09:26:17,994 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:18,997 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:21,000 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:21,001 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:21,002 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 19: No valid price.
+2026-05-17 09:26:21,038 - main.scrapers.static - INFO - [City Center] Fetching Product 20: #
+2026-05-17 09:26:21,040 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:22,042 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:24,045 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:24,046 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:24,046 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 20: No valid price.
+2026-05-17 09:26:24,075 - main.scrapers.static - INFO - [City Center] Fetching Product 21: https://citycenter.jo/computer-hardware/components-cpu-and-processor/cpu-and-processor-desktop-cpu/amd-ryzen-9-7950x3d-16-core-4-2ghz-5-7-ghz-max-boost-145mb-cache-am5-desktop-processor-tray?sort=p.price&order=DESC&limit=50
+2026-05-17 09:26:24,544 - main.scrapers.base - INFO - [City Center] Saving Product 21: JOD 499.0
+2026-05-17 09:26:28,567 - main.scrapers.static - INFO - [City Center] Fetching Product 22: https://citycenter.jo/computer-hardware/components-motherboard/asus-rog-strix-x870-f-gaming-wifi-7-amd-x870-am5-atx-4x-m-2-slots-ddr5-usb-3-2-gen-2x2-type-c-usb4-header-2-5gb-ethernet
+2026-05-17 09:26:29,130 - main.scrapers.base - INFO - [City Center] Saving Product 22: JOD 399.0
+2026-05-17 09:26:33,152 - main.scrapers.static - INFO - [City Center] Fetching Product 23: https://citycenter.jo/computer-hardware/components-motherboard/msi-pro-b760m-e-ddr4-intel-13th-gen-motherboard-pcie-4-0-ddr4-1xm-2-gen4-x4-pcie-4-0-mainboard?sort=p.price&order=ASC&limit=50
+2026-05-17 09:26:33,769 - main.scrapers.base - INFO - [City Center] Saving Product 23: JOD 89.0
+2026-05-17 09:26:37,797 - main.scrapers.static - INFO - [City Center] Fetching Product 24: https://citycenter.jo/computer-hardware/components-motherboard/asus-prime-b760-plus-d4-intel-13th-gen-motherboard-pcie-5-0-ddr4-3xm-2-pcie-4-0-usb-type-c?sort=p.price&order=ASC&limit=50
+2026-05-17 09:26:38,371 - main.scrapers.base - INFO - [City Center] Saving Product 24: JOD 119.0
+2026-05-17 09:26:42,396 - main.scrapers.static - INFO - [City Center] Fetching Product 25: https://citycenter.jo/computer-hardware/components-motherboard/asus-rog-strix-z790-e-wifi-ii-gaming-wifi-7-intel-13th-14th-gen-motherboard-pcie-5-0-ddr5-thunderbolt-4-support-up-to-5xm-2?sort=p.price&order=ASC&limit=50
+2026-05-17 09:26:43,027 - main.scrapers.base - INFO - [City Center] Saving Product 25: JOD 429.0
+2026-05-17 09:26:47,055 - main.scrapers.static - INFO - [City Center] Fetching Product 26: #
+2026-05-17 09:26:47,057 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:48,058 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:50,062 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:50,063 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:50,064 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 26: No valid price.
+2026-05-17 09:26:50,095 - main.scrapers.static - INFO - [City Center] Fetching Product 27: #
+2026-05-17 09:26:50,096 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:51,098 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:53,101 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:53,102 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:53,102 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 27: No valid price.
+2026-05-17 09:26:53,125 - main.scrapers.static - INFO - [City Center] Fetching Product 28: #
+2026-05-17 09:26:53,127 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:54,130 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:56,135 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:56,135 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:56,136 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 28: No valid price.
+2026-05-17 09:26:56,148 - main.scrapers.static - INFO - [City Center] Fetching Product 29: #
+2026-05-17 09:26:56,148 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:57,150 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:59,153 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:26:59,153 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:26:59,154 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 29: No valid price.
+2026-05-17 09:26:59,195 - main.scrapers.static - INFO - [City Center] Fetching Product 30: #
+2026-05-17 09:26:59,197 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:00,200 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:02,207 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:02,208 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:02,208 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 30: No valid price.
+2026-05-17 09:27:02,254 - main.scrapers.static - INFO - [City Center] Fetching Product 31: #
+2026-05-17 09:27:02,256 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:03,259 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:05,263 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:05,264 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:05,265 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 31: No valid price.
+2026-05-17 09:27:05,329 - main.scrapers.static - INFO - [City Center] Fetching Product 32: #
+2026-05-17 09:27:05,333 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:06,334 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:08,339 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:08,340 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:08,341 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 32: No valid price.
+2026-05-17 09:27:08,397 - main.scrapers.static - INFO - [City Center] Fetching Product 33: #
+2026-05-17 09:27:08,401 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:09,406 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:11,410 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:11,411 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:11,412 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 33: No valid price.
+2026-05-17 09:27:11,462 - main.scrapers.static - INFO - [City Center] Fetching Product 34: https://citycenter.jo/asus-tuf-gaming-geforce-rtx-4070-super-oc-edition-gaming-graphics-card-pcie-4-0-12gb-gddr6x?srsltid=AfmBOoralLNu7Q6S_W9e84_TdRL-oJk2dSw8toVs4q1Sg2JR2H-jmSEa
+2026-05-17 09:27:12,133 - main.scrapers.base - INFO - [City Center] Saving Product 34: JOD 599.0
+2026-05-17 09:27:16,160 - main.scrapers.static - INFO - [City Center] Fetching Product 35: #
+2026-05-17 09:27:16,166 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:17,170 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:19,175 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:19,176 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:19,178 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 35: No valid price.
+2026-05-17 09:27:19,221 - main.scrapers.static - INFO - [City Center] Fetching Product 36: #
+2026-05-17 09:27:19,224 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:20,228 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:22,232 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:22,233 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:22,233 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 36: No valid price.
+2026-05-17 09:27:22,276 - main.scrapers.static - INFO - [City Center] Fetching Product 37: #
+2026-05-17 09:27:22,280 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:23,283 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:25,287 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:25,289 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:25,290 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 37: No valid price.
+2026-05-17 09:27:25,338 - main.scrapers.static - INFO - [City Center] Fetching Product 38: #
+2026-05-17 09:27:25,341 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:26,344 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:28,348 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:28,349 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:28,350 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 38: No valid price.
+2026-05-17 09:27:28,394 - main.scrapers.static - INFO - [City Center] Fetching Product 39: #
+2026-05-17 09:27:28,397 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:29,399 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:31,401 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:31,402 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:31,402 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 39: No valid price.
+2026-05-17 09:27:31,426 - main.scrapers.static - INFO - [City Center] Fetching Product 40: #
+2026-05-17 09:27:31,426 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:32,430 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:34,432 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:34,432 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:34,433 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 40: No valid price.
+2026-05-17 09:27:34,460 - main.scrapers.static - INFO - [City Center] Fetching Product 41: #
+2026-05-17 09:27:34,463 - main.scrapers.static - WARNING - [City Center] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:35,465 - main.scrapers.static - WARNING - [City Center] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:37,468 - main.scrapers.static - WARNING - [City Center] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:37,469 - main.scrapers.static - ERROR - [City Center] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:37,470 - main.scrapers.base - WARNING - [City Center] Skipping DB insert for Product 41: No valid price.
+2026-05-17 09:27:37,514 - main - INFO - --- Processing Store: Oriental Store ---
+2026-05-17 09:27:37,515 - main.scrapers.static - INFO - [Oriental Store] Starting Static Scrape for 30 products.
+2026-05-17 09:27:37,515 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 7: https://os-jo.com/components/cpu-prossesors/intel-core-i5-14400f-up-to-4-7ghz-14th-gen-cpu-processor-lga1700-10-cores-6p-4e-16-threads
+2026-05-17 09:27:38,375 - main.scrapers.base - INFO - [Oriental Store] Saving Product 7: JOD 149.0
+2026-05-17 09:27:40,401 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 13: https://os-jo.com/components/cpu-prossesors/intel-core-i7-14700kf-up-to-5-6ghz-14th-gen-cpu-processor-lga1700-20-cores-8p-12e-28-threads-unlocked-tray?sort=p.price&order=DESC
+2026-05-17 09:27:41,233 - main.scrapers.base - INFO - [Oriental Store] Saving Product 13: JOD 319.0
+2026-05-17 09:27:43,259 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 14: https://os-jo.com/components/cpu-prossesors/intel-core-i9-14900kf-up-to-6ghz-14th-gen-cpu-processor-lga1700-24-cores-8p-16e-32-threads-unlocked?sort=p.price&order=DESC
+2026-05-17 09:27:44,085 - main.scrapers.base - INFO - [Oriental Store] Saving Product 14: JOD 529.0
+2026-05-17 09:27:46,110 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 15: https://os-jo.com/components/cpu-prossesors/amd-ryzen-5-7600x-up-to-5-3ghz-6-cores-12-threads-32mb-cache-am5-cpu-processor-tray?sort=p.price&order=DESC
+2026-05-17 09:27:46,991 - main.scrapers.base - INFO - [Oriental Store] Saving Product 15: JOD 179.0
+2026-05-17 09:27:49,031 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 16: https://os-jo.com/components/cpu-prossesors/amd-ryzen-7-7700x-up-to-5-4ghz-8-cores-16-threads-32mb-cache-am5-cpu-processor-tray?sort=p.price&order=DESC
+2026-05-17 09:27:49,864 - main.scrapers.base - INFO - [Oriental Store] Saving Product 16: JOD 259.0
+2026-05-17 09:27:51,886 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 17: https://os-jo.com/components/cpu-prossesors/amd-ryzen-9-7900x-up-to-5-6ghz-12-cores-24-threads-64mb-cache-am5-cpu-processor-tray?sort=p.price&order=DESC
+2026-05-17 09:27:52,729 - main.scrapers.base - INFO - [Oriental Store] Saving Product 17: JOD 299.0
+2026-05-17 09:27:54,756 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 18: #
+2026-05-17 09:27:54,758 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:55,759 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:57,762 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:57,762 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:27:57,764 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 18: No valid price.
+2026-05-17 09:27:57,794 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 19: #
+2026-05-17 09:27:57,795 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:27:58,800 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:00,803 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:00,804 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:00,804 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 19: No valid price.
+2026-05-17 09:28:00,829 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 20: #
+2026-05-17 09:28:00,831 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:01,833 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:03,835 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:03,836 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:03,836 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 20: No valid price.
+2026-05-17 09:28:03,861 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 21: https://os-jo.com/components/cpu-prossesors/amd-ryzen-9-7950x3d-up-to-5-7ghz-16-cores-32-threads-128mb-amd-3d-v-cache-am5-cpu-processor-tray?sort=p.price&order=DESC
+2026-05-17 09:28:04,735 - main.scrapers.base - INFO - [Oriental Store] Saving Product 21: JOD 499.0
+2026-05-17 09:28:06,744 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 22: #
+2026-05-17 09:28:06,745 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:07,747 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:09,749 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:09,749 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:09,749 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 22: No valid price.
+2026-05-17 09:28:09,773 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 23: #
+2026-05-17 09:28:09,776 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:10,780 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:12,787 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:12,788 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:12,789 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 23: No valid price.
+2026-05-17 09:28:12,831 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 24: https://os-jo.com/components/motherboards/asus-prime-b760m-r-d4-intel-14th-13th-12th-series-lga-1700-ddr4-pcie-4-0-2xm-2-matx-gaming-motherboard?sort=p.price&order=ASC&limit=75
+2026-05-17 09:28:13,818 - main.scrapers.base - INFO - [Oriental Store] Saving Product 24: JOD 95.0
+2026-05-17 09:28:15,836 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 25: #
+2026-05-17 09:28:15,845 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:16,852 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:18,860 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:18,863 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:18,867 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 25: No valid price.
+2026-05-17 09:28:18,911 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 26: #
+2026-05-17 09:28:18,915 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:19,920 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:21,924 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:21,924 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:21,925 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 26: No valid price.
+2026-05-17 09:28:21,948 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 27: https://os-jo.com/components/power-supplies/corsair-rm1000x-shift-1000w-atx-atx-3-0-fully-modular-power-supply-80-gold-certified-w-side-mounted-modular-connections-panel-pcie-5-0-12vhpwr-cable
+2026-05-17 09:28:22,699 - main.scrapers.base - INFO - [Oriental Store] Saving Product 27: JOD 199.0
+2026-05-17 09:28:24,722 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 28: https://os-jo.com/components/power-supplies/cooler-master-mwe-gold-1250-v2-atx-3-0-1250w-80-plus-gold-fully-modular-power-supply-w-12vhpwr-pcie-5-0-connector
+2026-05-17 09:28:25,786 - main.scrapers.base - INFO - [Oriental Store] Saving Product 28: JOD 199.0
+2026-05-17 09:28:27,805 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 29: https://os-jo.com/components/power-supplies/asus-rog-strix-1000w-80-gold-power-supply-fully-modular-cables
+2026-05-17 09:28:28,854 - main.scrapers.base - INFO - [Oriental Store] Saving Product 29: JOD 189.0
+2026-05-17 09:28:30,910 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 30: #
+2026-05-17 09:28:30,913 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:31,916 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:33,920 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:33,921 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:33,923 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 30: No valid price.
+2026-05-17 09:28:33,961 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 31: #
+2026-05-17 09:28:33,964 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:34,968 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:36,969 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:36,969 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:36,970 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 31: No valid price.
+2026-05-17 09:28:36,992 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 32: https://os-jo.com/components/system-memory/corsair-vengeance-rgb-rs-64gb-2x32gb-ddr4-ram-3600mhz-cl18-memory-kit-black
+2026-05-17 09:28:37,963 - main.scrapers.base - INFO - [Oriental Store] Saving Product 32: JOD 129.0
+2026-05-17 09:28:39,988 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 33: https://os-jo.com/components/system-memory/corsair-dominator-titanium-rgb-32gb-2x16gb-ddr5-ram-7200mt-s-cl34-memory-kit-white
+2026-05-17 09:28:40,873 - main.scrapers.base - INFO - [Oriental Store] Saving Product 33: JOD 469.0
+2026-05-17 09:28:42,899 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 34: https://os-jo.com/components/graphics-cards/asus-prime-geforce-rtx-4070-super-12gb-gddr6x-graphics-card
+2026-05-17 09:28:43,799 - main.scrapers.base - INFO - [Oriental Store] Saving Product 34: JOD 599.0
+2026-05-17 09:28:45,824 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 35: https://os-jo.com/msi-geforce-rtx-4060-ti-gaming-x-trio-8gb-gddr6-graphics-card?search=MSI%20GeForce%20RTX%204060%20Ti%20
+2026-05-17 09:28:46,686 - main.scrapers.base - INFO - [Oriental Store] Saving Product 35: JOD 399.0
+2026-05-17 09:28:48,710 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 36: https://mcc-jo.com/product/gigabyte-geforce-rtx-4070-super-eagle-oc-ice-12g-gddr6x-graphics-card
+2026-05-17 09:28:49,422 - main.scrapers.static - WARNING - [Oriental Store] None of the selectors ['div.price > span.price-new > span.tb_integer', 'div.price > span.price-regular > span.tb_integer'] found for Product 36.
+2026-05-17 09:28:49,422 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 36: No valid price.
+2026-05-17 09:28:49,445 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 37: #
+2026-05-17 09:28:49,446 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:50,448 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:52,453 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:52,454 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:52,457 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 37: No valid price.
+2026-05-17 09:28:52,493 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 38: #
+2026-05-17 09:28:52,495 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:53,500 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:55,504 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:55,505 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:55,505 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 38: No valid price.
+2026-05-17 09:28:55,545 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 39: #
+2026-05-17 09:28:55,548 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:56,552 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:58,556 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:58,556 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:28:58,557 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 39: No valid price.
+2026-05-17 09:28:58,595 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 40: #
+2026-05-17 09:28:58,597 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:28:59,600 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:29:01,603 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:29:01,603 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:29:01,603 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 40: No valid price.
+2026-05-17 09:29:01,631 - main.scrapers.static - INFO - [Oriental Store] Fetching Product 41: #
+2026-05-17 09:29:01,633 - main.scrapers.static - WARNING - [Oriental Store] Attempt 1 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:29:02,636 - main.scrapers.static - WARNING - [Oriental Store] Attempt 2 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:29:04,637 - main.scrapers.static - WARNING - [Oriental Store] Attempt 3 failed for #: Invalid URL '#': No scheme supplied. Perhaps you meant https://#?
+2026-05-17 09:29:04,637 - main.scrapers.static - ERROR - [Oriental Store] Failed to fetch # after 3 attempts.
+2026-05-17 09:29:04,637 - main.scrapers.base - WARNING - [Oriental Store] Skipping DB insert for Product 41: No valid price.
+2026-05-17 09:29:04,661 - main - INFO - Scraper Run Completed.
