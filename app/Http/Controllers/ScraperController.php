@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class ScraperController extends Controller
 {
-    /**
-     * Show the scraper admin control panel.
-     */
+    
     public function index()
     {
         // Latest scrape time across all records
@@ -23,10 +21,7 @@ class ScraperController extends Controller
         return view('admin.scraper.index', compact('lastRun', 'recentCount'));
     }
 
-    /**
-     * Trigger the Python scraper via Artisan command.
-     */
-    public function run(Request $request)
+       public function run(Request $request)
     {
         $store = $request->input('store');
 

@@ -37,7 +37,7 @@
                 },
                 {
                     "part_id": 18,
-                    "url": "#"
+                    "url": "https://mcc-jo.com/product/amd-ryzen-5-9600x-6-core-processor-tray"
                 },
                 {
                     "part_id": 19,
@@ -136,7 +136,7 @@
         {
             "store_name": "Number One Store",
             "base_url": "https://numberonestore.net",
-            "mode": "static",
+            "mode": "dynamic",
             "delay": 3,
             "price_selectors": [
                 "div.product-price-new",
@@ -269,8 +269,8 @@
         {
             "store_name": "City Center",
             "base_url": "https://citycenter.jo",
-            "mode": "static",
-            "delay": 4,
+            "mode": "dynamic",
+            "delay": 7,
             "price_selectors": [
                 "div.price > span.price-new > span.tb_integer",
                 "div.price > span.price-regular > span.tb_integer"
@@ -303,7 +303,7 @@
                 },
                 {
                     "part_id": 18,
-                    "url": "#"
+                    "url": "https://citycenter.jo/amd-ryzen-5-9600x-6-core-3-9ghz-5-4-ghz-max-boost-38mb-cache-am5-desktop-processor-box"
                 },
                 {
                     "part_id": 19,
@@ -402,8 +402,8 @@
         {
             "store_name": "Oriental Store",
             "base_url": "https://os-jo.com",
-            "mode": "static",
-            "delay": 2,
+            "mode": "dynamic",
+            "delay": 7,
             "price_selectors": [
                 "div.price > span.price-new > span.tb_integer",
                 "div.price > span.price-regular > span.tb_integer"
@@ -436,7 +436,7 @@
                 },
                 {
                     "part_id": 18,
-                    "url": "#"
+                    "url": "https://os-jo.com/amd-ryzen-5-9600x-up-to-5-4ghz-6-cores-12-threads-32mb-cache-am5-cpu-processor-tray"
                 },
                 {
                     "part_id": 19,

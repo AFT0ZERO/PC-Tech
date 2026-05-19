@@ -417,7 +417,6 @@ class ProductController extends Controller
                 }
             }
         }
-        
         file_put_contents($configPath, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 }
