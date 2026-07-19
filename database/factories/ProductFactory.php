@@ -11,8 +11,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => rand(1, 2),
+            'category_id' => \App\Models\Category::factory(),
             'name' => fake()->name(),
+            'smallDescription' => fake()->sentence(),
+            'description' => json_encode(['spec' => 'value']),
+            'brand' => fake()->company(),
         ];
     }
 }

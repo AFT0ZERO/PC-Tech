@@ -16,10 +16,31 @@ class UserFactory extends Factory
             'lname' => fake()->lastname(),
             'email' => fake()->unique()->safeEmail(),
             'gender' => fake()->randomElement(['male', 'female']),
-            'mobile'=>fake()->phoneNumber(),
+            'mobile'=>fake()->unique()->phoneNumber(),
             'role'=>fake()->randomElement(['admin', 'user']),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ];
+    }
+
+    public function user(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'user',
+        ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+        ]);
+    }
+
+    public function superAdmin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'super-admin',
+        ]);
     }
 
     /**
