@@ -3,28 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
+use App\Services\StoreService;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
+    public function __construct(private StoreService $storeService)
+    {
+    }
+
     public function index(Request $request)
     {
-        $query = Store::query();
-
         $searchParam = $request->query('search');
-        if (!empty($searchParam)) {
-            $query->where('name', 'like', '%' . $searchParam . '%');
-        }
-
         $sort = $request->query('sort', 'name_asc');
-        match ($sort) {
-            'name_desc' => $query->orderBy('name', 'desc'),
-            'created_asc' => $query->orderBy('created_at', 'asc'),
-            'created_desc' => $query->orderBy('created_at', 'desc'),
-            default => $query->orderBy('name', 'asc'),
-        };
-
-        $stores = $query->paginate(15);
+        $stores = $this->storeService->list($searchParam, $sort);
 
         return view('admin.store.index', ['stores' => $stores]);
     }
@@ -38,20 +30,11 @@ class StoreController extends Controller
             ]
         );
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $extension;
-            $path = 'uploads/store/';
-            $file->move($path, $fileName);
-            $imagePath = $path . $fileName;
-        }
+        $this->storeService->create(
+            ['name' => $request->name],
+            $request->file('image')
+        );
 
-        Store::create([
-            'name' => $request->name,
-            'image' => $imagePath,
-        ]);
         session()->flash('success', 'Store Created Successfully!');
 
         return back();
@@ -66,17 +49,11 @@ class StoreController extends Controller
             ]
         );
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $extension;
-            $path = 'uploads/store/';
-            $file->move($path, $fileName);
-            $store->image = $path . $fileName;
-        }
-
-        $store->name = $request->name;
-        $store->save();
+        $this->storeService->update(
+            $store,
+            ['name' => $request->name],
+            $request->file('image')
+        );
 
         session()->flash('success', 'Store updated successfully!');
 
@@ -85,7 +62,7 @@ class StoreController extends Controller
 
     public function destroy(Store $store)
     {
-        $store->delete();
+        $this->storeService->delete($store);
         session()->flash('success', 'Store Deleted Successfully!');
 
         return back();
@@ -93,8 +70,7 @@ class StoreController extends Controller
 
     public function restore($id)
     {
-        $store = Store::withTrashed()->find($id);
-        $store->restore();
+        $this->storeService->restore($id);
         session()->flash('success', 'Store Restore Successfully!');
 
         return to_route('store.showRestore');
@@ -102,8 +78,8 @@ class StoreController extends Controller
 
     public function showRestore()
     {
-        $store = Store::onlyTrashed()->paginate(15);
+        $stores = $this->storeService->listTrashed();
 
-        return view('admin.store.restore', ['stores' => $store]);
+        return view('admin.store.restore', ['stores' => $stores]);
     }
 }

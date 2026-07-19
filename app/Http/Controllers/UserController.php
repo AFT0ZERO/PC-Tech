@@ -3,42 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserManagementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function __construct(private UserManagementService $userManagementService)
+    {
+    }
 
     public function index(Request $request)
     {
-        $query = User::query();
-
-        if ($request->filled('search')) {
-            $s = $request->search;
-            $query->where(function ($q) use ($s) {
-                $q->where('fname', 'like', '%' . $s . '%')
-                    ->orWhere('lname', 'like', '%' . $s . '%')
-                    ->orWhere('email', 'like', '%' . $s . '%');
-            });
-        }
-
-        if ($request->filled('role')) {
-            $query->where('role', $request->role);
-        }
-
+        $search = $request->search;
+        $role = $request->role;
         $sort = $request->query('sort', 'created_desc');
-        match ($sort) {
-            'name_asc' => $query->orderBy('fname')->orderBy('lname'),
-            'name_desc' => $query->orderBy('fname', 'desc')->orderBy('lname', 'desc'),
-            'role_asc' => $query->orderBy('role')->orderBy('fname'),
-            'role_desc' => $query->orderBy('role', 'desc')->orderBy('fname'),
-            'created_asc' => $query->orderBy('created_at', 'asc'),
-            default => $query->orderBy('created_at', 'desc'),
-        };
-
-        $users = $query->paginate(15)->withQueryString();
+        $users = $this->userManagementService->list($search, $role, $sort);
 
         return view('admin.users.index', ['users' => $users]);
     }
@@ -64,26 +45,19 @@ class UserController extends Controller
             ]
         );
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $extension;
-            $path = 'uploads/user/';
-            $file->move($path, $fileName);
-            $imagePath = $path . $fileName;
-        }
+        $this->userManagementService->create(
+            [
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'email' => $request->email,
+                'password' => $request->password,
+                'mobile' => $request->mobile,
+                'role' => 'admin',
+                'gender' => $request->gender,
+            ],
+            $request->file('image')
+        );
 
-        User::create([
-            'fname' => $request->fname,
-            'lname' => $request->lname,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mobile' => $request->mobile,
-            'role' => 'admin',
-            'gender' => $request->gender,
-            'image' => $imagePath,
-        ]);
         session()->flash('success', 'User Created Successfully!');
         return back();
     }
@@ -102,7 +76,6 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        // Validate the input
         $request->validate([
             'fname' => ['required', 'min:3'],
             'lname' => ['required', 'min:3'],
@@ -113,53 +86,41 @@ class UserController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
         ]);
 
-        // If there's a new image uploaded, handle the upload process
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $extension;
-            $path = 'uploads/user/';
-            $file->move($path, $fileName);
-
-            // If image uploaded, set the new image path
-            $user->image = $path . $fileName;
-        }
-
-        // Update the other user fields
-        $user->fname = $request->fname;
-        $user->lname = $request->lname;
-        $user->email = $request->email;
-        $user->mobile = $request->mobile;
-        $user->role = $request->role;
-        $user->gender = $request->gender;
-
-        // Save the updated user information
-        $user->save();
+        $this->userManagementService->update(
+            $user,
+            [
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'role' => $request->role,
+                'gender' => $request->gender,
+            ],
+            $request->file('image')
+        );
 
         session()->flash('success', 'User updated successfully!');
-        // Redirect to the user show route
         return to_route('users.show', $user->id);
     }
 
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $this->userManagementService->delete($user);
         session()->flash('success', 'User Deleted Successfully!');
         return back();
     }
-    public function restore( $id)
+    public function restore($id)
     {
-        $user = User::withTrashed()->find($id);
-        $user->restore();
+        $this->userManagementService->restore($id);
         session()->flash('success', 'User Restore Successfully!');
         return to_route('users.showRestore');
     }
 
-    public function showRestore( )
+    public function showRestore()
     {
-        $user = User::onlyTrashed()->paginate(15);
-        return view('admin.users.restore' , ['users' => $user]);
+        $users = $this->userManagementService->listTrashed();
+        return view('admin.users.restore' , ['users' => $users]);
     }
 
     public function adminProfile()
@@ -183,31 +144,20 @@ class UserController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
         ]);
 
-        // If there's a new image uploaded, handle the upload process
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $extension;
-            $path = 'uploads/user/';
-            $file->move($path, $fileName);
-
-            // If image uploaded, set the new image path
-            $admin->image = $path . $fileName;
-        }
-
-        // Update the other user fields
-        $admin->fname = $request->fname;
-        $admin->lname = $request->lname;
-        $admin->email = $request->email;
-        $admin->mobile = $request->mobile;
-        $admin->role = $request->role;
-        $admin->gender = $request->gender;
-
-        // Save the updated user information
-        $admin->save();
+        $this->userManagementService->update(
+            $admin,
+            [
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'role' => $request->role,
+                'gender' => $request->gender,
+            ],
+            $request->file('image')
+        );
 
         session()->flash('success', 'User updated successfully!');
-        // Redirect to the user show route
         return to_route('admin.index');
     }
 
@@ -221,18 +171,14 @@ class UserController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if (! Hash::check($request->current_password, $user->password)) {
+        if (!$this->userManagementService->changePassword($user, $request->current_password, $request->password)) {
             return back()->withErrors([
                 'current_password' => 'Current password is incorrect.',
             ])->withInput();
         }
-
-        $user->password = Hash::make($request->password);
-        $user->save();
 
         return to_route('admin.index')->with('password_success', 'Password changed successfully!');
     }
 
 
 }
-

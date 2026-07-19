@@ -3,58 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
-use App\Models\BuildPart;
 use App\Models\Category;
-use App\Models\Product;
-use App\Services\BuildCompatibilityService;
+use App\Services\BuilderService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class BuildController extends Controller
 {
-    public function __construct(private BuildCompatibilityService $compatibility)
+    public function __construct(private BuilderService $builderService)
     {
     }
 
-    // ── GET /builder ─────────────────────────────────────────────────────────
     public function index()
     {
-        $categories = Category::all();
+        $data = $this->builderService->getIndexData();
 
-        $slotNames = ['CPU', 'Motherboard', 'RAM', 'GPU', 'Storage', 'PSU', 'Cooler', 'Case'];
-
-        $builderCategories = Category::whereIn(
-            DB::raw('LOWER(name)'),
-            array_map('strtolower', $slotNames)
-        )->get()->sortBy(fn ($c) => array_search(strtolower($c->name), array_map('strtolower', $slotNames)));
-
-        return view('builder.index', compact('categories', 'builderCategories'));
+        return view('builder.index', $data);
     }
 
-    // ── GET /builder/parts/{category} ────────────────────────────────────────
     public function getParts(Category $category)
     {
-        $products = Product::with('stores')
-            ->select(
-                'products.*',
-                DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price')
-            )
-            ->where('category_id', $category->id)
-            ->orderBy('name')
-            ->get()
-            ->map(fn ($p) => [
-                'id'             => $p->id,
-                'name'           => $p->name,
-                'brand'          => $p->brand,
-                'cheapest_price' => (float) ($p->cheapest_price ?? 0),
-                'category_name'  => $p->category->name ?? '',
-            ]);
+        $products = $this->builderService->getParts($category);
 
         return response()->json($products);
     }
 
-    // ── POST /builder/check-compatibility ────────────────────────────────────
     public function checkCompatibility(Request $request)
     {
         $request->validate([
@@ -62,12 +34,11 @@ class BuildController extends Controller
             'part_ids.*' => 'integer|exists:products,id',
         ]);
 
-        $warnings = $this->compatibility->check($request->input('part_ids', []));
+        $warnings = $this->builderService->checkCompatibility($request->input('part_ids', []));
 
         return response()->json(['warnings' => $warnings]);
     }
 
-    // ── POST /builder/save ───────────────────────────────────────────────────
     public function store(Request $request)
     {
         $request->validate([
@@ -77,60 +48,27 @@ class BuildController extends Controller
             'part_ids.*' => 'integer|exists:products,id',
         ]);
 
-        $partIds = $request->input('part_ids');
-
-        $totalPrice = Product::select(
-                'products.id',
-                DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price')
-            )
-            ->whereIn('products.id', $partIds)
-            ->get()
-            ->sum(fn ($p) => (float) ($p->cheapest_price ?? 0));
-
-        DB::transaction(function () use ($request, $partIds, $totalPrice) {
-            $build = Build::create([
-                'user_id'     => Auth::id(),
-                'name'        => $request->input('name'),
-                'notes'       => $request->input('notes'),
-                'total_price' => $totalPrice,
-            ]);
-
-            $products = Product::with('category')->whereIn('id', $partIds)->get()->keyBy('id');
-
-            foreach ($partIds as $productId) {
-                $product = $products->get($productId);
-                if ($product) {
-                    BuildPart::create([
-                        'build_id'      => $build->id,
-                        'product_id'    => $productId,
-                        'category_name' => $product->category->name ?? 'Unknown',
-                    ]);
-                }
-            }
-        });
+        $this->builderService->saveBuild(
+            $request->input('name'),
+            $request->input('notes'),
+            $request->input('part_ids')
+        );
 
         return response()->json(['success' => true, 'message' => 'Build saved successfully!']);
     }
 
-    // ── GET /builder/my-builds ───────────────────────────────────────────────
     public function myBuilds()
     {
-        $categories = Category::all();
+        $data = $this->builderService->getMyBuilds(auth()->id());
 
-        $builds = Build::with(['products' => fn ($q) => $q->withPivot('category_name')])
-            ->where('user_id', Auth::id())
-            ->orderByDesc('created_at')
-            ->get();
-
-        return view('builder.my-builds', compact('categories', 'builds'));
+        return view('builder.my-builds', $data);
     }
 
-    // ── DELETE /builder/{build} ──────────────────────────────────────────────
     public function destroy(Build $build)
     {
         $this->authorize('delete', $build);
 
-        $build->delete();
+        $this->builderService->deleteBuild($build);
 
         return response()->json(['success' => true, 'message' => 'Build deleted successfully.']);
     }

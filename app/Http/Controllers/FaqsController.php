@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faqs;
+use App\Services\FaqService;
 use Illuminate\Http\Request;
 
 class FaqsController extends Controller
 {
+    public function __construct(private FaqService $faqService)
+    {
+    }
 
     public function index(Request $request)
     {
-        $Faqs_query = Faqs::query();
         $search_param = $request->query('search');
-        if (!empty($search_param)) {
-            $Faqs_query = Faqs::search($search_param);
-        }
-        $FaqsFromDB = $Faqs_query->paginate(15);
+        $FaqsFromDB = $this->faqService->list($search_param);
 
         return view('admin.faq.index' , ['faqs' => $FaqsFromDB]);
     }
@@ -34,7 +34,7 @@ class FaqsController extends Controller
                 'answer' => 'required',
             ]
         );
-        Faqs::create([
+        $this->faqService->create([
             'question' => request('question'),
             'answer' => request('answer')
         ]);
@@ -63,7 +63,7 @@ class FaqsController extends Controller
                 'answer' => 'required',
             ]
         );
-        $faq->update([
+        $this->faqService->update($faq, [
             'question' => request('question'),
             'answer' => request('answer')
         ]);
@@ -74,21 +74,20 @@ class FaqsController extends Controller
 
     public function destroy(Faqs $faq)
     {
-        $faq->delete();
+        $this->faqService->delete($faq);
         session()->flash('success', 'FAQ Deleted Successfully!');
         return back();
     }
-    public function restore( $id)
+    public function restore($id)
     {
-        $faq = Faqs::withTrashed()->find($id);
-        $faq->restore();
+        $this->faqService->restore($id);
         session()->flash('success', 'FAQ Restore Successfully!');
         return to_route('faq.showRestore');
     }
 
-    public function showRestore( )
+    public function showRestore()
     {
-        $faq = Faqs::onlyTrashed()->paginate(15);
-        return view('admin.faq.restore' , ['faqs' => $faq]);
+        $faqs = $this->faqService->listTrashed();
+        return view('admin.faq.restore' , ['faqs' => $faqs]);
     }
 }

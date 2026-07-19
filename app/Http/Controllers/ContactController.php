@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Services\ContactService;
 use Illuminate\Http\Request;
 
 
 class ContactController extends Controller
 {
+    public function __construct(private ContactService $contactService)
+    {
+    }
+
     public function index(Request $request)
     {
-        $contact_query = Contact::query();
         $search_param = $request->query('search');
-        if (!empty($search_param)) {
-            $contact_query = Contact::search($search_param);
-        }
-        $ContactFromDB = $contact_query->paginate(15);
+        $ContactFromDB = $this->contactService->list($search_param);
 
         return view('admin.contact.index' , ['contacts' => $ContactFromDB]);
     }
@@ -33,7 +34,7 @@ class ContactController extends Controller
             ]
         );
 
-        Contact::create([
+        $this->contactService->create([
             'user_id'=>request('user_id'),
             'name'=>request('name'),
             'email'=>request('email'),
@@ -52,22 +53,21 @@ class ContactController extends Controller
 
     public function destroy(Contact $contact)
     {
-        $contact->delete();
+        $this->contactService->delete($contact);
         session()->flash('success', 'Contact Deleted Successfully!');
         return to_route('contact.index');
     }
 
     public function restore( $id)
     {
-        $Contact = Contact::withTrashed()->find($id);
-        $Contact->restore();
+        $this->contactService->restore($id);
         session()->flash('success', 'Contact Restore Successfully!');
         return to_route('contact.showRestore');
     }
 
     public function showRestore( )
     {
-        $contact = Contact::onlyTrashed()->paginate(15);
-        return view('admin.contact.restore' , ['contacts' => $contact]);
+        $contacts = $this->contactService->listTrashed();
+        return view('admin.contact.restore' , ['contacts' => $contacts]);
     }
 }
