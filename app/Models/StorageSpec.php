@@ -14,9 +14,7 @@ class StorageSpec extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['product_id', 'interface', 'capacity_gb', 'specs'];
-
-    protected $casts = ['specs' => 'json'];
+    protected $fillable = ['product_id', 'interface', 'capacity_gb'];
 
     public function product()
     {

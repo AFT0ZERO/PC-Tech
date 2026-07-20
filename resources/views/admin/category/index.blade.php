@@ -67,7 +67,9 @@
                                 <button type="button" class="btn btn-primary p-2 btn-sm btn-edit-category"
                                     data-bs-toggle="modal" data-bs-target="#editCategoryModal" data-id="{{ $category->id }}"
                                     data-name="{{ e($category->name) }}"
-                                    data-image="{{ $category->image ? asset($category->image) : '' }}">
+                                    data-image="{{ $category->image ? asset($category->image) : '' }}"
+                                    data-specs-table="{{ e($category->specs_table) }}"
+                                    data-open-db-name="{{ e($category->open_db_name) }}">
                                     Edit
                                 </button>
                                 <form style="display:inline;" method="post"
@@ -111,6 +113,22 @@
                             <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
                                 accept="image/jpeg,image/png,image/jpg" required>
                             @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Specs Table</label>
+                            <input type="text" name="specs_table" value="{{ old('specs_table') }}"
+                                class="form-control @error('specs_table') is-invalid @enderror">
+                            @error('specs_table')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Open DB Name</label>
+                            <input type="text" name="open_db_name" value="{{ old('open_db_name') }}"
+                                class="form-control @error('open_db_name') is-invalid @enderror">
+                            @error('open_db_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -160,6 +178,22 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Specs Table</label>
+                            <input type="text" name="specs_table" id="editSpecsTable"
+                                class="form-control @error('specs_table') is-invalid @enderror">
+                            @error('specs_table')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Open DB Name</label>
+                            <input type="text" name="open_db_name" id="editOpenDbName"
+                                class="form-control @error('open_db_name') is-invalid @enderror">
+                            @error('open_db_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -183,8 +217,12 @@
                     const id = btn.getAttribute('data-id');
                     const name = btn.getAttribute('data-name') || '';
                     const img = btn.getAttribute('data-image') || '';
+                    const specsTable = btn.getAttribute('data-specs-table') || '';
+                    const openDbName = btn.getAttribute('data-open-db-name') || '';
                     document.getElementById('editCategoryForm').action = updateBase + '/' + id;
                     document.getElementById('editCategoryName').value = name;
+                    document.getElementById('editSpecsTable').value = specsTable;
+                    document.getElementById('editOpenDbName').value = openDbName;
                     const preview = document.getElementById('editCategoryImagePreview');
                     if (img) {
                         preview.src = img;

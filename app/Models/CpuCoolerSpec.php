@@ -14,11 +14,10 @@ class CpuCoolerSpec extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['product_id', 'supported_sockets', 'height_mm', 'specs'];
+    protected $fillable = ['product_id', 'supported_sockets', 'height_mm'];
 
     protected $casts = [
         'supported_sockets' => 'json',
-        'specs' => 'json',
     ];
 
     public function product()

@@ -26,11 +26,17 @@ class CategoryController extends Controller
             [
                 'name' => ['required', 'min:3'],
                 'image' => ['required', 'image', 'mimes:jpeg,png,jpg'],
+                'specs_table' => ['nullable', 'string', 'max:255'],
+                'open_db_name' => ['nullable', 'string', 'max:255'],
             ]
         );
 
         $this->categoryService->create(
-            ['name' => $request->name],
+            [
+                'name' => $request->name,
+                'specs_table' => $request->specs_table,
+                'open_db_name' => $request->open_db_name,
+            ],
             $request->file('image')
         );
 
@@ -45,12 +51,18 @@ class CategoryController extends Controller
             [
                 'name' => ['required', 'min:3'],
                 'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
+                'specs_table' => ['nullable', 'string', 'max:255'],
+                'open_db_name' => ['nullable', 'string', 'max:255'],
             ]
         );
 
         $this->categoryService->update(
             $category,
-            ['name' => $request->name],
+            [
+                'name' => $request->name,
+                'specs_table' => $request->specs_table,
+                'open_db_name' => $request->open_db_name,
+            ],
             $request->file('image')
         );
 

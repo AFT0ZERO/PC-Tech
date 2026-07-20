@@ -14,9 +14,7 @@ class GpuSpec extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['product_id', 'length_mm', 'vram_gb', 'specs'];
-
-    protected $casts = ['specs' => 'json'];
+    protected $fillable = ['product_id', 'length_mm', 'vram_gb'];
 
     public function product()
     {

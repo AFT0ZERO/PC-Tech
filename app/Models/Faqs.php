@@ -19,5 +19,5 @@ class Faqs extends Model
         ];
     }
 
-    public $guarded = [];
+    protected $fillable = ['question', 'answer'];
 }

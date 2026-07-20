@@ -14,7 +14,7 @@ class Contact extends Model
         return $this->belongsTo(User::class);
     }
 
-   protected $guarded = [];
+   protected $fillable = ['user_id', 'name', 'email', 'mobile', 'message'];
     public function toSearchableArray()
     {
         return [

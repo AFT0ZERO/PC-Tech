@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, Searchable;
 
-    protected $guarded = [];
+    protected $fillable = ['category_id', 'name', 'description', 'brand', 'power_draw_watts'];
 
     public function toSearchableArray()
     {

@@ -35,6 +35,12 @@ class CategoryService
         if (isset($data['name'])) {
             $category->name = $data['name'];
         }
+        if (isset($data['specs_table'])) {
+            $category->specs_table = $data['specs_table'];
+        }
+        if (isset($data['open_db_name'])) {
+            $category->open_db_name = $data['open_db_name'];
+        }
         $this->categoryRepository->save($category);
     }
 

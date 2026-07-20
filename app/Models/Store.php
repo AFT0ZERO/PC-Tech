@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Store extends Model
 {
     use HasFactory,softDeletes,SoftDeletes;
-    protected $guarded = [];
+    protected $fillable = ['name', 'image'];
     public function toSearchableArray()
     {
         return [

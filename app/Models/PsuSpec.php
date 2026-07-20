@@ -14,9 +14,7 @@ class PsuSpec extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['product_id', 'wattage', 'specs'];
-
-    protected $casts = ['specs' => 'json'];
+    protected $fillable = ['product_id', 'wattage'];
 
     public function product()
     {

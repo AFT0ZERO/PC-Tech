@@ -14,9 +14,7 @@ class RamSpec extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['product_id', 'type', 'capacity_gb', 'specs'];
-
-    protected $casts = ['specs' => 'json'];
+    protected $fillable = ['product_id', 'type', 'capacity_gb'];
 
     public function product()
     {

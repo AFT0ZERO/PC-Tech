@@ -16,10 +16,8 @@ class MotherboardSpec extends Model
 
     protected $fillable = [
         'product_id', 'socket', 'supported_ram_type',
-        'ram_slots', 'max_ram_capacity_gb', 'form_factor', 'specs',
+        'ram_slots', 'max_ram_capacity_gb', 'form_factor',
     ];
-
-    protected $casts = ['specs' => 'json'];
 
     public function product()
     {

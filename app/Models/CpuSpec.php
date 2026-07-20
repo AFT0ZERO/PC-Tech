@@ -14,9 +14,7 @@ class CpuSpec extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['product_id', 'socket', 'specs'];
-
-    protected $casts = ['specs' => 'json'];
+    protected $fillable = ['product_id', 'socket'];
 
     public function product()
     {

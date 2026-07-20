@@ -16,12 +16,11 @@ class CaseSpec extends Model
 
     protected $fillable = [
         'product_id', 'supported_form_factors',
-        'max_gpu_length_mm', 'max_cooler_height_mm', 'specs',
+        'max_gpu_length_mm', 'max_cooler_height_mm',
     ];
 
     protected $casts = [
         'supported_form_factors' => 'json',
-        'specs' => 'json',
     ];
 
     public function product()
