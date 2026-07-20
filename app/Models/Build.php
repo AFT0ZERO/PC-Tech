@@ -10,11 +10,16 @@ class Build extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'pc_builds';
+
     protected $fillable = [
         'user_id',
         'name',
-        'total_price',
-        'notes',
+        'is_public',
+    ];
+
+    protected $casts = [
+        'is_public' => 'boolean',
     ];
 
     public function user()
@@ -24,13 +29,13 @@ class Build extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'build_parts')
-                    ->withPivot('category_name')
+        return $this->belongsToMany(Product::class, 'build_items')
+                    ->withPivot('quantity')
                     ->withTimestamps();
     }
 
-    public function buildParts()
+    public function buildItems()
     {
-        return $this->hasMany(BuildPart::class);
+        return $this->hasMany(BuildItem::class);
     }
 }

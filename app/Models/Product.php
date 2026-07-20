@@ -9,8 +9,10 @@ use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory,softDeletes,Searchable;
+    use HasFactory, SoftDeletes, Searchable;
+
     protected $guarded = [];
+
     public function toSearchableArray()
     {
         return [
@@ -19,11 +21,13 @@ class Product extends Model
         ];
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(ProductImage::class);
     }
 
@@ -45,8 +49,53 @@ class Product extends Model
 
     public function builds()
     {
-        return $this->belongsToMany(Build::class, 'build_parts')
-                    ->withPivot('category_name')
+        return $this->belongsToMany(Build::class, 'build_items')
+                    ->withPivot('quantity')
                     ->withTimestamps();
+    }
+
+    public function cpuSpec()
+    {
+        return $this->hasOne(CpuSpec::class);
+    }
+
+    public function motherboardSpec()
+    {
+        return $this->hasOne(MotherboardSpec::class);
+    }
+
+    public function ramSpec()
+    {
+        return $this->hasOne(RamSpec::class);
+    }
+
+    public function storageSpec()
+    {
+        return $this->hasOne(StorageSpec::class);
+    }
+
+    public function gpuSpec()
+    {
+        return $this->hasOne(GpuSpec::class);
+    }
+
+    public function psuSpec()
+    {
+        return $this->hasOne(PsuSpec::class);
+    }
+
+    public function caseSpec()
+    {
+        return $this->hasOne(CaseSpec::class);
+    }
+
+    public function cpuCoolerSpec()
+    {
+        return $this->hasOne(CpuCoolerSpec::class);
+    }
+
+    public function coolerSpec()
+    {
+        return $this->hasOne(CpuCoolerSpec::class);
     }
 }
