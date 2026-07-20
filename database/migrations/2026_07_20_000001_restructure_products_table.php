@@ -12,8 +12,7 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->integer('power_draw_watts')->nullable()->after('brand');
         });
-
-        DB::statement('ALTER TABLE products CHANGE smallDescription small_description VARCHAR(255)');
+        
         DB::statement('ALTER TABLE products MODIFY description LONGTEXT');
 
         Schema::table('products', function (Blueprint $table) {

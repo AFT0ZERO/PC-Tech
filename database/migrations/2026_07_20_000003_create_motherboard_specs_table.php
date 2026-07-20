@@ -16,7 +16,7 @@ return new class extends Migration
             $table->tinyInteger('ram_slots')->unsigned();
             $table->integer('max_ram_capacity_gb')->unsigned();
             $table->string('form_factor', 30);
-            $table->json('specs')->nullable();
+
         });
     }
 

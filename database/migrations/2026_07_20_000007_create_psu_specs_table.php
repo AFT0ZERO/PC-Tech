@@ -12,7 +12,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->primary();
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->integer('wattage')->unsigned();
-            $table->json('specs')->nullable();
+            
         });
     }
 

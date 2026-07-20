@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->string('type', 20);
             $table->integer('capacity_gb')->unsigned();
-            $table->json('specs')->nullable();
+            
         });
     }
 

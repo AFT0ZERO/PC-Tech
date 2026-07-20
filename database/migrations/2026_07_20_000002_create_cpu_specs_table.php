@@ -12,7 +12,6 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->primary();
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->string('socket', 50);
-            $table->json('specs')->nullable();
         });
     }
 

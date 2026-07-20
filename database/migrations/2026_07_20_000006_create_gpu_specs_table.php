@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->integer('length_mm')->unsigned();
             $table->integer('vram_gb')->unsigned();
-            $table->json('specs')->nullable();
+            
         });
     }
 

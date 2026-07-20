@@ -14,7 +14,7 @@ return new class extends Migration
             $table->json('supported_form_factors');
             $table->integer('max_gpu_length_mm')->unsigned();
             $table->integer('max_cooler_height_mm')->unsigned();
-            $table->json('specs')->nullable();
+            
         });
     }
 
