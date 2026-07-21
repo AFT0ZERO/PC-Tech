@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AccountService
 {
@@ -38,13 +39,14 @@ class AccountService
         $this->userRepository->save($user);
     }
 
-    public function changePassword(User $user, string $currentPassword, string $newPassword): bool
+    public function changePassword(User $user, string $currentPassword, string $newPassword): void
     {
         if (!Hash::check($currentPassword, $user->password)) {
-            return false;
+            throw ValidationException::withMessages([
+                'current_password' => 'Current password is incorrect.',
+            ]);
         }
         $user->password = Hash::make($newPassword);
         $this->userRepository->save($user);
-        return true;
     }
 }

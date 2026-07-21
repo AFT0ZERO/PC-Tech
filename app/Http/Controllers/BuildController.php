@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckBuildCompatibilityRequest;
+use App\Http\Requests\StoreBuildRequest;
 use App\Models\Build;
 use App\Models\Category;
 use App\Services\BuilderService;
-use Illuminate\Http\Request;
 
 class BuildController extends Controller
 {
@@ -27,27 +28,15 @@ class BuildController extends Controller
         return response()->json($products);
     }
 
-    public function checkCompatibility(Request $request)
+    public function checkCompatibility(CheckBuildCompatibilityRequest $request)
     {
-        $request->validate([
-            'part_ids'   => 'array',
-            'part_ids.*' => 'integer|exists:products,id',
-        ]);
-
         $warnings = $this->builderService->checkCompatibility($request->input('part_ids', []));
 
         return response()->json(['warnings' => $warnings]);
     }
 
-    public function store(Request $request)
+    public function store(StoreBuildRequest $request)
     {
-        $request->validate([
-            'name'       => 'required|string|max:150',
-            'notes'      => 'nullable|string',
-            'part_ids'   => 'required|array|min:1',
-            'part_ids.*' => 'integer|exists:products,id',
-        ]);
-
         $this->builderService->saveBuild(
             $request->input('name'),
             $request->input('notes'),

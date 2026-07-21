@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreStoreRequest;
 use App\Models\Store;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
@@ -21,17 +22,10 @@ class StoreController extends Controller
         return view('admin.store.index', ['stores' => $stores]);
     }
 
-    public function store(Request $request)
+    public function store(StoreStoreRequest $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'min:3'],
-                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
-            ]
-        );
-
         $this->storeService->create(
-            ['name' => $request->name],
+            $request->safe()->only('name'),
             $request->file('image')
         );
 
@@ -40,18 +34,11 @@ class StoreController extends Controller
         return back();
     }
 
-    public function update(Request $request, Store $store)
+    public function update(StoreStoreRequest $request, Store $store)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'min:3'],
-                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
-            ]
-        );
-
         $this->storeService->update(
             $store,
-            ['name' => $request->name],
+            $request->safe()->only('name'),
             $request->file('image')
         );
 

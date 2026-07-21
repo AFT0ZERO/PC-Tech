@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\CategoryRepository;
+use App\Repositories\ComponentSpecReader;
 use App\Repositories\PriceHistoryRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\StoreProductRepository;
@@ -18,15 +20,22 @@ class ProductService
         private CategoryRepository $categoryRepository,
         private PriceHistoryRepository $priceHistoryRepository,
         private ScraperConfigService $scraperConfigService,
+        private ?FormFieldResolver $fieldResolver = null,
+        private ?ComponentSpecReader $componentSpecReader = null,
     ) {
+        $this->fieldResolver ??= new FormFieldResolver;
+        $this->componentSpecReader ??= new ComponentSpecReader;
     }
 
-    public function list(?string $search = null, ?int $categoryId = null, string $sort = 'name_asc')
+    public function getIndexData(?string $search = null, ?int $categoryId = null, string $sort = 'name_asc'): array
     {
-        return $this->productRepository->paginateAdminIndex($search, $categoryId, $sort);
+        return [
+            'products'   => $this->productRepository->paginateAdminIndex($search, $categoryId, $sort),
+            'categories' => $this->categoryRepository->allOrderedByName(),
+        ];
     }
 
-    public function getFormData(): array
+    public function getCreateData(): array
     {
         return [
             'categories' => $this->categoryRepository->allOrderedByName(),
@@ -37,6 +46,82 @@ class ProductService
     public function getStores()
     {
         return $this->storeProductRepository->allStoresList();
+    }
+
+    public function resolveFields(Category $category): array
+    {
+        return $this->fieldResolver->resolve($category);
+    }
+
+    public function autocomplete(string $query, int $categoryId): array
+    {
+        $category = Category::findOrFail($categoryId);
+
+        if (empty($category->open_db_name)) {
+            return ['enabled' => false, 'results' => []];
+        }
+
+        $dbPath = base_path('scraper/components.sqlite');
+
+        if (!file_exists($dbPath)) {
+            return ['enabled' => false, 'results' => []];
+        }
+
+        try {
+            $rows = $this->componentSpecReader->searchAutocomplete(
+                $query,
+                $category->open_db_name,
+                $dbPath
+            );
+
+            $results = array_map(fn ($row) => [
+                'name'  => $row['name'],
+                'specs' => json_decode($row['specs_json'], true),
+            ], $rows);
+
+            return ['enabled' => true, 'results' => $results];
+        } catch (\Exception $e) {
+            return ['enabled' => false, 'results' => [], 'error' => $e->getMessage()];
+        }
+    }
+
+    public function storeProduct(array $validated): Product
+    {
+        $category = Category::findOrFail($validated['category']);
+        $fields = $this->fieldResolver->resolve($category);
+
+        $productData = ['category_id' => $category->id];
+        foreach ($fields['product_fields'] as $field) {
+            $productData[$field['name']] = $validated[$field['name']] ?? null;
+        }
+
+        if (!empty($validated['key']) && !empty($validated['value'])) {
+            $productData['description'] = json_encode(
+                array_combine($validated['key'], $validated['value'])
+            );
+        }
+
+        $specData = null;
+        $specsTable = $category->specs_table;
+
+        if ($specsTable && !empty($fields['spec_fields'])) {
+            $specData = [];
+            foreach ($fields['spec_fields'] as $field) {
+                $specData[$field['name']] = $validated[$field['name']] ?? null;
+            }
+        }
+
+        $storeInputs = [];
+        foreach ($validated['store_id'] as $index => $storeId) {
+            $storeInputs[] = [
+                'store_id' => $storeId,
+                'price'    => $validated['price'][$index] ?? null,
+                'url'      => $validated['url'][$index] ?? '',
+                'status'   => $validated['status'][$index] ?? 'in stock',
+            ];
+        }
+
+        return $this->create($productData, $storeInputs, $specsTable, $specData);
     }
 
     public function create(array $productData, array $storeInputs, ?string $specsTable = null, ?array $specData = null): Product
@@ -133,6 +218,17 @@ class ProductService
     public function delete(Product $product): void
     {
         $this->productRepository->delete($product);
+    }
+
+    public function restoreProduct(int $id): void
+    {
+        $product = $this->productRepository->findWithTrashed($id);
+        $product->restore();
+    }
+
+    public function getTrashed()
+    {
+        return $this->productRepository->onlyTrashedPaginate();
     }
 
     public function syncScraperConfig(): void

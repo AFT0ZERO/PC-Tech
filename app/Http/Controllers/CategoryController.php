@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
@@ -20,23 +21,10 @@ class CategoryController extends Controller
         return view('admin.category.index', ['categories' => $categories]);
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        request()->validate(
-            [
-                'name' => ['required', 'min:3'],
-                'image' => ['required', 'image', 'mimes:jpeg,png,jpg'],
-                'specs_table' => ['nullable', 'string', 'max:255'],
-                'open_db_name' => ['nullable', 'string', 'max:255'],
-            ]
-        );
-
         $this->categoryService->create(
-            [
-                'name' => $request->name,
-                'specs_table' => $request->specs_table,
-                'open_db_name' => $request->open_db_name,
-            ],
+            $request->safe()->only(['name', 'specs_table', 'open_db_name']),
             $request->file('image')
         );
 
@@ -45,24 +33,11 @@ class CategoryController extends Controller
         return back();
     }
 
-    public function update(Request $request, Category $category)
+    public function update(StoreCategoryRequest $request, Category $category)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'min:3'],
-                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
-                'specs_table' => ['nullable', 'string', 'max:255'],
-                'open_db_name' => ['nullable', 'string', 'max:255'],
-            ]
-        );
-
         $this->categoryService->update(
             $category,
-            [
-                'name' => $request->name,
-                'specs_table' => $request->specs_table,
-                'open_db_name' => $request->open_db_name,
-            ],
+            $request->safe()->only(['name', 'specs_table', 'open_db_name']),
             $request->file('image')
         );
 

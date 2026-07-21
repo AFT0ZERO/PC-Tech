@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UploadProductImagesRequest;
 use App\Models\ProductImage;
 use App\Services\ProductImageService;
-use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
 {
@@ -19,19 +19,12 @@ class ProductImageController extends Controller
         return view('admin.product.productImage.index', $data);
     }
 
-
-
-    public function store(Request $request, $id)
+    public function store(UploadProductImagesRequest $request, $id)
     {
-        $request->validate([
-            'images.*' => 'required|image|mimes:png,jpg,jpeg,webp'
-        ]);
-
         $this->productImageService->uploadImages($id, $request->file('images') ?? []);
 
         return redirect()->back()->with('status', 'Uploaded Successfully');
     }
-
 
     public function destroy(ProductImage $productImage, $id)
     {
