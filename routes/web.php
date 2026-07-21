@@ -111,7 +111,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard/products', [ProductController::class , "index"])->name("product.index");
 
     Route::get('dashboard/products/create', [ProductController::class , "create"])->name("product.create");
-    Route::post('dashboard/products/fetch-specs', [ProductController::class , "fetchSpecs"])->name("product.fetchSpecs");
+    Route::get('dashboard/products/fields/{category}', [ProductController::class , "fields"])->name("product.fields");
+    Route::get('dashboard/products/autocomplete', [ProductController::class , "autocomplete"])->name("product.autocomplete");
 
     Route::post('dashboard/products', [ProductController::class , "store"])->name("product.store");
 

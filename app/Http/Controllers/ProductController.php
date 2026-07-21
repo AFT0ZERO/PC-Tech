@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\ComponentSpecReader;
+use App\Services\FormFieldResolver;
 use App\Services\ProductService;
-use App\Services\SpecMappingService;
 use Illuminate\Http\Request;
-
 
 class ProductController extends Controller
 {
     public function __construct(
         private ?ProductService $productService = null,
-        private ?SpecMappingService $specMappingService = null,
+        private ?FormFieldResolver $fieldResolver = null,
+        private ?ComponentSpecReader $componentSpecReader = null,
     ) {
-        $this->specMappingService ??= new SpecMappingService(new \App\Repositories\ComponentSpecReader);
+        $this->fieldResolver ??= new FormFieldResolver;
+        $this->componentSpecReader ??= new ComponentSpecReader;
     }
 
     public function index(Request $request)
@@ -32,51 +34,88 @@ class ProductController extends Controller
 
     public function create()
     {
-        $formData = $this->productService->getFormData();
-        return view('admin.product.create', $formData);
+        return view('admin.product.create', [
+            'categories' => Category::orderBy('name')->get(),
+            'stores'     => $this->productService->getStores(),
+        ]);
+    }
+
+    public function fields(Category $category)
+    {
+        return response()->json($this->fieldResolver->resolve($category));
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $request->validate([
+            'query'       => 'required|string|min:1|max:255',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $category = Category::findOrFail($request->category_id);
+
+        if (empty($category->open_db_name)) {
+            return response()->json(['enabled' => false, 'results' => []]);
+        }
+
+        $dbPath = base_path('scraper/components.sqlite');
+
+        if (!file_exists($dbPath)) {
+            return response()->json(['enabled' => false, 'results' => []]);
+        }
+
+        try {
+            $rows = $this->componentSpecReader->searchAutocomplete(
+                $request->input('query'),
+                $category->open_db_name,
+                $dbPath
+            );
+
+            $results = array_map(function ($row) {
+                return [
+                    'name'  => $row['name'],
+                    'specs' => json_decode($row['specs_json'], true),
+                ];
+            }, $rows);
+
+            return response()->json([
+                'enabled' => true,
+                'results' => $results,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['enabled' => false, 'results' => [], 'error' => $e->getMessage()]);
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
-            'brand'=>'required',
-            'category' => 'required|exists:categories,id',
-            'key' => 'required|array',
-            'value' => 'required|array',
-            'price' => 'required|array',
-            'url' => 'required|array',
-            'price.*' => 'required|numeric',
-            'url.*' => 'required|string',
-        ]);
+        $category = Category::findOrFail($request->category);
+        $fields = $this->fieldResolver->resolve($category);
 
-        $storeInputs = [];
-        $stores = $request->store_id;
-        $prices = $request->price;
-        $urls = $request->url;
-        $status = $request->status;
+        $rules = $this->buildValidationRules($fields);
 
-        foreach ($stores as $index => $storeId) {
-            $storeInputs[] = [
-                'store_id' => $storeId,
-                'price' => $prices[$index],
-                'url' => $urls[$index],
-                'status' => $status[$index],
-            ];
+        $request->validate($rules);
+
+        $productData = ['category_id' => $category->id];
+        foreach ($fields['product_fields'] as $field) {
+            $productData[$field['name']] = $request->input($field['name']);
         }
 
-        $this->productService->create(
-            [
-                'name' => $request->name,
-                'smallDescription' => $request->description,
-                'brand' => $request->brand,
-                'category_id' => $request->category,
-                'description' => json_encode(array_combine($request->key, $request->value)),
-            ],
-            $storeInputs
-        );
+        if ($request->has('key') && $request->has('value')) {
+            $productData['description'] = json_encode(array_combine($request->key, $request->value));
+        }
 
+        $specData = null;
+        $specsTable = $category->specs_table;
+
+        if ($specsTable && !empty($fields['spec_fields'])) {
+            $specData = [];
+            foreach ($fields['spec_fields'] as $field) {
+                $specData[$field['name']] = $request->input($field['name']);
+            }
+        }
+
+        $this->productService->create($productData, $this->buildStoreInputs($request), $specsTable, $specData);
         $this->productService->syncScraperConfig();
 
         return to_route('product.index')->with('success', 'Product stored successfully!');
@@ -86,7 +125,7 @@ class ProductController extends Controller
     {
         $data = $this->productService->getShowData($product);
 
-        return view("admin.product.show", $data);
+        return view('admin.product.show', $data);
     }
 
     public function edit(Product $product)
@@ -114,11 +153,11 @@ class ProductController extends Controller
         ]);
 
         $this->productService->update($product, [
-            'name'          => $request->name,
-            'brand'         => $request->brand,
+            'name'             => $request->name,
+            'brand'            => $request->brand,
             'smallDescription' => $request->description,
-            'category_id'   => $request->category,
-            'description'   => array_combine($request->input('key'), $request->input('value')),
+            'category_id'      => $request->category,
+            'description'      => array_combine($request->input('key'), $request->input('value')),
         ]);
 
         $storeUpdates = [];
@@ -157,6 +196,7 @@ class ProductController extends Controller
         $this->productService->delete($product);
         $this->productService->syncScraperConfig();
         session()->flash('success', 'Product Deleted Successfully!');
+
         return back();
     }
 
@@ -165,59 +205,76 @@ class ProductController extends Controller
         $product = Product::withTrashed()->find($id);
         $product->restore();
         session()->flash('success', 'Product Restore Successfully!');
+
         return to_route('product.showRestore');
     }
 
     public function showRestore()
     {
         $product = Product::onlyTrashed()->paginate(15);
+
         return view('admin.product.restore', ['products' => $product]);
     }
 
-    public function fetchSpecs(Request $request)
+    private function buildValidationRules(array $fields): array
     {
-        $request->validate([
-            'query' => 'required|string|max:255',
-        ]);
+        $rules = [
+            'category' => ['required', 'exists:categories,id'],
+        ];
 
-        $query   = $request->input('query');
-        $dbPath  = base_path('scraper/components.sqlite');
-
-        if (!file_exists($dbPath)) {
-            return response()->json(['error' => 'Components database not found']);
+        foreach ($fields['product_fields'] as $field) {
+            $rules[$field['name']] = $this->fieldValidation($field);
         }
 
-        try {
-            $rawData = $this->getBestMatch($query, $dbPath);
-
-            if (!$rawData) {
-                return response()->json(['error' => 'No results found in database']);
-            }
-
-            return response()->json([
-                'name'  => $rawData['metadata']['name'] ?? '',
-                'url'   => '',
-                'specs' => $this->mapSpecs($rawData),
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+        foreach ($fields['spec_fields'] as $field) {
+            $rules[$field['name']] = $this->fieldValidation($field);
         }
+
+        $rules['price'] = ['required', 'array'];
+        $rules['url'] = ['required', 'array'];
+        $rules['price.*'] = ['required', 'numeric'];
+        $rules['url.*'] = ['required', 'string'];
+        $rules['key'] = ['required', 'array'];
+        $rules['value'] = ['required', 'array'];
+        $rules['key.*'] = ['required', 'string'];
+        $rules['value.*'] = ['required', 'string'];
+
+        return $rules;
     }
 
-    private function getBestMatch(string $query, string $dbPath): ?array
+    private function fieldValidation(array $field): array
     {
-        return $this->specMappingService->getBestMatch($query, $dbPath);
+        $rule = $field['required'] ? ['required'] : ['nullable'];
+
+        if ($field['type'] === 'number') {
+            $rule[] = 'numeric';
+        } elseif ($field['type'] === 'textarea') {
+            $rule[] = 'string';
+        } else {
+            $rule[] = 'string';
+            $rule[] = 'max:255';
+        }
+
+        return $rule;
     }
 
-    private function detectComponentType(array $data): string
+    private function buildStoreInputs(Request $request): array
     {
-        return $this->specMappingService->detectComponentType($data);
+        $storeInputs = [];
+        $stores = $request->store_id;
+        $prices = $request->price;
+        $urls = $request->url;
+        $status = $request->status;
+
+        foreach ($stores as $index => $storeId) {
+            $storeInputs[] = [
+                'store_id' => $storeId,
+                'price'    => $prices[$index],
+                'url'      => $urls[$index],
+                'status'   => $status[$index],
+            ];
+        }
+
+        return $storeInputs;
     }
-
-    private function mapSpecs(array $data): array
-    {
-        return $this->specMappingService->mapSpecs($data);
-    }
-
-
 }

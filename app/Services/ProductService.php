@@ -8,6 +8,7 @@ use App\Repositories\PriceHistoryRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\StoreProductRepository;
 use App\Services\ScraperConfigService;
+use Illuminate\Support\Str;
 
 class ProductService
 {
@@ -29,11 +30,16 @@ class ProductService
     {
         return [
             'categories' => $this->categoryRepository->allOrderedByName(),
-            'stores' => $this->storeProductRepository->allStoresList(),
+            'stores'     => $this->storeProductRepository->allStoresList(),
         ];
     }
 
-    public function create(array $productData, array $storeInputs): Product
+    public function getStores()
+    {
+        return $this->storeProductRepository->allStoresList();
+    }
+
+    public function create(array $productData, array $storeInputs, ?string $specsTable = null, ?array $specData = null): Product
     {
         $product = $this->productRepository->create($productData);
 
@@ -45,6 +51,13 @@ class ProductService
             ]);
         }
 
+        if ($specsTable && $specData) {
+            $specModelClass = 'App\\Models\\' . Str::studly(Str::singular($specsTable));
+            if (class_exists($specModelClass)) {
+                $specModelClass::create(['product_id' => $product->id] + $specData);
+            }
+        }
+
         return $product;
     }
 
@@ -54,9 +67,9 @@ class ProductService
         $description = json_decode($product->description, true);
 
         return [
-            'categories'  => $this->categoryRepository->all(),
-            'stores'      => $this->storeProductRepository->allStoresList(),
-            'product'     => $product,
+            'categories'   => $this->categoryRepository->all(),
+            'stores'       => $this->storeProductRepository->allStoresList(),
+            'product'      => $product,
             'descriptions' => $description,
         ];
     }
@@ -67,7 +80,7 @@ class ProductService
         $description = json_decode($product->description, true);
 
         $allHistory = $this->priceHistoryRepository->getAllHistoryForProduct($product->id);
-        $priceHistory = $allHistory->groupBy('store_name')->map(fn($rows) => $rows->last());
+        $priceHistory = $allHistory->groupBy('store_name')->map(fn ($rows) => $rows->last());
 
         return [
             'product'      => $product,
@@ -103,8 +116,12 @@ class ProductService
     public function attachNewStores(Product $product, array $newStores): void
     {
         foreach ($newStores as $store) {
-            if (empty($store['store_id'])) continue;
-            if ($this->storeProductRepository->exists($product, $store['store_id'])) continue;
+            if (empty($store['store_id'])) {
+                continue;
+            }
+            if ($this->storeProductRepository->exists($product, $store['store_id'])) {
+                continue;
+            }
             $this->storeProductRepository->attach($product, $store['store_id'], [
                 'product_price'  => $store['price'] ?? 0,
                 'product_url'    => $store['url']   ?? '',
