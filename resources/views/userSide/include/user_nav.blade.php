@@ -23,11 +23,14 @@
                             </form>
                         </div>
                         <!--favorite info Start -->
-                        <div class="header-tools d-flex">
-                            <div class="cart-info d-flex align-self-center">
-                                <a href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Favorites</span></a>
+                        @auth
+                            <div class="header-tools d-flex">
+                                <div class="cart-info d-flex align-self-center">
+                                    <a href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i
+                                            class="lnr lnr-heart"></i><span>Favorites</span></a>
+                                </div>
                             </div>
-                        </div>
+                        @endauth
                     </div>
                     <!--Cart info End -->
                 </div>
@@ -45,7 +48,7 @@
                         <h4 class="menu-title">Browse Categories </h4>
                         <ul class="menu-content display-none">
                             @foreach($categories as $category)
-                                <li class="menu-item"><a href="{{route('category',$category->id)}}">{{$category->name}}</a></li>
+                                <li class="menu-item"><a href="{{route('category', $category->id)}}">{{$category->name}}</a></li>
                             @endforeach
                         </ul>
                         <!-- menu content -->
@@ -59,23 +62,23 @@
                             <li class="active"><a href="{{ route('landing') }}"> Home </a></li>
 
                             <li class="active"><a href="{{ route('categoryNull') }}"> Components </a></li>
+                            {{-- <li class="active"><a href="{{ route('about') }}"> About </a></li>
 
-                            <li class="active"><a href="{{ route('about') }}"> About </a></li>
+                            <li class="active"><a href="{{ route('faqs') }}"> FAQs </a></li> --}}
 
-                            <li class="active"><a href="{{ route('faqs') }}"> FAQs </a></li>
+                            <li class="active"><a href="{{ route('builder.index') }}"> PC Builder </a></li>
 
-                            <!-- <li class="active"><a href="{{ route('builder.index') }}"> PC Builder </a></li> -->
-
-                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
-
-
-                            <li><a href="{{route('account')}}" > My Account</a></li>
+                            
+                            
                             @auth
-                                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
-                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                                @endif
+                            <li><a href="{{route('account')}}" > My Account</a></li>
+                            <li><a href="{{ route('builder.myBuilds') }}"> My Builds</a></li>
+                            @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
+                            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                            @endif
                             @endauth
-
+                            
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
@@ -186,7 +189,7 @@
                     <nav class="category-menu">
                         <ul>
                                 @foreach($categories as $category)
-                                     <li class="menu-item"><a href="{{route('category',$category->id)}}">{{$category->name}}</a></li>
+                                     <li class="menu-item"><a href="{{route('category', $category->id)}}">{{$category->name}}</a></li>
                                 @endforeach
                         </ul>
                     </nav>
@@ -235,21 +238,19 @@
 
                 <li><a href="{{route('categoryNull')}}"><span class="menu-text">Components</span></a></li>
 
-                <li><a href="{{route('about')}}"><span class="menu-text">About</span></a></li>
-
-                <li><a href="{{route('faqs')}}"><span class="menu-text">FAQs</span></a></li>
 
                 <li><a href="{{route('builder.index')}}"><span class="menu-text">PC Builder</span></a></li>
 
-                <li><a href="{{route('contact')}}">Contact Us</a></li>
-
-                <li><a href="{{route('account')}}" > My Account</a></li>
+                
                 @auth
-                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
-                        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    @endif
+                <li><a href="{{route('account')}}" > My Account</a></li>
+                <li><a href="{{ route('builder.myBuilds') }}"> My Builds</a></li>
+                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                @endif
                 @endauth
-
+                
+                <li><a href="{{route('contact')}}">Contact Us</a></li>
 
                 @guest
                     @if (Route::has('login'))

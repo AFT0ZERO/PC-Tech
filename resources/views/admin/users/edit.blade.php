@@ -20,7 +20,7 @@
                         <!-- First Name -->
                         <div class="form-floating form-floating-outline col-6">
                             <input type="text" name="fname" value="{{ old('fname', $user->fname) }}" class="form-control @error('fname') is-invalid @enderror" id="exampleFormControlInput1" placeholder="Name">
-                            <label for="exampleFormControlInput1">First Name</label>
+                            <label for="exampleFormControlInput1">First Name <span class="text-danger">*</span></label>
                             @error('fname')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -29,7 +29,7 @@
                         <!-- Last Name -->
                         <div class="form-floating form-floating-outline col-6">
                             <input type="text" name="lname" value="{{ old('lname', $user->lname) }}" class="form-control @error('lname') is-invalid @enderror" id="exampleFormControlInput2" placeholder="Family">
-                            <label for="exampleFormControlInput2">Last Name</label>
+                            <label for="exampleFormControlInput2">Last Name <span class="text-danger">*</span></label>
                             @error('lname')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -39,7 +39,7 @@
                     <!-- Email -->
                     <div class="form-floating form-floating-outline">
                         <input type="email" name="email" value="{{ old('email', $user->email) }}" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput3" placeholder="name@example.com">
-                        <label for="exampleFormControlInput3">Email address</label>
+                        <label for="exampleFormControlInput3">Email address <span class="text-danger">*</span></label>
                         @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -48,7 +48,7 @@
                     <!-- Phone Number -->
                     <div class="form-floating form-floating-outline mb-6">
                         <input type="text" name="mobile" value="{{ old('mobile', $user->mobile) }}" class="form-control @error('mobile') is-invalid @enderror" id="exampleFormControlInput4" placeholder="079">
-                        <label for="exampleFormControlInput4">Phone Number</label>
+                        <label for="exampleFormControlInput4">Phone Number <span class="text-danger">*</span></label>
                         @error('mobile')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -61,7 +61,7 @@
                                 <option value="user" @if(old('role', $user->role) == 'user') selected @endif>User</option>
                                 <option value="admin" @if(old('role', $user->role) == 'admin') selected @endif>Admin</option>
                             </select>
-                            <label for="exampleFormControlSelect5">User Permissions</label>
+                            <label for="exampleFormControlSelect5">User Permissions <span class="text-danger">*</span></label>
                             @error('role')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -73,7 +73,7 @@
                                 <option value="male" @if(old('gender', $user->gender) == 'male') selected @endif>Male</option>
                                 <option value="female" @if(old('gender', $user->gender) == 'female') selected @endif>Female</option>
                             </select>
-                            <label for="exampleFormControlSelect6">Gender</label>
+                            <label for="exampleFormControlSelect6">Gender <span class="text-danger">*</span></label>
                             @error('gender')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

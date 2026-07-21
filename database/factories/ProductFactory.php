@@ -13,7 +13,6 @@ class ProductFactory extends Factory
         return [
             'category_id' => \App\Models\Category::factory(),
             'name' => fake()->name(),
-            'smallDescription' => fake()->sentence(),
             'description' => json_encode(['spec' => 'value']),
             'brand' => fake()->company(),
         ];

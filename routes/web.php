@@ -15,6 +15,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\BuildController;
+use App\Http\Controllers\PcBuildController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -24,7 +25,8 @@ Route::get('/', [UserSideController::class,'landing'])->name('landing');
 
 // ── PC Builder (public) ────────────────────────────────────────────────────
 Route::get('/builder', [BuildController::class, 'index'])->name('builder.index');
-Route::get('/builder/parts/{category}', [BuildController::class, 'getParts'])->name('builder.parts');
+Route::get('/builder/parts/{category}', [BuildController::class, 'partsPage'])->name('builder.parts');
+Route::get('/builder/parts-api/{category}', [BuildController::class, 'getParts'])->name('builder.partsApi');
 Route::post('/builder/check-compatibility', [BuildController::class, 'checkCompatibility'])->name('builder.compatibility');
 
 Route::get('/category/{id}', [UserSideController::class,'category'])->name('category');
@@ -37,10 +39,6 @@ Route::get('/About', [UserSideController::class,'about'])->name('about');
 Route::get('/Contact Us', [UserSideController::class,'contact'])->name('contact');
 
 Route::get('/FAQs', [UserSideController::class,'faqs'])->name('faqs');
-
-route::get('/hi',function(){
-    dd('here');
-})->name('login');
 
 Auth::routes();
 
@@ -56,6 +54,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/builder/save', [BuildController::class, 'store'])->name('builder.save');
     Route::get('/builder/my-builds', [BuildController::class, 'myBuilds'])->name('builder.myBuilds');
     Route::delete('/builder/{build}', [BuildController::class, 'destroy'])->name('builder.destroy');
+
+    // ── PC Builder: build item management API ──────────────────────────────
+    Route::get('/builds/{build}', [PcBuildController::class, 'show'])->name('builds.show');
+    Route::get('/builds/{build}/compatibility', [PcBuildController::class, 'compatibility'])->name('builds.compatibility');
+    Route::post('/builds/{build}/items', [PcBuildController::class, 'addItem'])->name('builds.items.add');
+    Route::patch('/builds/{build}/items/{product}', [PcBuildController::class, 'updateItem'])->name('builds.items.update');
+    Route::delete('/builds/{build}/items/{product}', [PcBuildController::class, 'removeItem'])->name('builds.items.remove');
 
     Route::post('/favorite/{productId}', [FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
     Route::delete('/favorites/remove/{product}', [FavoriteController::class, 'removeFavorite'])->name('favorite.remove');

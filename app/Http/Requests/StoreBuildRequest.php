@@ -15,7 +15,6 @@ class StoreBuildRequest extends FormRequest
     {
         return [
             'name'     => ['required', 'string', 'max:150'],
-            'notes'    => ['nullable', 'string'],
             'part_ids' => ['required', 'array', 'min:1'],
             'part_ids.*' => ['integer', 'exists:products,id'],
         ];

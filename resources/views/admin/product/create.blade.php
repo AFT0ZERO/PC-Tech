@@ -16,12 +16,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body demo-vertical-spacing demo-only-element">
 
                     <div class="form-floating-outline">
-                        <label for="field-category">Category</label>
+                        <label for="field-category">Category <span class="text-danger">*</span></label>
                         <select name="category" id="field-category" class="form-select @error('category') is-invalid @enderror">
                             <option value="">-- Select Category --</option>
                             @foreach ($categories as $cat)
@@ -49,12 +59,12 @@
                             <h6 class="fw-bold border-bottom pb-2 mb-3">Description (Key : Value)</h6>
                             <div id="key-value-fields" class="row">
                                 <div class="mb-3 col-6">
-                                    <label class="form-label">Key</label>
-                                    <input type="text" name="key[]" class="form-control">
+                                    <label class="form-label">Key <span class="text-danger">*</span></label>
+                                    <input type="text" name="key[]" class="form-control" required>
                                 </div>
                                 <div class="mb-3 col-6">
-                                    <label class="form-label">Value</label>
-                                    <input type="text" name="value[]" class="form-control">
+                                    <label class="form-label">Value <span class="text-danger">*</span></label>
+                                    <input type="text" name="value[]" class="form-control" required>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3">
@@ -78,11 +88,11 @@
                                 <input type="hidden" name="store_id[]" value="{{ $store->id }}">
                                 <div class="mb-3 col-4">
                                     <label for="price-{{ $store->id }}" class="form-label">Price</label>
-                                    <input type="text" name="price[]" class="form-control" id="price-{{ $store->id }}" required>
+                                    <input type="text" name="price[]" class="form-control" id="price-{{ $store->id }}">
                                 </div>
                                 <div class="mb-3 col-4">
                                     <label for="url-{{ $store->id }}" class="form-label">Url</label>
-                                    <input type="text" name="url[]" class="form-control" id="url-{{ $store->id }}" required>
+                                    <input type="text" name="url[]" class="form-control" id="url-{{ $store->id }}">
                                 </div>
                                 <div class="mb-3 col-4">
                                     <label for="status-{{ $store->id }}" class="form-label">Status</label>
@@ -213,7 +223,7 @@
             }
 
             const label = document.createElement('label');
-            label.textContent = field.label;
+            label.innerHTML = field.label + (field.required ? ' <span class="text-danger">*</span>' : '');
 
             let input;
             if (field.type === 'textarea') {
@@ -240,6 +250,9 @@
                 input.value = window.oldInput[field.name];
             }
 
+            wrapper.appendChild(label);
+            wrapper.appendChild(input);
+
             if (window.formErrors && window.formErrors[field.name]) {
                 input.classList.add('is-invalid');
                 const msg = document.createElement('div');
@@ -248,8 +261,6 @@
                 wrapper.appendChild(msg);
             }
 
-            wrapper.appendChild(label);
-            wrapper.appendChild(input);
             return wrapper;
         }
 
@@ -383,20 +394,27 @@
             const container = document.getElementById('key-value-fields');
             container.innerHTML = '';
             for (const [key, value] of Object.entries(pairs)) {
-                const row = document.createElement('div');
-                row.classList.add('row');
-                row.innerHTML = `
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Key</label>
-                        <input type="text" name="key[]" class="form-control" value="${escapeAttr(key)}">
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Value</label>
-                        <input type="text" name="value[]" class="form-control" value="${escapeAttr(String(value))}">
-                    </div>
-                `;
-                container.appendChild(row);
+                container.appendChild(createKeyValueRow(key, String(value)));
             }
+            if (container.children.length === 0) {
+                container.appendChild(createKeyValueRow('', ''));
+            }
+        }
+
+        function createKeyValueRow(key, value) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+            row.innerHTML = `
+                <div class="mb-3 col-6">
+                    <label class="form-label">Key <span class="text-danger">*</span></label>
+                    <input type="text" name="key[]" class="form-control" value="${escapeAttr(key)}" required>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label">Value <span class="text-danger">*</span></label>
+                    <input type="text" name="value[]" class="form-control" value="${escapeAttr(value)}" required>
+                </div>
+            `;
+            return row;
         }
 
         function escapeHtml(str) {
@@ -418,19 +436,7 @@
         @endif
 
         document.getElementById('add-key-value').addEventListener('click', function () {
-            const row = document.createElement('div');
-            row.classList.add('row');
-            row.innerHTML = `
-                <div class="mb-3 col-6">
-                    <label class="form-label">Key</label>
-                    <input type="text" name="key[]" class="form-control">
-                </div>
-                <div class="mb-3 col-6">
-                    <label class="form-label">Value</label>
-                    <input type="text" name="value[]" class="form-control">
-                </div>
-            `;
-            document.getElementById('key-value-fields').appendChild(row);
+            document.getElementById('key-value-fields').appendChild(createKeyValueRow('', ''));
         });
 
         document.getElementById('clear-all-fields').addEventListener('click', function () {
@@ -440,18 +446,9 @@
             document.querySelectorAll('#spec-fields-inner input, #spec-fields-inner textarea').forEach(el => {
                 el.value = '';
             });
-            document.getElementById('key-value-fields').innerHTML = `
-                <div class="row">
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Key</label>
-                        <input type="text" name="key[]" class="form-control">
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Value</label>
-                        <input type="text" name="value[]" class="form-control">
-                    </div>
-                </div>
-            `;
+            const container = document.getElementById('key-value-fields');
+            container.innerHTML = '';
+            container.appendChild(createKeyValueRow('', ''));
         });
     </script>
 @endsection

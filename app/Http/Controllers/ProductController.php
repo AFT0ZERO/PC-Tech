@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function autocomplete(AutocompleteRequest $request)
     {
         return response()->json(
-            $this->productService->autocomplete($request->query, $request->category_id)
+            $this->productService->autocomplete($request->input('query'), $request->category_id)
         );
     }
 

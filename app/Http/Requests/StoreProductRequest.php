@@ -34,14 +34,14 @@ class StoreProductRequest extends FormRequest
             $rules[$field['name']] = $this->fieldValidation($field);
         }
 
-        $rules['store_id']   = ['required', 'array'];
-        $rules['store_id.*'] = ['required', 'exists:stores,id'];
-        $rules['price']      = ['required', 'array'];
-        $rules['url']        = ['required', 'array'];
-        $rules['status']     = ['required', 'array'];
-        $rules['price.*']    = ['required', 'numeric'];
-        $rules['url.*']      = ['required', 'string'];
-        $rules['status.*']   = ['required', 'string'];
+        $rules['store_id']   = ['nullable', 'array'];
+        $rules['store_id.*'] = ['nullable', 'exists:stores,id'];
+        $rules['price']      = ['nullable', 'array'];
+        $rules['url']        = ['nullable', 'array'];
+        $rules['status']     = ['nullable', 'array'];
+        $rules['price.*']    = ['nullable', 'numeric'];
+        $rules['url.*']      = ['nullable', 'string'];
+        $rules['status.*']   = ['nullable', 'string'];
         $rules['key']      = ['required', 'array'];
         $rules['value']    = ['required', 'array'];
         $rules['key.*']    = ['required', 'string'];

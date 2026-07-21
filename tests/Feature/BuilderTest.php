@@ -3,8 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Build;
-use App\Models\BuildPart;
+use App\Models\BuildItem;
+use App\Models\BuildSlot;
+use App\Models\CaseSpec;
 use App\Models\Category;
+use App\Models\CpuSpec;
+use App\Models\MotherboardSpec;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
@@ -15,20 +19,54 @@ class BuilderTest extends TestCase
 {
     use DatabaseTransactions;
 
-    // ── BLD-F-01: GET /builder 200 ──────────────────────────────────────────
-
-    public function test_builder_index_lists_slot_categories(): void
+    /** Create a product together with its CTI spec row. */
+    private function createPart(string $specsTable, array $specData, array $productData = [], ?string $categoryName = null): Product
     {
-        $cpu = Category::factory()->create(['name' => 'CPU']);
-        $gpu = Category::factory()->create(['name' => 'GPU']);
-        $case = Category::factory()->create(['name' => 'Case']);
+        $category = Category::factory()->create([
+            'name' => $categoryName ?? ucfirst(str_replace('_specs', '', $specsTable)),
+            'specs_table' => $specsTable,
+        ]);
+
+        $product = Product::factory()->create(array_merge(['category_id' => $category->id], $productData));
+
+        $specModel = match ($specsTable) {
+            'cpu_specs' => CpuSpec::class,
+            'motherboard_specs' => MotherboardSpec::class,
+            'case_specs' => CaseSpec::class,
+            default => throw new \InvalidArgumentException("No spec mapping for $specsTable"),
+        };
+        $specModel::create(['product_id' => $product->id] + $specData);
+
+        return $product;
+    }
+
+    private function createSlot(Category $category, int $min, int $max): BuildSlot
+    {
+        return BuildSlot::create(['category_id' => $category->id, 'min_qty' => $min, 'max_qty' => $max]);
+    }
+
+    // ── BLD-F-01: GET /builder 200, slot-driven categories ─────────────────
+
+    public function test_builder_index_lists_only_categories_with_build_slots(): void
+    {
+        $cpu = Category::factory()->create(['name' => 'CPU', 'specs_table' => 'cpu_specs']);
+        $gpu = Category::factory()->create(['name' => 'GPU', 'specs_table' => 'gpu_specs']);
+        $accessory = Category::factory()->create(['name' => 'Mouse Pad XYZ']);
+
+        $this->createSlot($cpu, 1, 1);
+        $this->createSlot($gpu, 0, 2);
 
         $response = $this->get('/builder');
 
         $response->assertStatus(200);
         $response->assertSee($cpu->name);
         $response->assertSee($gpu->name);
-        $response->assertSee($case->name);
+
+        // Only slotted categories are offered as builder slots (the site layout
+        // still renders every category in its navbar, hence the view-data check)
+        $response->assertViewHas('builderCategories', fn ($categories) => $categories->pluck('id')->all() === [
+            $cpu->id, $gpu->id,
+        ]);
     }
 
     // ── BLD-F-02: GET /builder/parts/{category} ─────────────────────────────
@@ -63,19 +101,84 @@ class BuilderTest extends TestCase
         $response->assertJson([]);
     }
 
+    public function test_parts_page_renders_select_button_with_type_button(): void
+    {
+        $cat = Category::factory()->create([
+            'name' => 'Motherboard',
+            'specs_table' => 'motherboard_specs',
+        ]);
+        $this->createSlot($cat, 1, 1);
+
+        $product = Product::factory()->create([
+            'category_id' => $cat->id,
+            'name' => 'B450M',
+            'brand' => 'MSI',
+        ]);
+        MotherboardSpec::create([
+            'product_id' => $product->id,
+            'socket' => 'AM4',
+            'supported_ram_type' => 'DDR4',
+            'ram_slots' => 4,
+            'max_ram_capacity_gb' => 64,
+            'form_factor' => 'Micro-ATX',
+        ]);
+
+        $response = $this->get("/builder/parts/{$cat->id}");
+
+        $response->assertStatus(200);
+        $response->assertSee('Select');
+        $response->assertSee('data-product-id="' . $product->id . '"', false);
+        $response->assertSee('<button type="button" class="select-btn"', false);
+    }
+
     // ── BLD-F-03: POST /builder/check-compatibility ─────────────────────────
 
     public function test_check_compatibility_returns_warnings_json(): void
     {
-        $cpuCat = Category::factory()->create(['name' => 'CPU']);
-        $product = Product::factory()->create(['category_id' => $cpuCat->id]);
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
 
         $response = $this->postJson('/builder/check-compatibility', [
-            'part_ids' => [$product->id],
+            'part_ids' => [$cpu->id],
         ]);
 
         $response->assertStatus(200);
         $response->assertJsonStructure(['warnings']);
+        $response->assertJson(['warnings' => []]);
+    }
+
+    public function test_check_compatibility_detects_socket_mismatch(): void
+    {
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
+        $mb = $this->createPart('motherboard_specs', [
+            'socket' => 'LGA1700', 'supported_ram_type' => 'DDR5',
+            'ram_slots' => 4, 'max_ram_capacity_gb' => 128, 'form_factor' => 'ATX',
+        ]);
+
+        $response = $this->postJson('/builder/check-compatibility', [
+            'part_ids' => [$cpu->id, $mb->id],
+        ]);
+
+        $response->assertStatus(200);
+        $warnings = $response->json('warnings');
+        $this->assertCount(1, $warnings);
+        $this->assertStringContainsString('AM5', $warnings[0]);
+        $this->assertStringContainsString('LGA1700', $warnings[0]);
+    }
+
+    public function test_check_compatibility_compatible_pair_returns_no_warnings(): void
+    {
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
+        $mb = $this->createPart('motherboard_specs', [
+            'socket' => 'AM5', 'supported_ram_type' => 'DDR5',
+            'ram_slots' => 4, 'max_ram_capacity_gb' => 128, 'form_factor' => 'ATX',
+        ]);
+
+        $response = $this->postJson('/builder/check-compatibility', [
+            'part_ids' => [$cpu->id, $mb->id],
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson(['warnings' => []]);
     }
 
     public function test_check_compatibility_invalid_product_id_returns_422(): void
@@ -101,36 +204,66 @@ class BuilderTest extends TestCase
     public function test_store_valid_build_creates_rows(): void
     {
         $user = User::factory()->user()->create();
-        $cat = Category::factory()->create(['name' => 'CPU']);
-        $product = Product::factory()->create(['category_id' => $cat->id]);
-        $store = Store::factory()->create();
-
-        $product->stores()->attach($store->id, [
-            'product_price' => 100.00,
-            'product_url' => 'http://store.test/cpu',
-            'product_status' => 'in stock',
-        ]);
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
 
         $response = $this->actingAs($user)->postJson('/builder/save', [
             'name' => 'My Build',
-            'notes' => 'My notes',
-            'part_ids' => [$product->id],
+            'part_ids' => [$cpu->id],
         ]);
 
         $response->assertStatus(200);
         $response->assertJson(['success' => true]);
+        $response->assertJsonStructure(['build_id', 'warnings']);
 
-        $this->assertDatabaseHas('builds', [
+        $this->assertDatabaseHas('pc_builds', [
             'user_id' => $user->id,
             'name' => 'My Build',
-            'notes' => 'My notes',
-            'total_price' => 100.00,
         ]);
 
-        $this->assertDatabaseHas('build_parts', [
-            'product_id' => $product->id,
-            'category_name' => 'CPU',
+        $this->assertDatabaseHas('build_items', [
+            'product_id' => $cpu->id,
+            'quantity' => 1,
         ]);
+    }
+
+    public function test_store_duplicate_part_ids_become_item_quantity(): void
+    {
+        $user = User::factory()->user()->create();
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
+
+        $response = $this->actingAs($user)->postJson('/builder/save', [
+            'name' => 'Double RAM Build',
+            'part_ids' => [$cpu->id, $cpu->id],
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('build_items', [
+            'product_id' => $cpu->id,
+            'quantity' => 2,
+        ]);
+    }
+
+    public function test_store_response_reports_compatibility_warnings(): void
+    {
+        $user = User::factory()->user()->create();
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
+        $mb = $this->createPart('motherboard_specs', [
+            'socket' => 'LGA1700', 'supported_ram_type' => 'DDR5',
+            'ram_slots' => 4, 'max_ram_capacity_gb' => 128, 'form_factor' => 'ATX',
+        ]);
+
+        $response = $this->actingAs($user)->postJson('/builder/save', [
+            'name' => 'Warning Build',
+            'part_ids' => [$cpu->id, $mb->id],
+        ]);
+
+        // Warnings are non-blocking: the build still saves successfully.
+        $response->assertStatus(200);
+        $response->assertJson(['success' => true]);
+        $this->assertNotEmpty($response->json('warnings'));
+
+        $this->assertDatabaseHas('pc_builds', ['name' => 'Warning Build']);
     }
 
     // ── BLD-F-05: Save validation ───────────────────────────────────────────
@@ -138,12 +271,11 @@ class BuilderTest extends TestCase
     public function test_store_no_name_returns_422(): void
     {
         $user = User::factory()->user()->create();
-        $cat = Category::factory()->create(['name' => 'CPU']);
-        $product = Product::factory()->create(['category_id' => $cat->id]);
+        $cpu = $this->createPart('cpu_specs', ['socket' => 'AM5']);
 
         $response = $this->actingAs($user)->postJson('/builder/save', [
             'name' => '',
-            'part_ids' => [$product->id],
+            'part_ids' => [$cpu->id],
         ]);
 
         $response->assertStatus(422);
@@ -183,25 +315,6 @@ class BuilderTest extends TestCase
         $response->assertRedirectToRoute('login');
     }
 
-    // ── BLD-F-06: Part with no stores contributes 0 ─────────────────────────
-
-    public function test_store_part_with_no_stores_contributes_zero(): void
-    {
-        $user = User::factory()->user()->create();
-        $cat = Category::factory()->create(['name' => 'CPU']);
-        $product = Product::factory()->create(['category_id' => $cat->id]);
-
-        $this->actingAs($user)->postJson('/builder/save', [
-            'name' => 'Zero Price Build',
-            'part_ids' => [$product->id],
-        ]);
-
-        $this->assertDatabaseHas('builds', [
-            'user_id' => $user->id,
-            'total_price' => 0,
-        ]);
-    }
-
     // ── BLD-F-07: GET /builder/my-builds ────────────────────────────────────
 
     public function test_my_builds_shows_only_own_builds(): void
@@ -216,6 +329,7 @@ class BuilderTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('My Build');
+        $response->assertDontSee('Their Build');
     }
 
     // ── BLD-F-08: DELETE /builder/{build} ────────────────────────────────────
@@ -230,7 +344,7 @@ class BuilderTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson(['success' => true]);
 
-        $this->assertSoftDeleted('builds', ['id' => $build->id]);
+        $this->assertSoftDeleted('pc_builds', ['id' => $build->id]);
     }
 
     public function test_destroy_other_user_returns_403(): void
@@ -251,46 +365,19 @@ class BuilderTest extends TestCase
         $response->assertRedirectToRoute('login');
     }
 
-    // ── BLD-F-09: Deleting product cascades build_parts ─────────────────────
+    // ── BLD-F-09: Deleting product cascades build_items ─────────────────────
 
-    public function test_deleting_product_cascades_build_parts(): void
+    public function test_deleting_product_cascades_build_items(): void
     {
-        $cat = Category::factory()->create(['name' => 'CPU']);
-        $product = Product::factory()->create(['category_id' => $cat->id]);
+        $product = Product::factory()->create();
         $build = Build::factory()->create();
-        BuildPart::factory()->create([
+        BuildItem::factory()->create([
             'build_id' => $build->id,
             'product_id' => $product->id,
-            'category_name' => 'CPU',
         ]);
 
         $product->forceDelete();
 
-        $this->assertDatabaseMissing('build_parts', ['product_id' => $product->id]);
-    }
-
-    // ── BLD-F-10: Warnings non-blocking ─────────────────────────────────────
-
-    public function test_save_succeeds_even_with_compatibility_warnings(): void
-    {
-        $user = User::factory()->user()->create();
-        $cat = Category::factory()->create(['name' => 'CPU']);
-        $product = Product::factory()->create(['category_id' => $cat->id]);
-        $store = Store::factory()->create();
-        $product->stores()->attach($store->id, [
-            'product_price' => 50.00,
-            'product_url' => 'http://store.test/cpu',
-            'product_status' => 'in stock',
-        ]);
-
-        $response = $this->actingAs($user)->postJson('/builder/save', [
-            'name' => 'Warning Build',
-            'part_ids' => [$product->id],
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJson(['success' => true]);
-
-        $this->assertDatabaseHas('builds', ['name' => 'Warning Build']);
+        $this->assertDatabaseMissing('build_items', ['product_id' => $product->id]);
     }
 }

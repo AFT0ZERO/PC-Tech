@@ -30,7 +30,7 @@
                         <div class=" demo-vertical-spacing demo-only-element">
                             <div class="row">
                                 <div class=" col-6">
-                                    <label for="exampleFormControlInput1">First Name</label>
+                                    <label for="exampleFormControlInput1">First Name <span class="text-danger">*</span></label>
                                     <input type="text" name="fname" value="{{ old('fname') }}" class="form-control @error('fname') is-invalid @enderror" id="exampleFormControlInput1" placeholder="Name">
                                     @error('fname')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class=" col-6">
-                                    <label for="exampleFormControlInput2">Last Name</label>
+                                    <label for="exampleFormControlInput2">Last Name <span class="text-danger">*</span></label>
                                     <input type="text" name="lname" value="{{ old('lname') }}" class="form-control @error('lname') is-invalid @enderror" id="exampleFormControlInput2" placeholder="Family">
                                     @error('lname')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="">
-                                <label for="exampleFormControlInput3">Email address</label>
+                                <label for="exampleFormControlInput3">Email address <span class="text-danger">*</span></label>
                                 <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput3" placeholder="name@example.com">
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -58,7 +58,7 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="exampleFormControlInput4">Phone Number</label>
+                                    <label for="exampleFormControlInput4">Phone Number <span class="text-danger">*</span></label>
                                     <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control @error('mobile') is-invalid @enderror" id="exampleFormControlInput4" placeholder="079">
                                     @error('mobile')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -66,7 +66,7 @@
                                 </div>
 
                                 <div class=" col-6">
-                                    <label for="exampleFormControlSelect6">Gender</label>
+                                    <label for="exampleFormControlSelect6">Gender <span class="text-danger">*</span></label>
                                     <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="exampleFormControlSelect6">
                                         <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                                         <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class=" ">
-                                <label for="exampleFormControlInput7">Password</label>
+                                <label for="exampleFormControlInput7">Password <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="registerPassword" placeholder="********">
                                     <span class="input-group-text cursor-pointer toggle-password" data-target="registerPassword"><i class="bx bx-hide"></i></span>
@@ -89,7 +89,7 @@
                             </div>
 
                             <div class=" ">
-                                <label for="registerPasswordConfirmation">Confirm Password</label>
+                                <label for="registerPasswordConfirmation">Confirm Password <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" name="password_confirmation" class="form-control" id="registerPasswordConfirmation" placeholder="********">
                                     <span class="input-group-text cursor-pointer toggle-password" data-target="registerPasswordConfirmation"><i class="bx bx-hide"></i></span>

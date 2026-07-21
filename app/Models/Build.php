@@ -34,8 +34,21 @@ class Build extends Model
                     ->withTimestamps();
     }
 
-    public function buildItems()
+    public function items()
     {
         return $this->hasMany(BuildItem::class);
+    }
+
+    /**
+     * Estimated total of the build from each product's cheapest current store
+     * price (requires products eager-loaded with the cheapest_price sub-select,
+     * see BuildRepository::getUserBuildsWithProducts). Prices change over time,
+     * so the total is computed on read instead of being stored on the build.
+     */
+    public function estimatedTotal(): float
+    {
+        return (float) $this->products->sum(
+            fn (Product $p) => (float) ($p->cheapest_price ?? 0) * (int) ($p->pivot->quantity ?? 1)
+        );
     }
 }

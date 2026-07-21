@@ -7,16 +7,20 @@ use App\Http\Requests\StoreBuildRequest;
 use App\Models\Build;
 use App\Models\Category;
 use App\Services\BuilderService;
+use App\Services\CatalogService;
 
 class BuildController extends Controller
 {
-    public function __construct(private BuilderService $builderService)
-    {
+    public function __construct(
+        private BuilderService $builderService,
+        private CatalogService $catalogService,
+    ) {
     }
 
     public function index()
     {
         $data = $this->builderService->getIndexData();
+        $data['categories'] = $this->catalogService->getNavbarCategories();
 
         return view('builder.index', $data);
     }
@@ -28,27 +32,43 @@ class BuildController extends Controller
         return response()->json($products);
     }
 
+    public function partsPage(Category $category)
+    {
+        $data = $this->builderService->getPartsPageData($category);
+        $data['categories'] = $this->catalogService->getNavbarCategories();
+
+        return view('builder.parts', $data);
+    }
+
     public function checkCompatibility(CheckBuildCompatibilityRequest $request)
     {
-        $warnings = $this->builderService->checkCompatibility($request->input('part_ids', []));
+        $partIds = $request->input('part_ids', []);
 
-        return response()->json(['warnings' => $warnings]);
+        return response()->json([
+            'warnings' => $this->builderService->checkCompatibility($partIds),
+            'notes' => $this->builderService->missingSpecNotes($partIds),
+        ]);
     }
 
     public function store(StoreBuildRequest $request)
     {
-        $this->builderService->saveBuild(
+        $build = $this->builderService->saveBuild(
             $request->input('name'),
-            $request->input('notes'),
             $request->input('part_ids')
         );
 
-        return response()->json(['success' => true, 'message' => 'Build saved successfully!']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Build saved successfully!',
+            'build_id' => $build->id,
+            'warnings' => $this->builderService->compatibilityWarnings($build->fresh()),
+        ]);
     }
 
     public function myBuilds()
     {
         $data = $this->builderService->getMyBuilds(auth()->id());
+        $data['categories'] = $this->catalogService->getNavbarCategories();
 
         return view('builder.my-builds', $data);
     }

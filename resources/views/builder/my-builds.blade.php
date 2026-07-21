@@ -118,7 +118,7 @@
                                 </span>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="total-badge">JOD {{ number_format($build->total_price, 2) }}</span>
+                                <span class="total-badge">JOD {{ number_format($build->estimatedTotal(), 2) }}</span>
                                 <button class="btn btn-sm btn-outline-light btn-delete-build"
                                         onclick="deleteBuild({{ $build->id }}, '{{ addslashes($build->name) }}')"
                                         title="Delete this build">
@@ -134,13 +134,16 @@
                                     @foreach($build->products as $product)
                                         <tr>
                                             <td style="width:130px;">
-                                                <span class="cat-badge">{{ $product->pivot->category_name }}</span>
+                                                <span class="cat-badge">{{ $product->category->name ?? '' }}</span>
                                             </td>
                                             <td>
                                                 <a href="{{ route('singlePage', $product->id) }}"
                                                    class="part-name text-decoration-none">
-                                                    {{ $product->brand }} {{ $product->name }}
+                                                     {{ $product->brand }} {{ $product->name }}
                                                 </a>
+                                                @if(($product->pivot->quantity ?? 1) > 1)
+                                                    <span class="text-muted">× {{ $product->pivot->quantity }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -150,12 +153,6 @@
                             <div class="p-3 text-muted fst-italic">No parts recorded for this build.</div>
                         @endif
 
-                        {{-- Notes --}}
-                        @if($build->notes)
-                            <div class="build-notes">
-                                <i class="fa fa-sticky-note me-1"></i> {{ $build->notes }}
-                            </div>
-                        @endif
 
                     </div>
                 </div>

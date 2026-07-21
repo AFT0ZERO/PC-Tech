@@ -3,22 +3,24 @@
 namespace App\Repositories;
 
 use App\Models\Build;
-use App\Models\BuildPart;
+use App\Models\BuildItem;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class BuildRepository
 {
+    /**
+     * Categories that participate in the PC Builder, in slot order.
+     * Data-driven via the build_slots table — no hardcoded category names.
+     */
     public function findBuilderCategories()
     {
-        $slotNames = ['CPU', 'Motherboard', 'RAM', 'GPU', 'Storage', 'PSU', 'Cooler', 'Case'];
-
-        return Category::whereIn(
-            DB::raw('LOWER(name)'),
-            array_map('strtolower', $slotNames)
-        )->get()->sortBy(fn ($c) => array_search(strtolower($c->name), array_map('strtolower', $slotNames)));
+        return Category::whereHas('buildSlot')
+            ->with('buildSlot')
+            ->get()
+            ->sortBy(fn (Category $c) => $c->buildSlot->id)
+            ->values();
     }
 
     public function findPartsByCategory(Category $category)
@@ -40,30 +42,26 @@ class BuildRepository
             ]);
     }
 
-    public function calculateTotalPrice(array $partIds): float
-    {
-        return (float) Product::select(
-                'products.id',
-                DB::raw('(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id) as cheapest_price')
-            )
-            ->whereIn('products.id', $partIds)
-            ->get()
-            ->sum(fn ($p) => (float) ($p->cheapest_price ?? 0));
-    }
-
     public function createBuild(array $data): Build
     {
         return Build::create($data);
     }
 
-    public function createBuildPart(array $data): BuildPart
+    public function createBuildItem(array $data): BuildItem
     {
-        return BuildPart::create($data);
+        return BuildItem::create($data);
     }
 
     public function getUserBuildsWithProducts(int $userId)
     {
-        return Build::with(['products' => fn ($q) => $q->withPivot('category_name')])
+        return Build::with(['products' => fn ($q) => $q
+                ->with('category')
+                ->select('products.*')
+                ->selectSub(
+                    '(SELECT MIN(product_price) FROM store_product WHERE store_product.product_id = products.id)',
+                    'cheapest_price'
+                ),
+            ])
             ->where('user_id', $userId)
             ->orderByDesc('created_at')
             ->get();

@@ -33,7 +33,7 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label>Upload Images (Max:10 images only)</label>
+                                <label>Upload Images (Max:10 images only) <span class="text-danger">*</span></label>
                                 <input type="file" name="images[]" multiple class="form-control" />
                             </div>
                             <div class="mb-3">

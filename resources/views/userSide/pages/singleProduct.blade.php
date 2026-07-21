@@ -337,7 +337,7 @@
                                                 <form action="{{ route('feedback.store') }}" method="POST">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="rate" class="form-label">Rating</label>
+                                                        <label for="rate" class="form-label">Rating <span class="text-danger">*</span></label>
                                                         <select id="rate" name="rate" class="form-select rating-product" required>
                                                             <option value="5" class="rating-product">★★★★★</option>
                                                             <option value="4" class="rating-product">★★★★☆</option>

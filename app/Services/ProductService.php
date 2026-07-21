@@ -112,10 +112,15 @@ class ProductService
         }
 
         $storeInputs = [];
-        foreach ($validated['store_id'] as $index => $storeId) {
+        foreach ($validated['store_id'] ?? [] as $index => $storeId) {
+            $price = $validated['price'][$index] ?? null;
+            if (empty($storeId) || (is_string($price) && trim($price) === '') || $price === null) {
+                continue;
+            }
+
             $storeInputs[] = [
                 'store_id' => $storeId,
-                'price'    => $validated['price'][$index] ?? null,
+                'price'    => $price,
                 'url'      => $validated['url'][$index] ?? '',
                 'status'   => $validated['status'][$index] ?? 'in stock',
             ];

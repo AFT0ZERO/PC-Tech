@@ -24,13 +24,13 @@
                 <div class="card-body demo-vertical-spacing demo-only-element">
                     <div class="form-floating form-floating-outline ">
                         <input type="text" name="name" value="{{$product->name}}" class="form-control @error('name') is-invalid @enderror" id="exampleFormControlInput1" placeholder="Name">
-                        <label for="exampleFormControlInput1">Name</label>
+                        <label for="exampleFormControlInput1">Name <span class="text-danger">*</span></label>
                         @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-floating-outline">
-                        <label for="exampleFormControlTextarea1">Description</label>
+                        <label for="exampleFormControlTextarea1">Description <span class="text-danger">*</span></label>
                         <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" placeholder="Description">{{$product->smallDescription }}</textarea>
                         @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class=" form-floating-outline ">
-                        <label for="exampleFormControlInput3">Brand</label>
+                        <label for="exampleFormControlInput3">Brand <span class="text-danger">*</span></label>
                         <input type="text" list="brandOptions" name="brand" value="{{ $product->brand }}" class="form-control @error('brand') is-invalid @enderror" id="exampleFormControlInput3" placeholder="Search or enter brand manually (e.g. Asus)">
                         <datalist id="brandOptions">
                             <option value="Asus">
@@ -68,11 +68,11 @@
                         @foreach($descriptions as $key => $value)
                             <div class="row key-value-fields">
                                 <div class="mb-3 col-6">
-                                    <label for="key" class="form-label">Specification</label>
+                                    <label for="key" class="form-label">Specification <span class="text-danger">*</span></label>
                                     <input type="text" name="key[]" value="{{$key}}" class="form-control" required>
                                 </div>
                                 <div class="mb-3 col-6">
-                                    <label for="value" class="form-label">Value</label>
+<label for="value" class="form-label">Value <span class="text-danger">*</span></label>
                                     <input type="text" name="value[]" value="{{$value}}" class="form-control" required>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
             newField.classList.add('row', 'key-value-fields');
             newField.innerHTML = `
             <div class="mb-3 col-6">
-                <label for="key" class="form-label">Key</label>
+                <label for="key" class="form-label">Key <span class="text-danger">*</span></label>
                 <input type="text" name="key[]" class="form-control" required>
             </div>
             <div class="mb-3 col-6">

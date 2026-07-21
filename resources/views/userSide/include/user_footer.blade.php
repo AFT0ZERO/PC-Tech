@@ -27,8 +27,8 @@
                             <ul class="list-unstyled footer-links">
                                 <li><a href="{{ route('landing') }}">Home</a></li>
                                 <li><a href="{{ route('categoryNull') }}">Components</a></li>
-                                <li><a href="{{ route('about') }}">About Us</a></li>
-                                <li><a href="{{ route('faqs') }}">FAQs</a></li>
+                                {{-- <li><a href="{{ route('about') }}">About Us</a></li>
+                                <li><a href="{{ route('faqs') }}">FAQs</a></li> --}}
                                 <li><a href="{{ route('contact') }}">Contact Us</a></li>
                             </ul>
                         </div>

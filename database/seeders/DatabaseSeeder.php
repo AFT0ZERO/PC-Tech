@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
                  'mobile' => '0700000000',
              ]
          );
+
+         // PC Builder slot limits (non-destructive)
+         $this->call(BuildSlotSeeder::class);
         
          // Other random data
         //  \App\Models\User::factory(10)->create();

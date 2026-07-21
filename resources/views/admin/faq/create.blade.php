@@ -18,7 +18,7 @@
 
                         <div class="form-floating form-floating-outline ">
                             <input type="text" name="question" value="{{ old('question') }}" class="form-control @error('question') is-invalid @enderror" id="exampleFormControlInput1" placeholder="Name">
-                            <label for="exampleFormControlInput1">Question</label>
+                            <label for="exampleFormControlInput1">Question <span class="text-danger">*</span></label>
                             @error('question')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -26,7 +26,7 @@
 
                         <div class="form-floating form-floating-outline ">
                             <input type="text" name="answer" value="{{ old('answer') }}" class="form-control @error('answer') is-invalid @enderror" id="exampleFormControlInput2" placeholder="Family">
-                            <label for="exampleFormControlInput2">Answer</label>
+                            <label for="exampleFormControlInput2">Answer <span class="text-danger">*</span></label>
                             @error('answer')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

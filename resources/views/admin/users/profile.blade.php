@@ -71,21 +71,21 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="col-12">
-                                    <label class="form-label">Current password</label>
+                                    <label class="form-label">Current password <span class="text-danger">*</span></label>
                                     <input type="password" name="current_password" class="form-control @error('current_password') is-invalid @enderror" required autocomplete="current-password">
                                     @error('current_password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">New password</label>
+                                    <label class="form-label">New password <span class="text-danger">*</span></label>
                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required autocomplete="new-password">
                                     @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">Confirm new password</label>
+                                    <label class="form-label">Confirm new password <span class="text-danger">*</span></label>
                                     <input type="password" name="password_confirmation" class="form-control" required autocomplete="new-password">
                                 </div>
                                 <div class="col-12">

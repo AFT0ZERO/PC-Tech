@@ -28,7 +28,7 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-6">
-                                <label for="email" class="form-label">Email</label>
+                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                 <input
                                     type="email"
                                     class="form-control @error('email') is-invalid @enderror"
@@ -46,7 +46,7 @@
                                 @enderror
                             </div>
                             <div class="mb-6">
-                                <label class="form-label" for="password">Password</label>
+                                <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
                                 <div class="input-group input-group-merge">
                                     <input
                                         type="password"

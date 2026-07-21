@@ -55,7 +55,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>First Name</label>
+                                                        <label>First Name <span class="text-danger">*</span></label>
                                                         <input type="text" name="fname"
                                                                value="{{ old('fname', Auth::user()->fname) }}"
                                                                class="form-control @error('fname') is-invalid @enderror">
@@ -66,7 +66,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>Last Name</label>
+                                                        <label>Last Name <span class="text-danger">*</span></label>
                                                         <input type="text" name="lname"
                                                                value="{{ old('lname', Auth::user()->lname) }}"
                                                                class="form-control @error('lname') is-invalid @enderror">
@@ -77,7 +77,7 @@
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Email Address</label>
+                                                        <label>Email Address <span class="text-danger">*</span></label>
                                                         <input type="email" name="email"
                                                                value="{{ old('email', Auth::user()->email) }}"
                                                                class="form-control @error('email') is-invalid @enderror">
@@ -88,7 +88,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>Phone Number</label>
+                                                        <label>Phone Number <span class="text-danger">*</span></label>
                                                         <input type="text" name="mobile"
                                                                value="{{ old('mobile', Auth::user()->mobile) }}"
                                                                class="form-control @error('mobile') is-invalid @enderror">
@@ -99,7 +99,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>Gender</label>
+                                                        <label>Gender <span class="text-danger">*</span></label>
                                                         <select
                                                             class="form-select @error('gender') is-invalid @enderror"
                                                             name="gender" id="exampleFormControlSelect6"
@@ -152,7 +152,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="billing-info">
-                                                        <label>Current Password</label>
+                                                        <label>Current Password <span class="text-danger">*</span></label>
                                                         <input type="password" name="current_password" class="form-control @error('current_password') is-invalid @enderror">
                                                         @error('current_password')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -161,7 +161,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>New Password</label>
+                                                        <label>New Password <span class="text-danger">*</span></label>
                                                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
                                                         @error('password')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -170,7 +170,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
-                                                        <label>Confirm New Password</label>
+                                                        <label>Confirm New Password <span class="text-danger">*</span></label>
                                                         <input type="password" name="password_confirmation" class="form-control">
                                                     </div>
                                                 </div>

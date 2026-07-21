@@ -15,8 +15,7 @@ class BuildFactory extends Factory
         return [
             'user_id' => User::factory(),
             'name' => fake()->words(3, true),
-            'total_price' => fake()->randomFloat(2, 100, 5000),
-            'notes' => fake()->optional()->sentence(),
+            'is_public' => false,
         ];
     }
 }

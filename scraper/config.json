@@ -12,12 +12,12 @@
             "currency": "JOD",
             "products": [
                 {
-                    "part_id": 7,
-                    "url": "https://mcc-jo.com/product/intel-core-i5-14400f-14th-gen-10-core-processor"
-                },
-                {
                     "part_id": 13,
                     "url": "https://mcc-jo.com/product/intel-core-i7-14700kf-20-core-processor-tray"
+                },
+                {
+                    "part_id": 7,
+                    "url": "https://mcc-jo.com/product/intel-core-i5-14400f-14th-gen-10-core-processor"
                 },
                 {
                     "part_id": 14,
@@ -36,10 +36,6 @@
                     "url": "https://mcc-jo.com/product/amd-ryzen-9-7900x-12-core-processor"
                 },
                 {
-                    "part_id": 18,
-                    "url": "https://mcc-jo.com/product/amd-ryzen-5-9600x-6-core-processor-tray"
-                },
-                {
                     "part_id": 19,
                     "url": "#"
                 },
@@ -50,6 +46,10 @@
                 {
                     "part_id": 21,
                     "url": "https://mcc-jo.com/product/amd-ryzen-9-7950x3d-16-core-processor"
+                },
+                {
+                    "part_id": 18,
+                    "url": "https://mcc-jo.com/product/amd-ryzen-5-9600x-6-core-processor-tray"
                 },
                 {
                     "part_id": 22,
@@ -114,22 +114,6 @@
                 {
                     "part_id": 37,
                     "url": "https://mcc-jo.com/product/gigabyte-geforce-rtx-4080-super-gaming-oc-16gb-graphic-card"
-                },
-                {
-                    "part_id": 38,
-                    "url": "https://mcc-jo.com/product/kingston-2-5%E2%80%B3-ssd-480gb"
-                },
-                {
-                    "part_id": 39,
-                    "url": "https://mcc-jo.com/product/samsung-990-pro-2tb-pcie-40-nvme-m2-ssd"
-                },
-                {
-                    "part_id": 40,
-                    "url": "https://mcc-jo.com/product/kingston-fury-renegade-500gb-pcie-4-0-nvme-m-2-ssd-2"
-                },
-                {
-                    "part_id": 41,
-                    "url": "https://mcc-jo.com/product/kingston-fury-renegade-4tb-pcie-gen-4-0-nvme-m-2-internal-gaming-ssd-with-heat-sink"
                 }
             ]
         },
@@ -144,10 +128,6 @@
             ],
             "currency": "JOD",
             "products": [
-                {
-                    "part_id": 7,
-                    "url": "https://numberonestore.net/components/cpu-processor/intel-core-i5-14400-14th-generation-processor-desktop-box?sort=p.price&order=DESC"
-                },
                 {
                     "part_id": 13,
                     "url": "https://numberonestore.net/components/cpu-processor/intel-core-i7-14700kf-14th-generation-processor-desktop-unloked-tray?sort=p.price&order=DESC"
@@ -183,6 +163,10 @@
                 {
                     "part_id": 21,
                     "url": "#"
+                },
+                {
+                    "part_id": 7,
+                    "url": "https://numberonestore.net/components/cpu-processor/intel-core-i5-14400-14th-generation-processor-desktop-box?sort=p.price&order=DESC"
                 },
                 {
                     "part_id": 22,
@@ -247,22 +231,6 @@
                 {
                     "part_id": 37,
                     "url": "#"
-                },
-                {
-                    "part_id": 38,
-                    "url": "#"
-                },
-                {
-                    "part_id": 39,
-                    "url": "#"
-                },
-                {
-                    "part_id": 40,
-                    "url": "#"
-                },
-                {
-                    "part_id": 41,
-                    "url": "#"
                 }
             ]
         },
@@ -311,7 +279,7 @@
                 },
                 {
                     "part_id": 20,
-                    "url": "#"
+                    "url": "https://citycenter.jo/intel-new-core-ultra-9-285k-24-cores-up-to-5-7-ghz-l2-l3-76mb-cache-unlocked-w-integrated-graphics-box"
                 },
                 {
                     "part_id": 21,
@@ -380,22 +348,6 @@
                 {
                     "part_id": 37,
                     "url": "#"
-                },
-                {
-                    "part_id": 38,
-                    "url": "#"
-                },
-                {
-                    "part_id": 39,
-                    "url": "#"
-                },
-                {
-                    "part_id": 40,
-                    "url": "#"
-                },
-                {
-                    "part_id": 41,
-                    "url": "#"
                 }
             ]
         },
@@ -443,12 +395,12 @@
                     "url": "#"
                 },
                 {
-                    "part_id": 20,
-                    "url": "#"
-                },
-                {
                     "part_id": 21,
                     "url": "https://os-jo.com/components/cpu-prossesors/amd-ryzen-9-7950x3d-up-to-5-7ghz-16-cores-32-threads-128mb-amd-3d-v-cache-am5-cpu-processor-tray?sort=p.price&order=DESC"
+                },
+                {
+                    "part_id": 20,
+                    "url": "https://os-jo.com/intel-core-ultra-9-285k-processor-series-2-lga1851-24-cores-8-16e-24-threads-up-to-5-70ghz"
                 },
                 {
                     "part_id": 22,
@@ -512,22 +464,6 @@
                 },
                 {
                     "part_id": 37,
-                    "url": "#"
-                },
-                {
-                    "part_id": 38,
-                    "url": "#"
-                },
-                {
-                    "part_id": 39,
-                    "url": "#"
-                },
-                {
-                    "part_id": 40,
-                    "url": "#"
-                },
-                {
-                    "part_id": 41,
                     "url": "#"
                 }
             ]

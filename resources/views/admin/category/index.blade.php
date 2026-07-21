@@ -101,7 +101,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">Name</label>
+                            <label class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" value="{{ old('name') }}"
                                 class="form-control @error('name') is-invalid @enderror" required>
                             @error('name')
@@ -109,7 +109,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Image</label>
+                            <label class="form-label">Image <span class="text-danger">*</span></label>
                             <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
                                 accept="image/jpeg,image/png,image/jpg" required>
                             @error('image')
@@ -163,7 +163,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Name</label>
+                            <label class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" id="editCategoryName"
                                 class="form-control @error('name') is-invalid @enderror" required>
                             @error('name')

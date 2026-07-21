@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="form-floating form-floating-outline col-6">
                             <input type="text" name="fname" value="{{ old('fname') }}" class="form-control @error('fname') is-invalid @enderror" id="exampleFormControlInput1" placeholder="Name">
-                            <label for="exampleFormControlInput1">First Name</label>
+                            <label for="exampleFormControlInput1">First Name <span class="text-danger">*</span></label>
                             @error('fname')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -26,7 +26,7 @@
 
                         <div class="form-floating form-floating-outline col-6">
                             <input type="text" name="lname" value="{{ old('lname') }}" class="form-control @error('lname') is-invalid @enderror" id="exampleFormControlInput2" placeholder="Family">
-                            <label for="exampleFormControlInput2">Last Name</label>
+                            <label for="exampleFormControlInput2">Last Name <span class="text-danger">*</span></label>
                             @error('lname')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -35,7 +35,7 @@
 
                     <div class="form-floating form-floating-outline">
                         <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput3" placeholder="name@example.com">
-                        <label for="exampleFormControlInput3">Email address</label>
+                        <label for="exampleFormControlInput3">Email address <span class="text-danger">*</span></label>
                         @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -43,7 +43,7 @@
 
                     <div class="form-floating form-floating-outline mb-6">
                         <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control @error('mobile') is-invalid @enderror" id="exampleFormControlInput4" placeholder="079">
-                        <label for="exampleFormControlInput4">Phone Number</label>
+                        <label for="exampleFormControlInput4">Phone Number <span class="text-danger">*</span></label>
                         @error('mobile')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -63,7 +63,7 @@
                                 <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                                 <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                             </select>
-                            <label for="exampleFormControlSelect6">Gender</label>
+                            <label for="exampleFormControlSelect6">Gender <span class="text-danger">*</span></label>
                             @error('gender')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -72,7 +72,7 @@
 
                     <div class="form-floating form-floating-outline mb-6">
                         <input type="password" name="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="exampleFormControlInput7" placeholder="********">
-                        <label for="exampleFormControlInput7">Password</label>
+                        <label for="exampleFormControlInput7">Password <span class="text-danger">*</span></label>
                         @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
