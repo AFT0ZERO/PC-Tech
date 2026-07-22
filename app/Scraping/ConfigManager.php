@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class ConfigManager
 {
-    public function getStoreConfigs(?string $storeName = null): Collection
+    public function getStoreConfigs(null|array $storeNames = null): Collection
     {
         $query = DB::table('stores')
             ->join('store_scraper_configs', 'stores.id', '=', 'store_scraper_configs.store_id')
@@ -22,8 +22,8 @@ class ConfigManager
                 'store_scraper_configs.currency',
             );
 
-        if ($storeName) {
-            $query->where('stores.name', $storeName);
+        if (!empty($storeNames)) {
+            $query->whereIn('stores.name', $storeNames);
         }
 
         return $query->get()->map(function ($row) {

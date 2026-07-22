@@ -126,7 +126,7 @@
                                     <div class="product-inner">
                                         <div class="img-block">
                                             <a href="{{route('singlePage',$lastProduct->id)}}" class="thumbnail">
-                                                <img class="first-img" src="{{ isset($lastProduct->images[0]) ? asset($lastProduct->images[0]->image) : asset('assets/img/product/default.png') }}" alt="{{ $lastProduct->name }}" onerror="this.src='{{ asset('assets/img/product/default.png') }}'" />
+                                                <img class="first-img" src="{{ isset($lastProduct->images[0]) ? asset($lastProduct->images[0]->image) : asset('assets/img/product/default.png') }}" alt="{{ $lastProduct->name }}" onerror="this.onerror=null;this.src='{{ asset('assets/img/product/default.png') }}';" />
                                             </a>
                                             {{-- model start--}}
                                             <div class="add-to-link">

@@ -44,10 +44,6 @@ $(function() {
        Menu menu-content
     ------------------------------ */
 
-    $(".header-menu-vertical .menu-title").on("click", function(event) {
-        $(".header-menu-vertical .menu-content").slideToggle(500);
-    });
-
     $(".menu-content").each(function() {
         var $ul = $(this),
             $lis = $ul.find(".menu-item:gt(7)"),

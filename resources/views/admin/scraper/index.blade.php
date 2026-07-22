@@ -50,9 +50,17 @@
 
                     <form action="{{ route('scraper.run') }}" method="POST">
                         @csrf
-                        <div class="input-group mb-3 d-flex justify-content-center w-75 mx-auto">
-                            <span class="input-group-text bg-white">Target Store (Optional)</span>
-                            <input type="text" name="store" class="form-control" placeholder="e.g. Midas Computer Center">
+                        <div class="mb-3 w-75 mx-auto text-start">
+                            <div class="d-flex align-items-center gap-2">
+                                <label class="form-label fw-semibold mb-0">Target Stores</label>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.querySelector('select[name=\'stores[]\']').value=null">Clear</button>
+                            </div>
+                            <select name="stores[]" class="form-select" multiple>
+                                @foreach($stores as $store)
+                                    <option value="{{ $store->name }}">{{ $store->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="form-text text-muted">Leave empty to run the scraper for all stores. Hold Ctrl/Cmd to select multiple.</div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-lg px-5 mt-2 rounded-pill shadow-sm" onclick="this.innerHTML='<span class=\'spinner-border spinner-border-sm\' role=\'status\' aria-hidden=\'true\'></span> Running... Please Wait'; this.disabled=true; this.form.submit();">
                             <i class="bx bx-play-circle me-1"></i> Run Scraper Now

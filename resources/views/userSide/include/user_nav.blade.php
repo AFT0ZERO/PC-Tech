@@ -48,15 +48,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header-menu-vertical">
-                        <h4 class="menu-title">Browse Categories </h4>
+                        <a href="{{route('categoryNull')}}" class="menu-title">Components</a>
                         <ul class="menu-content display-none">
                             @foreach($categories as $category)
                                 <li class="menu-item"><a href="{{route('category', $category->id)}}">{{$category->name}}</a></li>
                             @endforeach
                         </ul>
-                        <!-- menu content -->
                     </div>
-                    <!-- header menu vertical -->
                 </div>
                 <div class="col-lg-9">
                     <div class="header-horizontal-menu">
@@ -64,7 +62,6 @@
 
                             <li class="active"><a href="{{ route('landing') }}"> Home </a></li>
 
-                            <li class="active"><a href="{{ route('categoryNull') }}"> Components </a></li>
                             {{-- <li class="active"><a href="{{ route('about') }}"> About </a></li>
 
                             <li class="active"><a href="{{ route('faqs') }}"> FAQs </a></li> --}}

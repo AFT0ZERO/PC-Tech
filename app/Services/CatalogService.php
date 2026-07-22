@@ -44,6 +44,7 @@ class CatalogService
     {
         $categories = $this->categoryRepository->all();
         $brandsWithCounts = $this->productRepository->brandCounts($id);
+        $category = null;
 
         if (!empty($search)) {
             $products = $this->productRepository->searchWithMinPrice($search, 15);
@@ -51,6 +52,7 @@ class CatalogService
             $products = $this->productRepository->paginateAllWithMinPrice(15);
         } elseif ($id > 0) {
             $products = $this->productRepository->paginateByCategoryWithMinPrice($id, 15);
+            $category = \App\Models\Category::find($id);
         } else {
             $products = $this->productRepository->paginateAllWithMinPrice(15);
         }
@@ -59,6 +61,7 @@ class CatalogService
             'categories' => $categories,
             'products' => $products,
             'brands' => $brandsWithCounts,
+            'category' => $category,
         ];
     }
 

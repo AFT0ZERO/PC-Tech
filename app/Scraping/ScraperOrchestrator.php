@@ -14,16 +14,16 @@ class ScraperOrchestrator
     ) {
     }
 
-    public function run(?string $storeName = null): array
+    public function run(null|array $storeNames = null): array
     {
         Log::channel('scraper')->info('Starting Price Scraper Run');
 
         $startTime = microtime(true);
 
-        $storeConfigs = $this->configManager->getStoreConfigs($storeName);
+        $storeConfigs = $this->configManager->getStoreConfigs($storeNames);
 
         if ($storeConfigs->isEmpty()) {
-            Log::channel('scraper')->error("No store scraper configs found".($storeName ? " for '$storeName'" : ''));
+            Log::channel('scraper')->error("No store scraper configs found".(!empty($storeNames) ? " for selected stores" : ''));
 
             return [
                 'success' => false,

@@ -16,19 +16,19 @@ class RunScraperJob implements ShouldQueue
 
     public int $timeout = 3600;
 
-    public function __construct(private ?string $storeName = null)
+    public function __construct(private ?array $storeNames = null)
     {
     }
 
     public function handle(ScraperOrchestrator $orchestrator): void
     {
         Log::channel('scraper')->info(
-            $this->storeName
-                ? "Scraper job started for store: {$this->storeName}"
+            !empty($this->storeNames)
+                ? "Scraper job started for stores: " . implode(', ', $this->storeNames)
                 : 'Scraper job started for all stores'
         );
 
-        $orchestrator->run($this->storeName);
+        $orchestrator->run($this->storeNames);
 
         Log::channel('scraper')->info('Scraper job completed.');
     }

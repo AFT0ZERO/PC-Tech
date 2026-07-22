@@ -31,10 +31,8 @@
 				& a{
 					display: inline-block;
 				    position: relative;
-				    color: #2b2d2f;
-				    &:hover{
-						color:#266cfb;
-				    }
+				    color: #266cfb;
+				    text-decoration: none;
 				}
 				&:last-child:after{
 					display:none;
