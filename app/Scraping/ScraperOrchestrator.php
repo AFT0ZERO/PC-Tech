@@ -63,13 +63,22 @@ class ScraperOrchestrator
                 $scraper = new StaticScraper();
             }
 
-            $scraper->scrape($config, $products);
+            $urlResults = $scraper->scrape($config, $products);
+
+            $this->logUrlResults($config->storeName, $urlResults);
 
             return [
                 'store' => $config->storeName,
                 'mode' => $config->mode,
                 'products' => $products->count(),
                 'status' => 'completed',
+                'url_results' => $urlResults->map(fn ($r) => [
+                    'product_id' => $r->productId,
+                    'url' => $r->url,
+                    'price' => $r->price,
+                    'status' => $r->status,
+                    'error' => $r->error,
+                ])->all(),
             ];
         } catch (\Exception $e) {
             Log::channel('scraper')->error("Fatal error while scraping store {$config->storeName}: ".$e->getMessage());
@@ -81,6 +90,27 @@ class ScraperOrchestrator
                 'status' => 'failed',
                 'error' => $e->getMessage(),
             ];
+        }
+    }
+
+    private function logUrlResults(string $storeName, \Illuminate\Support\Collection $results): void
+    {
+        foreach ($results as $result) {
+            $priceText = $result->price !== null
+                ? "{$result->price} (raw)"
+                : 'N/A';
+
+            $message = "[$storeName] URL result: product={$result->productId} status={$result->status} price={$priceText} url={$result->url}";
+
+            if ($result->error !== null) {
+                $message .= " error=\"{$result->error}\"";
+            }
+
+            match ($result->status) {
+                'ok' => Log::channel('scraper')->info($message),
+                'skipped' => Log::channel('scraper')->info($message),
+                default => Log::channel('scraper')->warning($message),
+            };
         }
     }
 

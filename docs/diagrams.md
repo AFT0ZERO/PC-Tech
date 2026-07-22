@@ -10,59 +10,59 @@
 Table categories {
   id bigint [pk, increment]
   name varchar(255) [not null]
-  image varchar(255)
-  specs_table varchar(255)
-  open_db_name varchar(255)
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  image varchar(255) [null]
+  specs_table varchar(255) [null]
+  open_db_name varchar(255) [null]
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table users {
   id bigint [pk, increment]
-  fname varchar(255)
-  lname varchar(255)
+  fname varchar(255) [null]
+  lname varchar(255) [null]
   email varchar(255) [unique, not null]
-  email_verified_at timestamp
-  mobile varchar(255)
-  gender varchar(255)
-  role varchar(255)
-  image varchar(255)
+  email_verified_at timestamp [null]
+  mobile varchar(255) [unique, default: '07', null]
+  gender varchar(255) [null]
+  role varchar(255) [default: 'user', null]
+  image varchar(255) [null, default: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y']
   password varchar(255) [not null]
-  deleted_at timestamp
-  remember_token varchar(100)
-  created_at timestamp
-  updated_at timestamp
+  deleted_at timestamp [null]
+  remember_token varchar(100) [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table stores {
   id bigint [pk, increment]
   name varchar(255) [not null]
-  image varchar(255)
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  image varchar(255) [null]
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table contacts {
   id bigint [pk, increment]
-  user_id bigint [ref: > users.id]
-  name varchar(255)
-  email varchar(255)
-  mobile varchar(255)
+  user_id bigint [ref: > users.id, null]
+  name varchar(255) [null]
+  email varchar(255) [null]
+  mobile varchar(255) [null]
   message text
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table faqs {
   id bigint [pk, increment]
   question varchar(255) [not null]
-  answer text
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  answer text [null]
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 // ---------- Products (CTI parent) ----------
@@ -71,125 +71,126 @@ Table products {
   id bigint [pk, increment]
   category_id bigint [ref: > categories.id, not null]
   name varchar(255) [not null]
-  description longtext
-  small_description varchar(255)
-  brand varchar(255)
-  power_draw_watts int [note: 'Aggregate rule: PSU.wattage >= SUM(power_draw_watts of all items)*1.2']
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  description longtext [null]
+  brand varchar(255) [null]
+  power_draw_watts int [null, note: 'Aggregate rule: PSU.wattage >= SUM(power_draw_watts of all items)*1.2']
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table product_images {
   id bigint [pk, increment]
   product_id bigint [ref: > products.id, not null]
   image varchar(255) [not null]
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table store_product {
   id bigint [pk, increment]
   store_id bigint [ref: > stores.id, not null]
   product_id bigint [ref: > products.id, not null]
-  product_price decimal(8,2)
-  product_url varchar(255)
-  product_status varchar(255)
-  created_at timestamp
-  updated_at timestamp
+  product_price decimal(8,2) [null]
+  product_url varchar(255) [null]
+  product_status varchar(255) [default: 'in stock']
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table price_history {
   id bigint [pk, increment]
   sp_id bigint [ref: > store_product.id, not null]
   price decimal(10,2) [not null]
-  currency varchar(10)
-  scraped_at timestamp
-  status varchar(20) [note: 'enum: ok, failed']
-  created_at timestamp
-  updated_at timestamp
+  currency varchar(10) [default: 'JOD']
+  scraped_at timestamp [null]
+  status varchar(20) [default: 'ok', note: 'enum: ok, failed']
+  created_at timestamp [null]
+  updated_at timestamp [null]
+}
+
+Table store_scraper_configs {
+  id bigint [pk, increment]
+  store_id bigint [ref: > stores.id, not null]
+  mode varchar(10) [default: 'static', note: 'enum: static, dynamic']
+  delay int [default: 3]
+  price_selectors json [not null]
+  currency varchar(3) [default: 'JOD']
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table favorite {
   id bigint [pk, increment]
   user_id bigint [ref: > users.id, not null]
   product_id bigint [ref: > products.id, not null]
-  created_at timestamp
-  updated_at timestamp
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table feedback {
   id bigint [pk, increment]
-  message text
+  message text [null]
   rate tinyint [not null]
   product_id bigint [ref: > products.id, not null]
   user_id bigint [ref: > users.id, not null]
-  created_at timestamp
-  updated_at timestamp
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 // ---------- CTI extension tables (one per buildable category) ----------
 // كل جدول: product_id هو PK و FK بنفس الوقت (علاقة 1-1 مع products)
 // الأعمدة الصريحة = أعمدة حرجة تدخل في قواعد التوافق
-// specs = JSON لباقي المواصفات الوصفية غير الحرجة
 
 Table cpu_specs {
   product_id bigint [pk, ref: > products.id]
-  socket varchar(50) [not null, note: 'Direct Match: cpu.socket == motherboard.socket']
-  specs json [note: 'cores, threads, base_clock, boost_clock, integrated_graphics...']
+  socket varchar(50) [null, note: 'Direct Match: cpu.socket == motherboard.socket']
 }
 
 Table motherboard_specs {
   product_id bigint [pk, ref: > products.id]
-  socket varchar(50) [not null, note: 'Direct Match: == cpu.socket']
-  supported_ram_type varchar(20) [not null, note: 'Direct Match: == ram.type']
-  ram_slots tinyint [not null, note: 'Aggregate: COUNT(ram sticks) <= ram_slots']
-  max_ram_capacity_gb int [not null, note: 'Aggregate: SUM(ram.capacity_gb) <= max_ram_capacity_gb']
-  form_factor varchar(30) [not null, note: 'Set Membership: form_factor IN case.supported_form_factors']
-  specs json [note: 'chipset, m2_slots, wifi, rgb_headers...']
+  socket varchar(50) [null, note: 'Direct Match: == cpu.socket']
+  supported_ram_type varchar(20) [null, note: 'Direct Match: == ram.type']
+  ram_slots tinyint [null, note: 'Aggregate: COUNT(ram sticks) <= ram_slots']
+  max_ram_capacity_gb int [null, note: 'Aggregate: SUM(ram.capacity_gb) <= max_ram_capacity_gb']
+  form_factor varchar(30) [null, note: 'Set Membership: form_factor IN case.supported_form_factors']
 }
 
 Table ram_specs {
   product_id bigint [pk, ref: > products.id]
-  type varchar(20) [not null, note: 'Direct Match: == motherboard.supported_ram_type']
-  capacity_gb int [not null, note: 'Aggregate: SUM(capacity_gb) <= motherboard.max_ram_capacity_gb']
-  specs json [note: 'speed_mhz, latency, ecc, rgb...']
+  type varchar(20) [null, note: 'Direct Match: == motherboard.supported_ram_type']
+  capacity_gb int [null, note: 'Aggregate: SUM(capacity_gb) <= motherboard.max_ram_capacity_gb']
 }
 
 Table storage_specs {
   product_id bigint [pk, ref: > products.id]
-  interface varchar(30) [not null, note: 'Direct/Set Membership: e.g. NVMe/SATA vs motherboard supported interfaces']
-  capacity_gb int [not null]
-  specs json [note: 'read_speed, write_speed, form_factor (2.5in / M.2 2280)...']
+  interface varchar(30) [null, note: 'Direct/Set Membership: e.g. NVMe/SATA vs motherboard supported interfaces']
+  capacity_gb int [null]
 }
 
 Table gpu_specs {
   product_id bigint [pk, ref: > products.id]
-  length_mm int [not null, note: 'Dimensional: <= case.max_gpu_length_mm']
-  vram_gb int [not null]
-  specs json [note: 'chipset, memory_bus, ports, recommended_psu_watts...']
+  length_mm int [null, note: 'Dimensional: <= case.max_gpu_length_mm']
+  vram_gb int [null]
 }
 
 Table psu_specs {
   product_id bigint [pk, ref: > products.id]
-  wattage int [not null, note: 'Aggregate: wattage >= SUM(products.power_draw_watts)*1.2']
-  specs json [note: 'efficiency_rating, modular, form_factor...']
+  wattage int [null, note: 'Aggregate: wattage >= SUM(products.power_draw_watts)*1.2']
 }
 
 Table case_specs {
   product_id bigint [pk, ref: > products.id]
-  supported_form_factors json [not null, note: 'Set Membership target: motherboard.form_factor IN this array']
-  max_gpu_length_mm int [not null, note: 'Dimensional: >= gpu.length_mm']
-  max_cooler_height_mm int [not null, note: 'Dimensional: >= cpu_cooler.height_mm']
-  specs json [note: 'fan_slots, drive_bays, side_panel...']
+  supported_form_factors json [null, note: 'Set Membership target: motherboard.form_factor IN this array']
+  max_gpu_length_mm int [null, note: 'Dimensional: >= gpu.length_mm']
+  max_cooler_height_mm int [null, note: 'Dimensional: >= cpu_cooler.height_mm']
 }
 
 Table cpu_cooler_specs {
   product_id bigint [pk, ref: > products.id]
-  supported_sockets json [not null, note: 'Set Membership: cpu.socket IN this array']
-  height_mm int [not null, note: 'Dimensional: <= case.max_cooler_height_mm']
-  specs json [note: 'type (air/aio), radiator_size, noise_level...']
+  supported_sockets json [null, note: 'Set Membership: cpu.socket IN this array']
+  height_mm int [null, note: 'Dimensional: <= case.max_cooler_height_mm']
 }
 
 // ---------- PC Builder feature ----------
@@ -199,16 +200,18 @@ Table build_slots {
   category_id bigint [ref: > categories.id, not null]
   min_qty smallint [not null, default: 0]
   max_qty smallint [not null, note: 'e.g. cpu 1-1, ram 1-4, gpu 0-2, psu 1-1']
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table pc_builds {
   id bigint [pk, increment]
-  user_id bigint [ref: > users.id, note: 'nullable - guest builds saved via session first']
-  name varchar(255)
+  user_id bigint [ref: > users.id, null, note: 'nullable - guest builds saved via session first']
+  name varchar(150) [null]
   is_public boolean [default: false]
-  deleted_at timestamp
-  created_at timestamp
-  updated_at timestamp
+  deleted_at timestamp [null]
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 Table build_items {
@@ -216,8 +219,8 @@ Table build_items {
   build_id bigint [ref: > pc_builds.id, not null]
   product_id bigint [ref: > products.id, not null]
   quantity smallint [not null, default: 1]
-  created_at timestamp
-  updated_at timestamp
+  created_at timestamp [null]
+  updated_at timestamp [null]
 }
 
 ```

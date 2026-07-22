@@ -3,6 +3,7 @@
 namespace App\Scraping\Scrapers;
 
 use App\Scraping\BaseScraper;
+use App\Scraping\DTOs\ScrapeResult;
 use App\Scraping\DTOs\StoreConfig;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
@@ -42,11 +43,13 @@ class StaticScraper extends BaseScraper
         return null;
     }
 
-    public function scrape(StoreConfig $config, Collection $products): void
+    public function scrape(StoreConfig $config, Collection $products): Collection
     {
         $storeName = $config->storeName;
 
         Log::channel('scraper')->info("[$storeName] Starting Static Scrape for {$products->count()} products.");
+
+        $results = collect();
 
         foreach ($products as $product) {
             $productId = $product->product_id;
@@ -54,6 +57,13 @@ class StaticScraper extends BaseScraper
 
             if ($this->shouldSkip($url)) {
                 Log::channel('scraper')->info("[$storeName] Skipping Product $productId: placeholder URL.");
+                $results->push(new ScrapeResult(
+                    productId: $productId,
+                    url: $url,
+                    price: null,
+                    status: 'skipped',
+                    error: 'placeholder URL',
+                ));
                 continue;
             }
 
@@ -63,6 +73,13 @@ class StaticScraper extends BaseScraper
 
             if ($html === null) {
                 $this->saveToDb($productId, $storeName, $url, null, $config->currency);
+                $results->push(new ScrapeResult(
+                    productId: $productId,
+                    url: $url,
+                    price: null,
+                    status: 'failed',
+                    error: 'Failed to fetch URL after '.self::MAX_RETRIES.' attempts.',
+                ));
                 continue;
             }
 
@@ -84,14 +101,30 @@ class StaticScraper extends BaseScraper
             if ($priceText === null) {
                 Log::channel('scraper')->warning("[$storeName] None of the selectors found for Product $productId.");
                 $this->saveToDb($productId, $storeName, $url, null, $config->currency);
+                $results->push(new ScrapeResult(
+                    productId: $productId,
+                    url: $url,
+                    price: null,
+                    status: 'failed',
+                    error: 'None of the price selectors matched.',
+                ));
                 continue;
             }
 
             $price = $this->cleanPrice($priceText);
             $this->saveToDb($productId, $storeName, $url, $price, $config->currency);
+            $results->push(new ScrapeResult(
+                productId: $productId,
+                url: $url,
+                price: $price,
+                status: $price !== null ? 'ok' : 'failed',
+                error: $price === null ? 'Price text could not be parsed.' : null,
+            ));
 
             Log::channel('scraper')->debug("[$storeName] Sleeping for {$config->delay} seconds.");
             sleep($config->delay);
         }
+
+        return $results;
     }
 }

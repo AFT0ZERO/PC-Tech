@@ -118,9 +118,15 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'scraper_file' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/scraper.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
         'scraper' => [
             'driver' => 'stack',
-            'channels' => ['single', 'stderr'],
+            'channels' => ['scraper_file', 'single', 'stderr'],
             'ignore_exceptions' => false,
         ],
     ],

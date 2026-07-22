@@ -3,6 +3,7 @@
 namespace App\Scraping\Scrapers;
 
 use App\Scraping\BaseScraper;
+use App\Scraping\DTOs\ScrapeResult;
 use App\Scraping\DTOs\StoreConfig;
 use HeadlessChromium\BrowserFactory;
 use HeadlessChromium\Page;
@@ -17,7 +18,7 @@ class DynamicScraper extends BaseScraper
     private const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
     private const BROWSER_RESTART_INTERVAL = 20;
 
-    public function scrape(StoreConfig $config, Collection $products): void
+    public function scrape(StoreConfig $config, Collection $products): Collection
     {
         $storeName = $config->storeName;
 
@@ -32,6 +33,8 @@ class DynamicScraper extends BaseScraper
             'enableImages' => false,
         ]);
 
+        $results = collect();
+
         try {
             $page = $browser->createPage();
 
@@ -42,6 +45,13 @@ class DynamicScraper extends BaseScraper
 
                 if ($this->shouldSkip($url)) {
                     Log::channel('scraper')->info("[$storeName] Skipping Product $productId: placeholder URL.");
+                    $results->push(new ScrapeResult(
+                        productId: $productId,
+                        url: $url,
+                        price: null,
+                        status: 'skipped',
+                        error: 'placeholder URL',
+                    ));
                     continue;
                 }
 
@@ -59,9 +69,23 @@ class DynamicScraper extends BaseScraper
 
                 if ($rawText === null) {
                     $this->saveToDb($productId, $storeName, $url, null, $config->currency);
+                    $results->push(new ScrapeResult(
+                        productId: $productId,
+                        url: $url,
+                        price: null,
+                        status: 'failed',
+                        error: 'Failed to extract price from URL after '.self::MAX_RETRIES.' attempts.',
+                    ));
                 } else {
                     $price = $this->cleanPrice($rawText);
                     $this->saveToDb($productId, $storeName, $url, $price, $config->currency);
+                    $results->push(new ScrapeResult(
+                        productId: $productId,
+                        url: $url,
+                        price: $price,
+                        status: $price !== null ? 'ok' : 'failed',
+                        error: $price === null ? 'Price text could not be parsed.' : null,
+                    ));
                 }
 
                 Log::channel('scraper')->debug("[$storeName] Sleeping for {$config->delay} seconds.");
@@ -72,6 +96,8 @@ class DynamicScraper extends BaseScraper
         } finally {
             $browser->close();
         }
+
+        return $results;
     }
 
     private function fetchPrice(Page $page, string $url, array $priceSelectors, string $storeName): ?string
