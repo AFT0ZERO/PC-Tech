@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0 text-white">Python Price Scraper Control Panel</h4>
+                    <h4 class="mb-0 text-white">Price Scraper Control Panel</h4>
                 </div>
 
                 <div class="card-body text-center p-5">
@@ -52,7 +52,7 @@
                         @csrf
                         <div class="input-group mb-3 d-flex justify-content-center w-75 mx-auto">
                             <span class="input-group-text bg-white">Target Store (Optional)</span>
-                            <input type="text" name="store" class="form-control" placeholder="e.g. amazon, newegg">
+                            <input type="text" name="store" class="form-control" placeholder="e.g. Midas Computer Center">
                         </div>
                         <button type="submit" class="btn btn-primary btn-lg px-5 mt-2 rounded-pill shadow-sm" onclick="this.innerHTML='<span class=\'spinner-border spinner-border-sm\' role=\'status\' aria-hidden=\'true\'></span> Running... Please Wait'; this.disabled=true; this.form.submit();">
                             <i class="bx bx-play-circle me-1"></i> Run Scraper Now

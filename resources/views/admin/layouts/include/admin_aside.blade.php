@@ -58,6 +58,13 @@
             </a>
           </li>
 
+          <li class="menu-item{{ request()->routeIs('scraper.*') ? ' active' : '' }}">
+            <a href="{{ route('scraper.index') }}" class="menu-link">
+              <i class='menu-icon tf-icons bx bx-bot'></i>
+              <div class="text-truncate" data-i18n="Boxicons">Scraper</div>
+            </a>
+          </li>
+
           <li class="menu-item{{ request()->routeIs('faq.*') ? ' active' : '' }}">
             <a href="{{ route('faq.index') }}" class="menu-link">
               <i class='menu-icon tf-icons bx bx-question-mark'></i>

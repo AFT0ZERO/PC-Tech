@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\RunScraperJob;
 use App\Services\ScraperRunnerService;
 use Illuminate\Http\Request;
 
@@ -23,16 +24,13 @@ class ScraperController extends Controller
 
     public function run(Request $request)
     {
-        $store = $request->input('store');
-        $result = $this->scraperRunnerService->run($store);
+        $store = $request->input('store') ?: null;
 
-        if ($result['success']) {
-            return redirect()->route('scraper.index')
-                ->with('success', 'Scraper ran successfully.' . ($result['output'] ? ' Output: ' . $result['output'] : ''));
-        }
+        RunScraperJob::dispatch($store);
+
         return redirect()->route('scraper.index')
-            ->with('error', $result['output']
-                ? 'Scraper finished with errors. Output: ' . $result['output']
-                : 'Failed to run scraper: ' . $result['output']);
+            ->with('success', $store
+                ? "Scraper queued for store: {$store}"
+                : 'Full scraper queued for all stores.');
     }
 }
