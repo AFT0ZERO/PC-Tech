@@ -71,8 +71,8 @@
                             
                             
                             @auth
-                            <li><a href="{{route('account')}}" > My Account</a></li>
                             <li><a href="{{ route('builder.myBuilds') }}"> My Builds</a></li>
+                            <li><a href="{{route('account')}}" > My Account</a></li>
                             @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
                             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             @endif
@@ -249,8 +249,8 @@
 
                 
                 @auth
-                <li><a href="{{route('account')}}" > My Account</a></li>
                 <li><a href="{{ route('builder.myBuilds') }}"> My Builds</a></li>
+                <li><a href="{{route('account')}}" > My Account</a></li>
                 @if(Auth::user()->role === 'admin' || Auth::user()->role === 'super-admin')
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 @endif

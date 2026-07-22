@@ -110,7 +110,7 @@ class ScraperOrchestrator
             : "\n✅ كل المحلات نجحت";
 
         $message = "🔄 انتهى Scraping الأسعار\n"
-            . "✅ نجح: {$success} صفحة\n"
+            . "✅ نجح: {$success} متجر\n"
             . "⏱️ المدة: {$duration} ثانية"
             . $failedText;
 

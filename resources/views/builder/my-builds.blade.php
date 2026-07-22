@@ -3,8 +3,6 @@
 @section('extraHeader')
 <style>
     .builds-hero {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        color: #fff;
         padding: 45px 0 35px;
         margin-bottom: 40px;
     }
@@ -20,8 +18,6 @@
     .build-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.1); }
 
     .build-card .card-header {
-        background: #0f3460;
-        color: #fff;
         padding: 14px 20px;
         display: flex;
         align-items: center;
