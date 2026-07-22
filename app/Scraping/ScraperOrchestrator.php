@@ -4,6 +4,7 @@ namespace App\Scraping;
 
 use App\Scraping\Scrapers\DynamicScraper;
 use App\Scraping\Scrapers\StaticScraper;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class ScraperOrchestrator
@@ -16,6 +17,8 @@ class ScraperOrchestrator
     public function run(?string $storeName = null): array
     {
         Log::channel('scraper')->info('Starting Price Scraper Run');
+
+        $startTime = microtime(true);
 
         $storeConfigs = $this->configManager->getStoreConfigs($storeName);
 
@@ -33,6 +36,10 @@ class ScraperOrchestrator
         foreach ($storeConfigs as $config) {
             $results[] = $this->scrapeStore($config);
         }
+
+        $duration = round(microtime(true) - $startTime, 2);
+
+        $this->notifyTelegram($results, $duration);
 
         Log::channel('scraper')->info('Scraper Run Completed.');
 
@@ -75,5 +82,25 @@ class ScraperOrchestrator
                 'error' => $e->getMessage(),
             ];
         }
+    }
+
+    private function notifyTelegram(array $results, float $duration): void
+    {
+        $success = collect($results)->where('status', 'completed')->count();
+        $failed = collect($results)->where('status', 'failed')->pluck('store')->toArray();
+
+        $failedText = count($failed) > 0
+            ? "\n⚠️ فشلت: " . implode(', ', $failed)
+            : "\n✅ كل المحلات نجحت";
+
+        $message = "🔄 انتهى Scraping الأسعار\n"
+            . "✅ نجح: {$success} صفحة\n"
+            . "⏱️ المدة: {$duration} ثانية"
+            . $failedText;
+
+        Http::post("https://api.telegram.org/bot" . config('services.telegram.token') . "/sendMessage", [
+            'chat_id' => config('services.telegram.chat_id'),
+            'text' => $message,
+        ]);
     }
 }
