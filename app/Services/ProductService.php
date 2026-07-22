@@ -115,6 +115,7 @@ class ProductService
                 if (!isset($specs['tdp'])) {
                     $specs['tdp'] = $category->specs_table === 'psu_specs' ? 0 : 1;
                 }
+                unset($specs['opendb_id']);
                 return [
                     'name'  => $row['name'],
                     'specs' => $specs,

@@ -339,13 +339,14 @@
             if (!specs) return;
             const flat = flattenObject(specs);
 
+            delete flat['opendb_id'];
+
             // 1. Brand
             if (flat['manufacturer'] !== undefined) {
                 const brandField = document.getElementById('field-brand');
                 if (brandField) {
                     brandField.value = flat['manufacturer'];
                 }
-                delete flat['manufacturer'];
             }
 
             // 2. Power draw
@@ -354,7 +355,6 @@
                 if (tdpField) {
                     tdpField.value = flat['tdp'];
                 }
-                delete flat['tdp'];
             }
 
             // 3. Spec fields (dynamic, based on spec table column names)
@@ -366,7 +366,6 @@
                         if (specField) {
                             specField.value = flat[key];
                         }
-                        delete flat[key];
                     }
                 }
             }
