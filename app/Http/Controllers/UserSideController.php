@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
 use App\Services\AccountService;
 use App\Services\CatalogService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserSideController extends Controller
@@ -22,6 +23,15 @@ class UserSideController extends Controller
         $data = $this->catalogService->getLandingData();
 
         return view('userSide.pages.landing', $data);
+    }
+
+    public function searchAutocomplete(Request $request)
+    {
+        $query = $request->input('query', '');
+
+        return response()->json(
+            $this->catalogService->autocompleteSearch($query)
+        );
     }
 
     public function category($id = null)

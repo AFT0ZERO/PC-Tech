@@ -3,12 +3,15 @@
 namespace App\Services;
 
 use App\Repositories\PriceHistoryRepository;
-use Illuminate\Support\Facades\Artisan;
+use App\Scraping\ScraperOrchestrator;
+use Illuminate\Support\Facades\Log;
 
 class ScraperRunnerService
 {
-    public function __construct(private PriceHistoryRepository $priceHistoryRepository)
-    {
+    public function __construct(
+        private PriceHistoryRepository $priceHistoryRepository,
+        private ScraperOrchestrator $scraperOrchestrator,
+    ) {
     }
 
     public function getStats(): array
@@ -22,14 +25,15 @@ class ScraperRunnerService
     public function run(?string $store = null): array
     {
         try {
-            $exitCode = Artisan::call('scraper:run', $store ? ['--store' => $store] : []);
-            $output   = Artisan::output();
+            $result = $this->scraperOrchestrator->run($store);
 
-            if ($exitCode === 0) {
-                return ['success' => true, 'output' => $output];
-            }
-            return ['success' => false, 'output' => $output];
+            return [
+                'success' => $result['success'],
+                'output' => $result['output'] ?? 'Scraper completed.',
+            ];
         } catch (\Exception $e) {
+            Log::error('Scraper run failed: '.$e->getMessage());
+
             return ['success' => false, 'output' => $e->getMessage()];
         }
     }

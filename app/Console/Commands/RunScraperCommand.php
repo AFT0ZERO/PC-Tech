@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Scraping\ScraperOrchestrator;
 use Illuminate\Console\Command;
 
 class RunScraperCommand extends Command
@@ -14,38 +15,34 @@ class RunScraperCommand extends Command
     /**
      * The console command description.
      */
-    protected $description = 'Run the Python price scraper microservice';
+    protected $description = 'Run the PHP price scraper';
 
     /**
      * Execute the console command.
      */
-    public function handle(): int
+    public function handle(ScraperOrchestrator $orchestrator): int
     {
-        $scraperPath = base_path('scraper/scraper.py');
+        $storeOption = $this->option('store') ?: null;
 
-        if (!file_exists($scraperPath)) {
-            $this->error("Scraper not found at: {$scraperPath}");
-            return 1;
+        $this->info($storeOption
+            ? "Running scraper for store: {$storeOption}"
+            : 'Running scraper for all stores');
+
+        $result = $orchestrator->run($storeOption);
+
+        if ($result['success']) {
+            if (isset($result['results'])) {
+                foreach ($result['results'] as $r) {
+                    $this->info("  {$r['store']}: {$r['status']} ({$r['products']} products)");
+                }
+            }
+            $this->info($result['output']);
+
+            return 0;
         }
 
-        $storeOption = $this->option('store');
-        $storeFlag   = $storeOption ? " --store " . escapeshellarg($storeOption) : '';
-        $command     = "python " . escapeshellarg($scraperPath) . $storeFlag . " 2>&1";
+        $this->error($result['output']);
 
-        $this->info("Running: {$command}");
-
-        exec($command, $output, $exitCode);
-
-        foreach ($output as $line) {
-            $this->line($line);
-        }
-
-        if ($exitCode === 0) {
-            $this->info('Scraper completed successfully.');
-        } else {
-            $this->error("Scraper exited with code {$exitCode}.");
-        }
-
-        return $exitCode;
+        return 1;
     }
 }

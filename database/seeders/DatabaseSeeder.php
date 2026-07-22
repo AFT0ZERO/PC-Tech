@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
 
          // PC Builder slot limits (non-destructive)
          $this->call(BuildSlotSeeder::class);
-        
+
+         // Scraper configuration from config.json
+         $this->call(StoreScraperConfigSeeder::class);
+
          // Other random data
         //  \App\Models\User::factory(10)->create();
         //  \App\Models\Contact::factory(10)->create();

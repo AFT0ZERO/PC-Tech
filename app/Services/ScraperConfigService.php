@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Store;
 use App\Repositories\ScraperConfigStore;
+use Illuminate\Support\Facades\DB;
 
 class ScraperConfigService
 {
@@ -10,35 +12,21 @@ class ScraperConfigService
     {
     }
 
+    /**
+     * Sync store_product URLs from the database into store_scraper_configs.
+     * Replaces the old config.json file-based sync.
+     */
     public function sync(): void
     {
-        $configPath = base_path('scraper/config.json');
-        $config = $this->scraperConfigStore->read($configPath);
+        $stores = Store::all();
 
-        if (!$config || !isset($config['stores'])) return;
-
-        $storeProducts = $this->scraperConfigStore->getActiveStoreProducts();
-
-        $storeUrls = [];
-        foreach ($storeProducts as $sp) {
-            if (!empty($sp->product_url)) {
-                $storeUrls[$sp->store_id][] = [
-                    'part_id' => $sp->product_id,
-                    'url' => $sp->product_url,
-                ];
-            }
+        foreach ($stores as $store) {
+            DB::table('store_scraper_configs')->updateOrInsert(
+                ['store_id' => $store->id],
+                [
+                    'mode' => DB::raw('COALESCE(mode, "static")'),
+                ]
+            );
         }
-
-        $storesFromDb = $this->scraperConfigStore->getAllStoresKeyedByName();
-
-        foreach ($config['stores'] as &$configStore) {
-            $storeName = $configStore['store_name'];
-            if ($storesFromDb->has($storeName)) {
-                $dbStore = $storesFromDb->get($storeName);
-                $configStore['products'] = $storeUrls[$dbStore->id] ?? [];
-            }
-        }
-
-        $this->scraperConfigStore->write($configPath, $config);
     }
 }
