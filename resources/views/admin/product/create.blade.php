@@ -55,26 +55,26 @@
                     <div id="dynamic-fields" style="display: none;">
                         <h6 class="fw-bold border-bottom pb-2 mb-3 mt-4">Product Details</h6>
                         <div id="product-fields-container"></div>
+                        <div id="spec-fields-container" style="display: none;">
+                            <h6 class="fw-bold border-bottom pb-2 mb-3 mt-4">Specifications</h6>
+                            <div id="spec-fields-inner"></div>
+                        </div>
                         <div id="key-value-section" class="mt-4">
                             <h6 class="fw-bold border-bottom pb-2 mb-3">Description (Key : Value)</h6>
                             <div id="key-value-fields" class="row">
                                 <div class="mb-3 col-6">
-                                    <label class="form-label">Key <span class="text-danger">*</span></label>
-                                    <input type="text" name="key[]" class="form-control" required>
+                                    <label class="form-label">Key</label>
+                                    <input type="text" name="key[]" class="form-control">
                                 </div>
                                 <div class="mb-3 col-6">
-                                    <label class="form-label">Value <span class="text-danger">*</span></label>
-                                    <input type="text" name="value[]" class="form-control" required>
+                                    <label class="form-label">Value</label>
+                                    <input type="text" name="value[]" class="form-control">
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3">
                                 <button type="button" id="add-key-value" class="btn btn-secondary">Add More</button>
                                 <button type="button" id="clear-all-fields" class="btn btn-outline-danger">Clear All</button>
                             </div>
-                        </div>
-                        <div id="spec-fields-container" style="display: none;">
-                            <h6 class="fw-bold border-bottom pb-2 mb-3 mt-4">Specifications</h6>
-                            <div id="spec-fields-inner"></div>
                         </div>
                     </div>
 
@@ -104,6 +104,15 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+
+                    <div id="images-section" class="mt-4">
+                        <h6 class="fw-bold border-bottom pb-2 mb-3">Product Images</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Upload Images</label>
+                            <input type="file" name="images[]" multiple class="form-control" accept="image/png,image/jpeg,image/webp">
+                            <small class="text-muted">Supported formats: PNG, JPG, JPEG, WebP</small>
+                        </div>
                     </div>
 
                     <button class="btn btn-success" id="submit-btn" style="display: none;">ADD +</button>
@@ -210,6 +219,7 @@
             }
             section.style.display = 'block';
             fields.forEach(field => {
+                field.required = true;
                 container.appendChild(createFieldElement(field));
             });
         }
@@ -405,12 +415,12 @@
             row.classList.add('row');
             row.innerHTML = `
                 <div class="mb-3 col-6">
-                    <label class="form-label">Key <span class="text-danger">*</span></label>
-                    <input type="text" name="key[]" class="form-control" value="${escapeAttr(key)}" required>
+                    <label class="form-label">Key</label>
+                    <input type="text" name="key[]" class="form-control" value="${escapeAttr(key)}">
                 </div>
                 <div class="mb-3 col-6">
-                    <label class="form-label">Value <span class="text-danger">*</span></label>
-                    <input type="text" name="value[]" class="form-control" value="${escapeAttr(value)}" required>
+                    <label class="form-label">Value</label>
+                    <input type="text" name="value[]" class="form-control" value="${escapeAttr(value)}">
                 </div>
             `;
             return row;

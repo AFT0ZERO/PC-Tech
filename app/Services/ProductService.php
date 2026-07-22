@@ -209,14 +209,30 @@ class ProductService
 
     public function getEditData(Product $product): array
     {
-        $product->load('stores');
+        $load = ['stores', 'category', 'images'];
+        $relation = $product->specRelationName();
+        if ($relation) {
+            $load[] = $relation;
+        }
+        $product->load($load);
+
         $description = json_decode($product->description, true);
+
+        $specData = [];
+        if ($relation) {
+            $specModel = $product->getRelation($relation);
+            if ($specModel) {
+                $specData = $specModel->toArray();
+                unset($specData['product_id']);
+            }
+        }
 
         return [
             'categories'   => $this->categoryRepository->all(),
             'stores'       => $this->storeProductRepository->allStoresList(),
             'product'      => $product,
             'descriptions' => $description,
+            'specData'     => $specData,
         ];
     }
 

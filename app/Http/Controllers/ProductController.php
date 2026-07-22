@@ -7,12 +7,14 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\ProductImageService;
 use App\Services\ProductService;
 
 class ProductController extends Controller
 {
     public function __construct(
         private ProductService $productService,
+        private ProductImageService $productImageService,
     ) {
     }
 
@@ -44,7 +46,12 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $this->productService->storeProduct($request->validated());
+        $product = $this->productService->storeProduct($request->validated());
+
+        if ($request->hasFile('images')) {
+            $this->productImageService->uploadImages($product->id, $request->file('images'));
+        }
+
         $this->productService->syncScraperConfig();
 
         return to_route('product.index')->with('success', 'Product stored successfully!');

@@ -24,6 +24,16 @@ class ProductRepository
         return Product::search($query)->paginate($perPage);
     }
 
+    public function searchAutocomplete(string $query, int $limit = 5): array
+    {
+        return Product::select('id', 'name')
+            ->where('name', 'like', '%' . $query . '%')
+            ->orderBy('name')
+            ->limit($limit)
+            ->get()
+            ->toArray();
+    }
+
     public function paginateAllWithMinPrice(int $perPage = 15)
     {
         return Product::with('stores')

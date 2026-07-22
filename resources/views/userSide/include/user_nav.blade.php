@@ -18,7 +18,10 @@
                     <div class="header-right-element d-flex">
                         <div class="search-element media-body mr-20px">
                             <form class="d-flex" action="{{route('categoryNull')}}">
-                                <input type="text" name="search" placeholder="Search ... " />
+                                <div class="search-autocomplete-wrapper" style="position: relative; flex: 1; display: flex;">
+                                    <input type="text" name="search" placeholder="Search Components ... " autocomplete="off" />
+                                    <div class="search-autocomplete-dropdown"></div>
+                                </div>
                                 <button>Search</button>
                             </form>
                         </div>
@@ -162,7 +165,10 @@
             <div class="col-md-12">
                 <div class="search-element media-body">
                     <form class="d-flex" action="{{route('categoryNull')}}">
-                        <input type="text" name="search" placeholder="Search ... " />
+                        <div class="search-autocomplete-wrapper" style="position: relative; flex: 1; display: flex;">
+                            <input type="text" name="search" placeholder="Search ... " autocomplete="off" />
+                            <div class="search-autocomplete-dropdown"></div>
+                        </div>
                         <button>Search</button>
                     </form>
                 </div>
@@ -228,7 +234,10 @@
         </div>
         <div class="offcanvas-menu-search-form">
             <form class="d-flex" action="{{route('categoryNull')}}">
-                <input type="text" name="search" placeholder="Search ... " />
+                <div class="search-autocomplete-wrapper" style="position: relative; flex: 1; display: flex;">
+                    <input type="text" name="search" placeholder="Search ... " autocomplete="off" />
+                    <div class="search-autocomplete-dropdown"></div>
+                </div>
                 <button type="submit">Search</button>
             </form>
         </div>
@@ -284,3 +293,161 @@
 <!-- OffCanvas Search End -->
 
 <div class="offcanvas-overlay"></div>
+
+<style>
+.search-autocomplete-wrapper { position: relative; flex: 1; display: flex; }
+.search-autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 280px;
+    overflow-y: auto;
+    display: none;
+}
+.search-dropdown-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
+}
+.search-dropdown-item:last-child { border-bottom: none; }
+.search-dropdown-item:hover,
+.search-dropdown-item.active { background: #f5f5f9; color: #000; }
+.search-dropdown-item .highlight { font-weight: 600; }
+.search-autocomplete-dropdown.show { display: block; }
+</style>
+
+<script>
+(function() {
+    var debounceTimer;
+    var currentQuery = '';
+    var activeIndex = -1;
+    var searchRoute = '{{ route('search.autocomplete') }}';
+    var singlePageUrl = '{{ route('singlePage', ['id' => '__ID__']) }}';
+
+    function getInputs() {
+        return document.querySelectorAll('input[name="search"]');
+    }
+
+    function getDropdown(input) {
+        var wrapper = input.closest('.search-autocomplete-wrapper');
+        return wrapper ? wrapper.querySelector('.search-autocomplete-dropdown') : null;
+    }
+
+    function hideAllDropdowns() {
+        document.querySelectorAll('.search-autocomplete-dropdown').forEach(function(d) {
+            d.style.display = 'none';
+            d.innerHTML = '';
+        });
+    }
+
+    function highlightMatch(text, query) {
+        if (!query) return text;
+        var escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var regex = new RegExp('(' + escaped + ')', 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    getInputs().forEach(function(input) {
+        var dropdown = getDropdown(input);
+
+        input.addEventListener('keydown', function(e) {
+            var items = dropdown.querySelectorAll('.search-dropdown-item');
+            if (dropdown.style.display === 'block' && items.length > 0) {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    activeIndex = Math.min(activeIndex + 1, items.length - 1);
+                    updateActive(items);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    activeIndex = Math.max(activeIndex - 1, 0);
+                    updateActive(items);
+                } else if (e.key === 'Enter') {
+                    if (activeIndex >= 0) {
+                        e.preventDefault();
+                        var item = items[activeIndex];
+                        if (item) {
+                            window.location.href = singlePageUrl.replace('__ID__', item.dataset.id);
+                        }
+                    }
+                } else if (e.key === 'Escape') {
+                    hideAllDropdowns();
+                }
+            }
+        });
+
+        input.addEventListener('input', function() {
+            var query = this.value.trim();
+            if (query.length < 2) {
+                hideAllDropdowns();
+                return;
+            }
+            currentQuery = query;
+            activeIndex = -1;
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function() {
+                if (currentQuery.length < 2) return;
+                fetch(searchRoute + '?query=' + encodeURIComponent(currentQuery))
+                    .then(function(res) { return res.json(); })
+                    .then(function(results) {
+                        if (currentQuery !== query || results.length === 0) {
+                            dropdown.style.display = 'none';
+                            dropdown.innerHTML = '';
+                            return;
+                        }
+                        dropdown.innerHTML = results.map(function(p) {
+                            return '<div class="search-dropdown-item" role="option" data-id="' + p.id + '">'
+                                + highlightMatch(p.name, currentQuery) + '</div>';
+                        }).join('');
+                        dropdown.style.display = 'block';
+                        activeIndex = -1;
+                    })
+                    .catch(function() {
+                        dropdown.style.display = 'none';
+                    });
+            }, 300);
+        });
+
+        input.addEventListener('blur', function() {
+            setTimeout(function() {
+                hideAllDropdowns();
+            }, 200);
+        });
+
+        dropdown.addEventListener('mousedown', function(e) {
+            var item = e.target.closest('.search-dropdown-item');
+            if (item) {
+                e.preventDefault();
+                window.location.href = singlePageUrl.replace('__ID__', item.dataset.id);
+            }
+        });
+    });
+
+    function updateActive(items) {
+        items.forEach(function(item, i) {
+            if (i === activeIndex) {
+                item.classList.add('active');
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-autocomplete-wrapper')) {
+            hideAllDropdowns();
+        }
+    });
+})();
+</script>

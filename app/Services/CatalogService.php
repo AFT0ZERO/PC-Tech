@@ -23,6 +23,14 @@ class CatalogService
         return $this->categoryRepository->all();
     }
 
+    public function autocompleteSearch(string $query): array
+    {
+        if (trim($query) === '') {
+            return [];
+        }
+        return $this->productRepository->searchAutocomplete($query);
+    }
+
     public function getLandingData(): array
     {
         return [

@@ -31,7 +31,9 @@ class StoreProductRequest extends FormRequest
         }
 
         foreach ($fields['spec_fields'] as $field) {
-            $rules[$field['name']] = $this->fieldValidation($field);
+            $rule = $this->fieldValidation($field);
+            $rule[0] = 'required';
+            $rules[$field['name']] = $rule;
         }
 
         $rules['store_id']   = ['nullable', 'array'];
@@ -42,10 +44,12 @@ class StoreProductRequest extends FormRequest
         $rules['price.*']    = ['nullable', 'numeric'];
         $rules['url.*']      = ['nullable', 'string'];
         $rules['status.*']   = ['nullable', 'string'];
-        $rules['key']      = ['required', 'array'];
-        $rules['value']    = ['required', 'array'];
-        $rules['key.*']    = ['required', 'string'];
-        $rules['value.*']  = ['required', 'string'];
+        $rules['key']      = ['nullable', 'array'];
+        $rules['value']    = ['nullable', 'array'];
+        $rules['key.*']    = ['nullable', 'string'];
+        $rules['value.*']  = ['nullable', 'string'];
+        $rules['images']   = ['nullable', 'array'];
+        $rules['images.*'] = ['image', 'mimes:png,jpg,jpeg,webp'];
 
         return $rules;
     }

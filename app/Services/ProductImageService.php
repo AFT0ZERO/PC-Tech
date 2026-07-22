@@ -47,11 +47,26 @@ class ProductImageService
     {
         $productImage = $this->productImageRepository->findOrFail($id);
 
-        // G9 preserved: using $ProductImage->path which doesn't exist (column is 'image')
-        if ($this->productImageRepository->pathExists($productImage->path)) {
-            $this->productImageRepository->deleteFile($productImage->path);
+        if ($this->productImageRepository->pathExists($productImage->image)) {
+            $this->productImageRepository->deleteFile($productImage->image);
         }
 
         $this->productImageRepository->delete($productImage);
+    }
+
+    public function replaceImage(int $imageId, $file): void
+    {
+        $productImage = $this->productImageRepository->findOrFail($imageId);
+
+        if ($this->productImageRepository->pathExists($productImage->image)) {
+            $this->productImageRepository->deleteFile($productImage->image);
+        }
+
+        $extension = $file->getClientOriginalExtension();
+        $filename = uniqid() . '-' . time() . '.' . $extension;
+        $path = 'uploads/ProductImage/';
+        $file->move($path, $filename);
+
+        $this->productImageRepository->update($productImage, ['image' => $path . $filename]);
     }
 }

@@ -29,6 +29,7 @@ Route::get('/builder/parts/{category}', [BuildController::class, 'partsPage'])->
 Route::get('/builder/parts-api/{category}', [BuildController::class, 'getParts'])->name('builder.partsApi');
 Route::post('/builder/check-compatibility', [BuildController::class, 'checkCompatibility'])->name('builder.compatibility');
 
+Route::get('/search/autocomplete', [UserSideController::class, 'searchAutocomplete'])->name('search.autocomplete');
 Route::get('/category/{id}', [UserSideController::class,'category'])->name('category');
 Route::get('/category', [UserSideController::class,'category'])->name('categoryNull');
 
@@ -141,6 +142,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dashboard/product/{product}/upload', [ProductImageController::class, "index"])->name("product.upload.images");
         Route::post('dashboard/product/{product}/upload', [ProductImageController::class, 'store'])->name('product.store.images');
         Route::delete('dashboard/product/{product}/upload/delete', [ProductImageController::class, 'destroy'])->name('product.destroy.images');
+        Route::delete('dashboard/product/image/{image}', [ProductImageController::class, 'destroyImage'])->name('product.image.destroy');
+        Route::post('dashboard/product/image/{image}/replace', [ProductImageController::class, 'replaceImage'])->name('product.image.replace');
     //^ ----------------------------------product Image route end-----------------------------------------
 
 

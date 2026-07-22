@@ -11,12 +11,11 @@
                                     <img class="img-fluid w-50" src="{{ asset('assets/asset/images/main-image/logo.png') }}" alt="logo.jpg" />
                                 </a>
                             </div>
-                            <p class="text-infor">We are a team of designers and developers that create PC Tech.</p>
+                            {{-- <p class="text-infor">We are a team of designers and developers that create PC Tech.</p>
                             <div class="need_help">
                                 <p><span class="fw-bold">Address:</span> 4710-4890 Jordan, Aqaba</p>
                                 <p><span class="fw-bold">Email:</span> <a href="mailto:abdallahtamimi54@gmail.com">abdallahtamimi54@gmail.com</a></p>
-                                <p><span class="fw-bold">Call Us:</span> <a href="tel:+962791580267">+962791580267</a></p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 

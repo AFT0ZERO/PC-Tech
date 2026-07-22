@@ -41,4 +41,9 @@ class ProductImageRepository
     {
         \Illuminate\Support\Facades\File::delete($path);
     }
+
+    public function update(ProductImage $productImage, array $data): void
+    {
+        $productImage->update($data);
+    }
 }
