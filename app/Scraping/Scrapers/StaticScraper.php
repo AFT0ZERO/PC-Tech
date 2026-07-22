@@ -16,8 +16,10 @@ class StaticScraper extends BaseScraper
     private const REQUEST_TIMEOUT = 15;
     private const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
-    private function fetchUrl(string $url): ?string
+    private function fetchUrl(string $storeName, int $productId, string $url): ?string
     {
+        $lastReason = null;
+
         for ($attempt = 0; $attempt < self::MAX_RETRIES; $attempt++) {
             try {
                 $response = Http::withHeaders(['User-Agent' => self::USER_AGENT])
@@ -28,9 +30,9 @@ class StaticScraper extends BaseScraper
                     return $response->body();
                 }
 
-                Log::channel('scraper')->warning("HTTP {$response->status()} for $url");
+                $lastReason = "HTTP {$response->status()}";
             } catch (\Exception $e) {
-                Log::channel('scraper')->warning("Attempt ".($attempt + 1)." failed for $url: ".$e->getMessage());
+                $lastReason = $e->getMessage();
             }
 
             if ($attempt < self::MAX_RETRIES - 1) {
@@ -38,7 +40,7 @@ class StaticScraper extends BaseScraper
             }
         }
 
-        Log::channel('scraper')->error("Failed to fetch $url after ".self::MAX_RETRIES.' attempts.');
+        Log::channel('scraper')->warning("[$storeName] Failed to get price: product=$productId url=$url reason=\"$lastReason after ".self::MAX_RETRIES.' attempts."');
 
         return null;
     }
@@ -47,8 +49,6 @@ class StaticScraper extends BaseScraper
     {
         $storeName = $config->storeName;
 
-        Log::channel('scraper')->info("[$storeName] Starting Static Scrape for {$products->count()} products.");
-
         $results = collect();
 
         foreach ($products as $product) {
@@ -56,7 +56,6 @@ class StaticScraper extends BaseScraper
             $url = $product->url ?? $product->product_url ?? '';
 
             if ($this->shouldSkip($url)) {
-                Log::channel('scraper')->info("[$storeName] Skipping Product $productId: placeholder URL.");
                 $results->push(new ScrapeResult(
                     productId: $productId,
                     url: $url,
@@ -67,9 +66,7 @@ class StaticScraper extends BaseScraper
                 continue;
             }
 
-            Log::channel('scraper')->info("[$storeName] Fetching Product $productId: $url");
-
-            $html = $this->fetchUrl($url);
+            $html = $this->fetchUrl($storeName, $productId, $url);
 
             if ($html === null) {
                 $this->saveToDb($productId, $storeName, $url, null, $config->currency);
@@ -99,7 +96,7 @@ class StaticScraper extends BaseScraper
             }
 
             if ($priceText === null) {
-                Log::channel('scraper')->warning("[$storeName] None of the selectors found for Product $productId.");
+                Log::channel('scraper')->warning("[$storeName] Failed to get price: product=$productId url=$url reason=\"None of the price selectors matched.\"");
                 $this->saveToDb($productId, $storeName, $url, null, $config->currency);
                 $results->push(new ScrapeResult(
                     productId: $productId,
@@ -121,7 +118,6 @@ class StaticScraper extends BaseScraper
                 error: $price === null ? 'Price text could not be parsed.' : null,
             ));
 
-            Log::channel('scraper')->debug("[$storeName] Sleeping for {$config->delay} seconds.");
             sleep($config->delay);
         }
 

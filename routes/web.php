@@ -131,6 +131,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('dashboard/products/{product}', [ProductController::class , "destroy"])->name("product.destroy");
     Route::get('dashboard/restore-p', [ProductController::class , "showRestore"])->name("product.showRestore")->middleware('super-admin');
     Route::get('dashboard/restore-p/{id}', [ProductController::class , "restore"])->name("product.restore")->middleware('super-admin');
+    Route::post('dashboard/products/rebuild-db', [ProductController::class , "rebuildComponentDb"])->name("product.rebuildDb")->middleware('super-admin');
     //^ ----------------------------------product route end-----------------------------------------
 
     //^ ----------------------------------Scraper route start-----------------------------------------

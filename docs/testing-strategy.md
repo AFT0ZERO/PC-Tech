@@ -15,7 +15,7 @@
 | Backend | Laravel 10 / PHP 8.1, Blade, Laravel UI auth, Sanctum, Scout (search) |
 | DB | MySQL (`pc_tech`), Eloquent, SoftDeletes on most entities |
 | Price scraper | Python 3 microservice: `requests`+BS4 (static), Playwright (dynamic), `mysql-connector-python` (direct DB writes) |
-| Specs DB | `scraper/components.sqlite` read directly via PDO from `ProductController::fetchSpecs()` |
+| Specs DB | `database/components.sqlite` read directly via PDO from `ProductController::fetchSpecs()` |
 | Test tooling present | PHPUnit 10, Mockery, Faker (Pest plugin allowed but not installed); **no Python test framework installed** |
 
 ### 1.2 Module Catalog

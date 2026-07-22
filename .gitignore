@@ -17,4 +17,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.claude
-/scraper/buildcores-db
+/scraper/buildcores-open-db
+.DS_Store

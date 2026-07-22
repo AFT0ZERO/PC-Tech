@@ -16,8 +16,6 @@ class ScraperOrchestrator
 
     public function run(null|array $storeNames = null): array
     {
-        Log::channel('scraper')->info('Starting Price Scraper Run');
-
         $startTime = microtime(true);
 
         $storeConfigs = $this->configManager->getStoreConfigs($storeNames);
@@ -41,8 +39,6 @@ class ScraperOrchestrator
 
         $this->notifyTelegram($results, $duration);
 
-        Log::channel('scraper')->info('Scraper Run Completed.');
-
         return [
             'success' => true,
             'output' => 'Scraper completed successfully.',
@@ -52,8 +48,6 @@ class ScraperOrchestrator
 
     private function scrapeStore($config): array
     {
-        Log::channel('scraper')->info("--- Processing Store: {$config->storeName} ---");
-
         try {
             $products = $this->configManager->getProductsForStore($config->storeId);
 
@@ -96,21 +90,13 @@ class ScraperOrchestrator
     private function logUrlResults(string $storeName, \Illuminate\Support\Collection $results): void
     {
         foreach ($results as $result) {
-            $priceText = $result->price !== null
-                ? "{$result->price} (raw)"
-                : 'N/A';
-
-            $message = "[$storeName] URL result: product={$result->productId} status={$result->status} price={$priceText} url={$result->url}";
-
-            if ($result->error !== null) {
-                $message .= " error=\"{$result->error}\"";
+            if (in_array($result->status, ['ok', 'skipped'], true)) {
+                continue;
             }
 
-            match ($result->status) {
-                'ok' => Log::channel('scraper')->info($message),
-                'skipped' => Log::channel('scraper')->info($message),
-                default => Log::channel('scraper')->warning($message),
-            };
+            $message = "[$storeName] Failed to get price: product={$result->productId} url={$result->url} reason=\"{$result->error}\"";
+
+            Log::channel('scraper')->warning($message);
         }
     }
 

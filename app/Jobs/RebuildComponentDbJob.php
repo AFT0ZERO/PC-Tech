@@ -2,25 +2,21 @@
 
 namespace App\Jobs;
 
-use App\Scraping\ScraperOrchestrator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 
-class RunScraperJob implements ShouldQueue
+class RebuildComponentDbJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $timeout = 3600;
 
-    public function __construct(private ?array $storeNames = null)
+    public function handle(): void
     {
-    }
-
-    public function handle(ScraperOrchestrator $orchestrator): void
-    {
-        $orchestrator->run($this->storeNames);
+        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\OpenDbComponentSeeder']);
     }
 }

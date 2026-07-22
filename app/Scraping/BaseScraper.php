@@ -28,12 +28,8 @@ abstract class BaseScraper implements ScraperInterface
     public function saveToDb(int $productId, string $storeName, string $url, ?float $price, string $currency): bool
     {
         if ($price === null) {
-            Log::channel('scraper')->warning("[$storeName] Skipping DB insert for Product $productId: No valid price.");
-
             return $this->writeDbRecord($productId, $storeName, $url, 0, $currency, 'failed');
         }
-
-        Log::channel('scraper')->info("[$storeName] Saving Product $productId: $currency $price");
 
         return $this->writeDbRecord($productId, $storeName, $url, $price, $currency, 'ok');
     }
@@ -46,7 +42,7 @@ abstract class BaseScraper implements ScraperInterface
                 ->first();
 
             if (!$sp) {
-                Log::channel('scraper')->error("Store product relation not found for product $productId and store $storeName");
+                Log::channel('scraper')->error("[$storeName] Failed to save price: product=$productId url=$url reason=\"Store product relation not found.\"");
                 return false;
             }
 

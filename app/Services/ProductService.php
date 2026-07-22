@@ -91,7 +91,7 @@ class ProductService
             return ['enabled' => false, 'results' => []];
         }
 
-        $dbPath = base_path('scraper/components.sqlite');
+        $dbPath = base_path('database/components.sqlite');
 
         if (!file_exists($dbPath)) {
             return ['enabled' => false, 'results' => []];

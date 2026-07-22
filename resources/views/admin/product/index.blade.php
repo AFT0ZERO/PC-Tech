@@ -32,6 +32,10 @@
             <a href="{{ route('product.showRestore') }}">
                 <button type="button" class="btn btn-danger">Trash</button>
             </a>
+            <form action="{{ route('product.rebuildDb') }}" method="post" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-warning">Rebuild Component DB</button>
+            </form>
         @endif
     </div>
 

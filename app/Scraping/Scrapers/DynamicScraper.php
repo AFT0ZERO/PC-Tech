@@ -22,8 +22,6 @@ class DynamicScraper extends BaseScraper
     {
         $storeName = $config->storeName;
 
-        Log::channel('scraper')->info("[$storeName] Starting Dynamic Scrape (Chrome headless) for {$products->count()} products.");
-
         $browserFactory = new BrowserFactory();
 
         $browser = $browserFactory->createBrowser([
@@ -44,7 +42,6 @@ class DynamicScraper extends BaseScraper
                 $url = $product->url ?? $product->product_url ?? '';
 
                 if ($this->shouldSkip($url)) {
-                    Log::channel('scraper')->info("[$storeName] Skipping Product $productId: placeholder URL.");
                     $results->push(new ScrapeResult(
                         productId: $productId,
                         url: $url,
@@ -55,17 +52,14 @@ class DynamicScraper extends BaseScraper
                     continue;
                 }
 
-                Log::channel('scraper')->info("[$storeName] Rendering Product $productId: $url");
-
                 $productIndex++;
 
                 if ($productIndex > 1 && $productIndex % self::BROWSER_RESTART_INTERVAL === 0) {
-                    Log::channel('scraper')->debug("[$storeName] Restarting browser after $productIndex products.");
                     $page->close();
                     $page = $browser->createPage();
                 }
 
-                $rawText = $this->fetchPrice($page, $url, $config->priceSelectors, $storeName);
+                $rawText = $this->fetchPrice($page, $url, $config->priceSelectors, $storeName, $productId);
 
                 if ($rawText === null) {
                     $this->saveToDb($productId, $storeName, $url, null, $config->currency);
@@ -88,7 +82,6 @@ class DynamicScraper extends BaseScraper
                     ));
                 }
 
-                Log::channel('scraper')->debug("[$storeName] Sleeping for {$config->delay} seconds.");
                 sleep($config->delay);
             }
 
@@ -100,11 +93,15 @@ class DynamicScraper extends BaseScraper
         return $results;
     }
 
-    private function fetchPrice(Page $page, string $url, array $priceSelectors, string $storeName): ?string
+    private function fetchPrice(Page $page, string $url, array $priceSelectors, string $storeName, int $productId): ?string
     {
         if (empty($priceSelectors)) {
+            Log::channel('scraper')->warning("[$storeName] Failed to get price: product=$productId url=$url reason=\"No price selectors configured.\"");
+
             return null;
         }
+
+        $lastReason = null;
 
         for ($attempt = 0; $attempt < self::MAX_RETRIES; $attempt++) {
             try {
@@ -113,12 +110,13 @@ class DynamicScraper extends BaseScraper
                 try {
                     $navigation->waitForNavigation(Page::DOM_CONTENT_LOADED, self::NAVIGATION_TIMEOUT);
                 } catch (\Exception $e) {
-                    Log::channel('scraper')->warning("[$storeName] Navigation timeout for $url: ".$e->getMessage());
+                    $lastReason = 'Navigation timeout';
                 }
 
                 // Wait for selectors with retry loop
                 $elapsed = 0;
                 $pollMs = 500;
+                $found = false;
 
                 while ($elapsed < self::SELECTOR_TIMEOUT_MS) {
                     foreach ($priceSelectors as $selector) {
@@ -139,12 +137,11 @@ class DynamicScraper extends BaseScraper
                     $elapsed += $pollMs;
                 }
 
-                Log::channel('scraper')->warning("[$storeName] All selectors timed out on $url");
-
+                $lastReason = $lastReason ?? 'All price selectors timed out';
                 return null;
 
             } catch (\Exception $e) {
-                Log::channel('scraper')->warning("[$storeName] Attempt ".($attempt + 1)." failed for $url: ".$e->getMessage());
+                $lastReason = $e->getMessage();
 
                 if ($attempt < self::MAX_RETRIES - 1) {
                     sleep(2 ** $attempt);
@@ -152,7 +149,7 @@ class DynamicScraper extends BaseScraper
             }
         }
 
-        Log::channel('scraper')->error("[$storeName] Failed to extract price from $url after ".self::MAX_RETRIES.' attempts.');
+        Log::channel('scraper')->warning("[$storeName] Failed to get price: product=$productId url=$url reason=\"$lastReason after ".self::MAX_RETRIES.' attempts."');
 
         return null;
     }

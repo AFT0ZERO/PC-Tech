@@ -166,8 +166,9 @@ class BackfillSpecs extends Command
 
                 $description = json_decode($product->description ?? '', true);
 
-                if (!is_array($description)) {
+                if (! is_array($description)) {
                     $skipped++;
+
                     continue;
                 }
 
@@ -183,6 +184,7 @@ class BackfillSpecs extends Command
 
                 if ($values === []) {
                     $skipped++;
+
                     continue;
                 }
 
@@ -201,9 +203,9 @@ class BackfillSpecs extends Command
         $created = 0;
         $skipped = 0;
 
-        $dbPath = base_path('scraper/components.sqlite');
+        $dbPath = base_path('database/components.sqlite');
 
-        if (!file_exists($dbPath)) {
+        if (! file_exists($dbPath)) {
             $this->warn("SQLite component DB not found at {$dbPath} — phase 2 skipped.");
 
             return [0, 0];
@@ -220,7 +222,7 @@ class BackfillSpecs extends Command
             }
 
             $rows = $pdo
-                ->query('SELECT name, specs_json FROM components WHERE category = ' . $pdo->quote($category->open_db_name))
+                ->query('SELECT name, specs_json FROM components WHERE category = '.$pdo->quote($category->open_db_name))
                 ->fetchAll(\PDO::FETCH_ASSOC);
 
             if ($rows === []) {
@@ -243,6 +245,7 @@ class BackfillSpecs extends Command
                 if ($values === null) {
                     $skipped++;
                     $this->line("  <comment>skipped</comment> {$category->specs_table}: product #{$product->id} ({$product->name}) — no unambiguous SQLite match");
+
                     continue;
                 }
 
@@ -261,9 +264,9 @@ class BackfillSpecs extends Command
         $created = 0;
         $skipped = 0;
 
-        $dbPath = base_path('scraper/components.sqlite');
+        $dbPath = base_path('database/components.sqlite');
 
-        if (!file_exists($dbPath)) {
+        if (! file_exists($dbPath)) {
             $this->warn("SQLite component DB not found at {$dbPath} — phase 3 skipped.");
 
             return [0, 0];
@@ -280,7 +283,7 @@ class BackfillSpecs extends Command
             }
 
             $rows = $pdo
-                ->query('SELECT name, specs_json FROM components WHERE category = ' . $pdo->quote($sqliteCategory))
+                ->query('SELECT name, specs_json FROM components WHERE category = '.$pdo->quote($sqliteCategory))
                 ->fetchAll(\PDO::FETCH_ASSOC);
 
             $candidates = array_map(fn (array $row) => [
@@ -300,6 +303,7 @@ class BackfillSpecs extends Command
                 if ($tdp === null) {
                     $skipped++;
                     $this->line("  <comment>skipped</comment> power: product #{$product->id} ({$product->name}) — no unambiguous SQLite match");
+
                     continue;
                 }
 

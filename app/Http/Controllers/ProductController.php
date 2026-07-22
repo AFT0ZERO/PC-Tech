@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductImageService;
+use App\Jobs\RebuildComponentDbJob;
 use App\Services\ProductService;
 
 class ProductController extends Controller
@@ -126,5 +127,12 @@ class ProductController extends Controller
         return view('admin.product.restore', [
             'products' => $this->productService->getTrashed(),
         ]);
+    }
+
+    public function rebuildComponentDb()
+    {
+        RebuildComponentDbJob::dispatch();
+
+        return back()->with('success', 'Component database rebuild dispatched. It will be ready shortly.');
     }
 }
