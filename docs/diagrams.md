@@ -11,6 +11,8 @@ Table categories {
   id bigint [pk, increment]
   name varchar(255) [not null]
   image varchar(255)
+  specs_table varchar(255)
+  open_db_name varchar(255)
   deleted_at timestamp
   created_at timestamp
   updated_at timestamp

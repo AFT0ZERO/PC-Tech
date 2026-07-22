@@ -104,8 +104,8 @@
                                                         <div class="product-inner">
                                                             <div class="img-block">
                                                                 <a href="{{ route('singlePage', $product->id) }}" class="thumbnail">
-                                                                    <img class="first-img" src="{{ asset($product->images[0]->image) }}" alt="{{ $product->name }}" />
-                                                                    <img class="second-img" src="{{ asset($product->images[0]->image) }}" alt="{{ $product->name }}" />
+                                                                    <img class="first-img" src="{{ asset($product->images[0]->image ?? 'default-image.jpg') }}" alt="{{ $product->name }}" />
+                                                                    <img class="second-img" src="{{ asset($product->images[0]->image ?? 'default-image.jpg') }}" alt="{{ $product->name }}" />
                                                                 </a>
                                                                 <div class="add-to-link">
                                                                     <ul>

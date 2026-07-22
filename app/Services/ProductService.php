@@ -14,6 +14,36 @@ use Illuminate\Support\Str;
 
 class ProductService
 {
+    private const SPEC_MAP = [
+        'gpu_specs' => [
+            'length_mm' => 'length',
+            'vram_gb'   => 'memory',
+        ],
+        'case_specs' => [
+            'supported_form_factors'  => 'supported_motherboard_form_factors',
+            'max_gpu_length_mm'       => 'max_video_card_length',
+            'max_cooler_height_mm'    => 'max_cpu_cooler_height',
+        ],
+        'cpu_cooler_specs' => [
+            'supported_sockets' => 'cpu_sockets',
+            'height_mm'         => 'height',
+        ],
+        'ram_specs' => [
+            'type'        => 'ram_type',
+            'capacity_gb' => 'capacity',
+        ],
+        'motherboard_specs' => [
+            'supported_ram_type'   => 'memory.ram_type',
+            'ram_slots'            => 'memory.slots',
+            'max_ram_capacity_gb'  => 'memory.max',
+            'socket'               => 'socket',
+            'form_factor'          => 'form_factor',
+        ],
+        'storage_specs' => [
+            'capacity_gb' => 'capacity',
+        ],
+    ];
+
     public function __construct(
         private ProductRepository $productRepository,
         private StoreProductRepository $storeProductRepository,
@@ -74,15 +104,40 @@ class ProductService
                 $dbPath
             );
 
-            $results = array_map(fn ($row) => [
-                'name'  => $row['name'],
-                'specs' => json_decode($row['specs_json'], true),
-            ], $rows);
+            $map = $category->specs_table ? (self::SPEC_MAP[$category->specs_table] ?? []) : [];
+
+            $results = array_map(function (array $row) use ($map, $category) {
+                $specs = json_decode($row['specs_json'], true) ?? [];
+                if ($map) {
+                    $mapped = $this->mapSqliteSpecs($specs, $map);
+                    $specs = array_merge($specs, $mapped);
+                }
+                if (!isset($specs['tdp'])) {
+                    $specs['tdp'] = $category->specs_table === 'psu_specs' ? 0 : 1;
+                }
+                return [
+                    'name'  => $row['name'],
+                    'specs' => $specs,
+                ];
+            }, $rows);
 
             return ['enabled' => true, 'results' => $results];
         } catch (\Exception $e) {
             return ['enabled' => false, 'results' => [], 'error' => $e->getMessage()];
         }
+    }
+
+    private function mapSqliteSpecs(array $specs, array $map): array
+    {
+        $mapped = [];
+        foreach ($map as $column => $path) {
+            $value = data_get($specs, $path);
+            if ($value === null || $value === '' || $value === []) {
+                continue;
+            }
+            $mapped[$column] = is_array($value) ? json_encode($value) : $value;
+        }
+        return $mapped;
     }
 
     public function storeProduct(array $validated): Product

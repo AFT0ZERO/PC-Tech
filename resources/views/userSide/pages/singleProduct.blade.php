@@ -26,7 +26,7 @@
                                 <div class="zoompro-wrap zoompro-2">
                                     <div class="zoompro-border zoompro-span">
                                         <!-- Main Image -->
-                                        <img id="mainProductImage" class="" src="{{ asset($product->images[0]->image) }}"  alt="product image" />
+                                        <img id="mainProductImage" class="" src="{{ asset($product->images[0]->image ?? 'default-image.jpg') }}"  alt="product image" />
                                     </div>
                                 </div>
                                 <!-- Thumbnail Gallery -->
@@ -396,7 +396,7 @@
                                             <div class="product-inner">
                                                 <div class="img-block">
                                                     <a href="{{route('singlePage', $CategoryProduct->id)}}" class="thumbnail">
-                                                        <img class="first-img" src="{{asset($CategoryProduct->images[0]->image)}}" alt="{{$product->name}}" />
+                                                        <img class="first-img" src="{{asset($CategoryProduct->images[0]->image ?? 'default-image.jpg')}}" alt="{{$product->name}}" />
                                                     </a>
                                                     {{-- model start--}}
                                                     <div class="add-to-link">
