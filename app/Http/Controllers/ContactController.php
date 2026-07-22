@@ -23,7 +23,10 @@ class ContactController extends Controller
 
     public function store(StoreContactRequest $request)
     {
-        $this->contactService->create($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+
+        $this->contactService->create($data);
 
         session()->flash('success', 'Your message has been sent successfully!');
 

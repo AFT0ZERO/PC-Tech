@@ -51,7 +51,7 @@
 
                 <div class="col-lg-4 col-md-5 mb-lm-30px">
                     <div class="contact-info-wrap">
-                        <div class="single-contact-info">
+                        {{-- <div class="single-contact-info">
                             <div class="contact-icon">
                                 <i class="ion-android-call"></i>
                             </div>
@@ -59,17 +59,16 @@
                                 <p><a href="tel://+962 791580267">+962 791580267</a></p>
                                 <p><a href="tel://+962 791580267">+962 791580267</a></p>
                             </div>
-                        </div>
-                        <div class="single-contact-info">
+                        </div> --}}
+                        {{-- <div class="single-contact-info">
                             <div class="contact-icon">
                                 <i class="ion-android-globe"></i>
                             </div>
                             <div class="contact-info-dec">
                                 <p><a href="mailto://abdallahtamimi54@gmail.com">abdallah@gmail.com</a></p>
-                                <p><a href="mailto://abdallahtamimi54@gmail.com">abdallah@gmail.com</a></p>
 
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="contact-social">
                             <h3>Follow Us</h3>
                             <div class="social-info">
@@ -103,7 +102,9 @@
                         <form class="contact-form-style" id="contact-form" action="{{ route('contact.store') }}" method="post">
                             @csrf
                             <div class="row">
-                                <input type="hidden" name="user_id" value="{{ Auth::check() ? Auth::user()->id : '' }}">
+                                @auth
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                @endauth
 
                                 <div class="col-lg-6">
                                     <input name="name" placeholder="Name*" type="text" value="{{ Auth::check() ? Auth::user()->fname : '' }}" />
