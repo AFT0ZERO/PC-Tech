@@ -61,7 +61,7 @@
         font-style: italic;
     }
 
-    .btn-delete-build { border-color: rgba(255,255,255,.4); color: #fff; font-size: .82rem; }
+    .btn-delete-build { border-color: #dc3545; color: #dc3545; font-size: .82rem; }
     .btn-delete-build:hover { background: #dc3545; border-color: #dc3545; color: #fff; }
 
     .empty-state           { text-align: center; padding: 70px 20px; color: #6c757d; }
