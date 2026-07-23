@@ -108,7 +108,7 @@
                                 <h5>{{ $build->name }}</h5>
                                 <span class="meta">
                                     <i class="fa fa-calendar me-1"></i>
-                                    Saved {{ $build->created_at->format('d M Y, H:i') }}
+                                    Saved <x-local-time :date="$build->created_at" format="d M Y, H:i" />
                                     &nbsp;·&nbsp;
                                     {{ $build->products->count() }} part{{ $build->products->count() !== 1 ? 's' : '' }}
                                 </span>

@@ -37,8 +37,8 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{ \Illuminate\Support\Str::limit($faq->question,30)}}</td>
                         <td>{{\Illuminate\Support\Str::limit($faq->answer,30)}}</td>
-                        <td>{{$faq->created_at->format('y-m-d')}}</td>
-                        <td><span class="badge bg-label-danger me-1">{{$faq->deleted_at->format('y-m-d')}}</span></td>
+                        <td><x-local-time :date="$faq->created_at" date-only /></td>
+                        <td><span class="badge bg-label-danger me-1"><x-local-time :date="$faq->deleted_at" date-only /></span></td>
 
                         <td >
                             <a class="btn btn-danger p-2 btn-sm" href="{{route('faq.restore',$faq->id)}}">Restore </a>

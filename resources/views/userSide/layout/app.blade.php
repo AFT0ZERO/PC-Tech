@@ -24,5 +24,6 @@
 
 @yield('scripts')
 
+<script src="{{ asset('js/local-time.js') }}"></script>
 </body>
 </html>

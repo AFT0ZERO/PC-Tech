@@ -22,8 +22,8 @@
         <div class="card-body">
             <h5 class="card-title"><b>Question : </b>  {{$faq->question}}</h5>
             <p class="card-text "><b>Answer:</b> {{$faq->answer}}</p>
-            <p class="card-text"><b>Updated At : </b> {{$faq->updated_at->format('y-m-d')}} </p>
-            <p class="card-text"><b>Created At : </b> {{$faq->created_at->format('y-m-d')}} </p>
+            <p class="card-text"><b>Updated At : </b> <x-local-time :date="$faq->updated_at" date-only /> </p>
+            <p class="card-text"><b>Created At : </b> <x-local-time :date="$faq->created_at" date-only /> </p>
         </div>
     </div>
 

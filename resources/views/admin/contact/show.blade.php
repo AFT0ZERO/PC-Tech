@@ -41,7 +41,7 @@
                         <span class="badge bg-label-danger me-1">Female</span>
                     @endif
                 </p>
-                <p class="card-text"><b> Created At : </b> {{$contact->user->created_at->format('y-m-d')}} </p>
+                <p class="card-text"><b> Created At : </b> <x-local-time :date="$contact->user->created_at" date-only /> </p>
             </div>
         </div>
 
@@ -58,7 +58,7 @@
                 <p class="card-text fs-5 "><b> Message:</b>
                     {{$contact->message}}
                 </p>
-                <p class="card-text"><b> Created At : </b> {{$contact->created_at->format('y-m-d')}} </p>
+                <p class="card-text"><b> Created At : </b> <x-local-time :date="$contact->created_at" date-only /> </p>
             </div>
         </div>
     </div>

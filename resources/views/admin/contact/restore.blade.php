@@ -49,8 +49,8 @@
                         <td >
                             {{\Illuminate\Support\Str::limit($contact->message,30)}}
                         </td>
-                        <td>{{$contact->created_at->format('y-m-d')}}</td>
-                        <td><span class="badge bg-label-danger me-1">{{$contact->deleted_at->format('y-m-d')}}</span></td>
+                        <td><x-local-time :date="$contact->created_at" date-only /></td>
+                        <td><span class="badge bg-label-danger me-1"><x-local-time :date="$contact->deleted_at" date-only /></span></td>
                         <td>
                             <a class="btn btn-danger p-2 btn-sm" href={{route('contact.restore',$contact->id)}}>Restore </a>
                         </td>

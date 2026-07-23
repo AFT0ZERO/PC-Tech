@@ -62,7 +62,7 @@
                                 @endif
                             </td>
                             <td>{{ $store->name }}</td>
-                            <td>{{ $store->created_at->format('y-m-d') }}</td>
+                            <td><x-local-time :date="$store->created_at" date-only /></td>
                             <td>
                                 <button type="button" class="btn btn-primary p-2 btn-sm btn-edit-store" data-bs-toggle="modal"
                                     data-bs-target="#editStoreModal" data-id="{{ $store->id }}"

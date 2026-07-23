@@ -62,6 +62,7 @@
 @include('admin.layouts.include.admin_bottom')
 <!-- bottom and links end -->
 
+<script src="{{ asset('js/local-time.js') }}"></script>
 </body>
 
 </html>

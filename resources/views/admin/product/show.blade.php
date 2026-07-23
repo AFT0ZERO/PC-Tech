@@ -42,8 +42,8 @@
                 <p class="card-text"><b>{{$key}} : </b> {{$value}}</p>
             @endforeach
             @endif
-            <p class="card-text"><b>Updated At : </b> {{$product->updated_at->format('y-m-d')}} </p>
-            <p class="card-text"><b>Created At : </b> {{$product->created_at->format('y-m-d')}} </p>
+            <p class="card-text"><b>Updated At : </b> <x-local-time :date="$product->updated_at" date-only /> </p>
+            <p class="card-text"><b>Created At : </b> <x-local-time :date="$product->created_at" date-only /> </p>
 
             <hr class="mt-4 mb-4">
 
@@ -155,7 +155,7 @@
                                                                     <span class="text-muted small">—</span>
                                                                 @endif
                                                             </td>
-                                                            <td class="text-muted small">{{ \Carbon\Carbon::parse($historyItem->scraped_at)->format('Y-m-d H:i') }}</td>
+                                                            <td class="text-muted small"><x-local-time :date="\Carbon\Carbon::parse($historyItem->scraped_at)" format="Y-m-d H:i" /></td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

@@ -45,7 +45,7 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{ \Illuminate\Support\Str::limit($faq->question,30)}}</td>
                     <td>{{\Illuminate\Support\Str::limit($faq->answer,30)}}</td>
-                    <td>{{$faq->created_at->format('y-m-d')}}</td>
+                    <td><x-local-time :date="$faq->created_at" date-only /></td>
                     <td >
                         <a class="btn btn-info p-2 btn-sm" href="{{route('faq.show',$faq->id)}}">View </a>
                         <a class="btn btn-primary p-2 btn-sm " href="{{route('faq.edit' , $faq->id)}}">Edit</a>

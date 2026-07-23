@@ -36,8 +36,8 @@
                         <td>{{$loop->iteration}}</td>
 
                         <td>{{ $product->name}}</td>
-                        <td>{{$product->created_at->format('y-m-d')}}</td>
-                        <td><span class="badge bg-label-danger me-1">{{$product->deleted_at->format('y-m-d')}}</span></td>
+                        <td><x-local-time :date="$product->created_at" date-only /></td>
+                        <td><span class="badge bg-label-danger me-1"><x-local-time :date="$product->deleted_at" date-only /></span></td>
 
                         <td >
                             <a class="btn btn-danger p-2 btn-sm" href="{{route('product.restore',$product->id)}}">Restore </a>

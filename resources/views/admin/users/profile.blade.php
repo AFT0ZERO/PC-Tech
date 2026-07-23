@@ -53,7 +53,7 @@
                                     <span class="badge bg-label-danger me-1">Female</span>
                                 @endif
                             </p>
-                            <p><strong>Created At : </strong> {{ Auth::user()->created_at->format('y-m-d') }}</p>
+                            <p><strong>Created At : </strong> <x-local-time :date="Auth::user()->created_at" date-only /></p>
 
                             <hr class="my-4">
 

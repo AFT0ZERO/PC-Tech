@@ -50,8 +50,8 @@
                                 <span class="badge bg-label-info me-1">Super-Admin</span>
                             @endif
                         </td>
-                        <td>{{$user->created_at->format('y-m-d')}}</td>
-                        <td><span class="badge bg-label-danger me-1">{{$user->deleted_at->format('y-m-d')}}</span></td>
+                        <td><x-local-time :date="$user->created_at" date-only /></td>
+                        <td><span class="badge bg-label-danger me-1"><x-local-time :date="$user->deleted_at" date-only /></span></td>
                         <td >
                             <a class="btn btn-danger p-2 btn-sm" href="{{route('users.restore',$user->id)}}">Restore </a>
                         </td>

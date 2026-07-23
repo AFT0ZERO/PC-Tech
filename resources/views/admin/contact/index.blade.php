@@ -48,7 +48,7 @@
                     <td >
                        {{\Illuminate\Support\Str::limit($contact->message,30)}}
                     </td>
-                    <td>{{$contact->created_at->format('y-m-d')}}</td>
+                    <td><x-local-time :date="$contact->created_at" date-only /></td>
                     <td >
                         <a class="btn btn-info p-2 btn-sm" href={{route('contact.show',$contact->id)}}>View </a>
                         <form style="display:inline;" method="post" action={{route('contact.destroy',$contact->id)}}>

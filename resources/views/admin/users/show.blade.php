@@ -42,7 +42,7 @@
                     <span class="badge bg-label-danger me-1">Female</span>
                 @endif
             </p>
-            <p class="card-text"><b>User Created At : </b> {{$user->created_at->format('y-m-d')}} </p>
+            <p class="card-text"><b>User Created At : </b> <x-local-time :date="$user->created_at" date-only /> </p>
 
 
         </div>

@@ -73,7 +73,7 @@
                                     <span class="badge bg-label-info me-1">Super-Admin</span>
                                 @endif
                             </td>
-                            <td>{{ $user->created_at->format('y-m-d') }}</td>
+                            <td><x-local-time :date="$user->created_at" date-only /></td>
                             @if($user->role != 'super-admin')
                                 <td>
                                     <a class="btn btn-info p-2 btn-sm" href="{{ route('users.show', $user->id) }}">View</a>

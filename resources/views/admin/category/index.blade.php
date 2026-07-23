@@ -62,7 +62,7 @@
                                 @endif
                             </td>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->created_at->format('y-m-d') }}</td>
+                            <td><x-local-time :date="$category->created_at" date-only /></td>
                             <td>
                                 <button type="button" class="btn btn-primary p-2 btn-sm btn-edit-category"
                                     data-bs-toggle="modal" data-bs-target="#editCategoryModal" data-id="{{ $category->id }}"

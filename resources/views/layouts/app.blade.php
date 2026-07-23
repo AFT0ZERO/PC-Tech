@@ -117,6 +117,7 @@
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="{{ asset('js/local-time.js') }}"></script>
 </body>
 
 </html>

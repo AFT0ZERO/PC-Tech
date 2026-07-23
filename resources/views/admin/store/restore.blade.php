@@ -41,8 +41,8 @@
                             @endif
                         </td>
                         <td>{{ $store->name}}</td>
-                        <td>{{$store->created_at->format('y-m-d')}}</td>
-                        <td><span class="badge bg-label-danger me-1">{{$store->deleted_at->format('y-m-d')}}</span></td>
+                        <td><x-local-time :date="$store->created_at" date-only /></td>
+                        <td><span class="badge bg-label-danger me-1"><x-local-time :date="$store->deleted_at" date-only /></span></td>
 
                         <td >
                             <a class="btn btn-danger p-2 btn-sm" href="{{route('store.restore',$store->id)}}">Restore </a>

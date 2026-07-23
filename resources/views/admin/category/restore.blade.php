@@ -41,8 +41,8 @@
                             @endif
                         </td>
                         <td>{{ $category->name}}</td>
-                        <td>{{$category->created_at->format('y-m-d')}}</td>
-                        <td><span class="badge bg-label-danger me-1">{{$category->deleted_at->format('y-m-d')}}</span></td>
+                        <td><x-local-time :date="$category->created_at" date-only /></td>
+                        <td><span class="badge bg-label-danger me-1"><x-local-time :date="$category->deleted_at" date-only /></span></td>
 
                         <td >
                             <a class="btn btn-danger p-2 btn-sm" href="{{route('category.restore',$category->id)}}">Restore </a>

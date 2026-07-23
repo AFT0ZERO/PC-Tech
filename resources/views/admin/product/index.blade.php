@@ -65,7 +65,7 @@
                             <td>{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->created_at->format('y-m-d') }}</td>
+                            <td><x-local-time :date="$product->created_at" date-only /></td>
                             <td><a href="{{ route('product.upload.images', $product->id) }}"
                                     class="btn btn-outline-warning btn-sm">Add / View</a></td>
                             <td>
