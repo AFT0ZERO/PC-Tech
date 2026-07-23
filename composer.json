@@ -39,6 +39,7 @@
         }
     },
     "scripts": {
+        "dev": "php artisan serve & npm run dev",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
