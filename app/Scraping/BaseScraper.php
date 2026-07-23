@@ -43,6 +43,7 @@ abstract class BaseScraper implements ScraperInterface
 
             if (!$sp) {
                 Log::channel('scraper')->error("[$storeName] Failed to save price: product=$productId url=$url reason=\"Store product relation not found.\"");
+                echo '    [' . date('H:i:s') . ']   DBFAIL product=' . $productId . ' (no store-product relation)' . PHP_EOL;
                 return false;
             }
 
@@ -60,6 +61,8 @@ abstract class BaseScraper implements ScraperInterface
             if ($url && $url !== '#') {
                 $sp->update(['product_url' => $url]);
             }
+
+            echo '    [' . date('H:i:s') . ']   DB     product=' . $productId . ' sp_id=' . $sp->id . ' price=' . $price . ' ' . $status . PHP_EOL;
 
             return true;
         });

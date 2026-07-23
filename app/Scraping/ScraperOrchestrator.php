@@ -29,6 +29,8 @@ class ScraperOrchestrator
             ];
         }
 
+        echo '[' . date('H:i:s') . '] Scraping ' . $storeConfigs->count() . ' store(s)' . PHP_EOL;
+
         $results = [];
 
         foreach ($storeConfigs as $config) {
@@ -36,6 +38,11 @@ class ScraperOrchestrator
         }
 
         $duration = round(microtime(true) - $startTime, 2);
+
+        $ok = collect($results)->where('status', 'completed')->count();
+        $failed = collect($results)->where('status', 'failed')->count();
+
+        echo '[' . date('H:i:s') . '] Done — ' . $ok . ' succeeded, ' . $failed . ' failed (' . $duration . 's)' . PHP_EOL;
 
         $this->notifyTelegram($results, $duration);
 
@@ -48,9 +55,11 @@ class ScraperOrchestrator
 
     private function scrapeStore($config): array
     {
-        try {
-            $products = $this->configManager->getProductsForStore($config->storeId);
+        $products = $this->configManager->getProductsForStore($config->storeId);
 
+        echo '[' . date('H:i:s') . ']  Store: ' . $config->storeName . ' (' . $products->count() . ' products, ' . $config->mode . ')' . PHP_EOL;
+
+        try {
             if ($config->mode === 'dynamic') {
                 $scraper = new DynamicScraper();
             } else {
@@ -60,6 +69,10 @@ class ScraperOrchestrator
             $urlResults = $scraper->scrape($config, $products);
 
             $this->logUrlResults($config->storeName, $urlResults);
+
+            echo '[' . date('H:i:s') . ']    -> ' . $urlResults->where('status', 'ok')->count() . ' ok, '
+                . $urlResults->where('status', 'skipped')->count() . ' skipped, '
+                . $urlResults->where('status', 'failed')->count() . ' failed' . PHP_EOL;
 
             return [
                 'store' => $config->storeName,
@@ -76,6 +89,8 @@ class ScraperOrchestrator
             ];
         } catch (\Exception $e) {
             Log::channel('scraper')->error("Fatal error while scraping store {$config->storeName}: ".$e->getMessage());
+
+            echo '[' . date('H:i:s') . ']    -> FAILED: ' . $e->getMessage() . PHP_EOL;
 
             return [
                 'store' => $config->storeName,

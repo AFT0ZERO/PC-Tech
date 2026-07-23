@@ -56,6 +56,7 @@ class StaticScraper extends BaseScraper
             $url = $product->url ?? $product->product_url ?? '';
 
             if ($this->shouldSkip($url)) {
+                echo '    [' . date('H:i:s') . ']   SKIP   product=' . $productId . ' (placeholder URL)' . PHP_EOL;
                 $results->push(new ScrapeResult(
                     productId: $productId,
                     url: $url,
@@ -65,6 +66,8 @@ class StaticScraper extends BaseScraper
                 ));
                 continue;
             }
+
+            echo '    [' . date('H:i:s') . ']   FETCH  product=' . $productId . ' ' . $url . PHP_EOL;
 
             $html = $this->fetchUrl($storeName, $productId, $url);
 
@@ -98,6 +101,7 @@ class StaticScraper extends BaseScraper
             if ($priceText === null) {
                 Log::channel('scraper')->warning("[$storeName] Failed to get price: product=$productId url=$url reason=\"None of the price selectors matched.\"");
                 $this->saveToDb($productId, $storeName, $url, null, $config->currency);
+                echo '    [' . date('H:i:s') . ']   FAIL   product=' . $productId . ' (no selector matched)' . PHP_EOL;
                 $results->push(new ScrapeResult(
                     productId: $productId,
                     url: $url,
@@ -110,6 +114,13 @@ class StaticScraper extends BaseScraper
 
             $price = $this->cleanPrice($priceText);
             $this->saveToDb($productId, $storeName, $url, $price, $config->currency);
+
+            if ($price !== null) {
+                echo '    [' . date('H:i:s') . ']   OK     product=' . $productId . ' price=' . $price . PHP_EOL;
+            } else {
+                echo '    [' . date('H:i:s') . ']   FAIL   product=' . $productId . ' (unparseable: "' . $priceText . '")' . PHP_EOL;
+            }
+
             $results->push(new ScrapeResult(
                 productId: $productId,
                 url: $url,
