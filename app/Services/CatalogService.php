@@ -78,7 +78,11 @@ class CatalogService
         $priceHistory = $allHistory->groupBy('store_name')->map(fn($rows) => $rows->last());
         $priceHistoryChart = $allHistory->groupBy('store_name')->map(function ($rows) {
             return $rows->map(fn($r) => [
-                'date'  => $r->scraped_at->format('Y-m-d H:i'),
+                'date'  => $r->scraped_at
+                    ->copy()
+                    ->shiftTimezone($this->getDbOffset())
+                    ->setTimezone('UTC')
+                    ->toIso8601String(),
                 'price' => (float) $r->price,
             ])->values();
         });
@@ -107,5 +111,19 @@ class CatalogService
         return [
             'categories' => $this->categoryRepository->all(),
         ];
+    }
+
+    /**
+     * Auto-detect the database's current offset from UTC.
+     */
+    private function getDbOffset(): string
+    {
+        $raw = \DB::selectOne('SELECT TIMEDIFF(NOW(), UTC_TIMESTAMP()) AS db_diff')->db_diff;
+
+        $sign = str_starts_with($raw, '-') ? '-' : '+';
+        $raw = ltrim($raw, '-');
+        [$hours, $minutes] = explode(':', $raw);
+
+        return sprintf('%s%02d:%02d', $sign, (int) $hours, (int) $minutes);
     }
 }

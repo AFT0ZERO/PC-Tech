@@ -199,7 +199,20 @@
                     { border: '#36b9cc', background: 'rgba(54,185,204,0.10)' },
                 ];
 
-                // Collect all unique date labels across all stores
+                function formatLocalDateTime(iso) {
+                    var d = new Date(iso);
+                    if (isNaN(d.getTime())) return iso;
+                    return d.toLocaleString('en-GB', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                    });
+                }
+
+                // Collect all unique UTC date keys across all stores and sort them
                 var allDates = [];
                 Object.values(rawData).forEach(function (points) {
                     points.forEach(function (p) {
@@ -207,6 +220,8 @@
                     });
                 });
                 allDates.sort();
+
+                var displayLabels = allDates.map(formatLocalDateTime);
 
                 var datasets = Object.keys(rawData).map(function (storeName, idx) {
                     var color = palette[idx % palette.length];
@@ -229,7 +244,7 @@
                 var ctx = document.getElementById('priceHistoryChart').getContext('2d');
                 new Chart(ctx, {
                     type: 'line',
-                    data: { labels: allDates, datasets: datasets },
+                    data: { labels: displayLabels, datasets: datasets },
                     options: {
                         responsive: true,
                         interaction: { mode: 'index', intersect: false },
